@@ -367,23 +367,23 @@ class OmmuMenuCategory extends CActiveRecord
 				$location = strtolower(Yii::app()->controller->id);
 				$title=new OmmuSystemPhrase;
 				$title->location = $location.'_title';
-				$title->en = $this->title;
+				$title->en_us = $this->title;
 				if($title->save())
 					$this->name = $title->phrase_id;
 
 				$desc=new OmmuSystemPhrase;
 				$desc->location = $location.'description';
-				$desc->en = $this->description;
+				$desc->en_us = $this->description;
 				if($desc->save())
 					$this->desc = $desc->phrase_id;
 				
 			} else {
 				$title = OmmuSystemPhrase::model()->findByPk($this->name);
-				$title->en = $this->title;
+				$title->en_us = $this->title;
 				$title->save();
 
 				$desc = OmmuSystemPhrase::model()->findByPk($this->desc);
-				$desc->en = $this->description;
+				$desc->en_us = $this->description;
 				$desc->save();
 			}
 		}

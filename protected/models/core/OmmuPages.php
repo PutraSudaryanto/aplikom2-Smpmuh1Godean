@@ -345,39 +345,39 @@ class OmmuPages extends CActiveRecord
 			if($this->isNewRecord) {
 				$title=new OmmuSystemPhrase;
 				$title->location = $location.'_title';
-				$title->en = $this->title;
+				$title->en_us = $this->title;
 				if($title->save())
 					$this->name = $title->phrase_id;
 
 				$desc=new OmmuSystemPhrase;
 				$desc->location = $location.'_description';
-				$desc->en = $this->description;
+				$desc->en_us = $this->description;
 				if($desc->save())
 					$this->desc = $desc->phrase_id;
 
 				$quote=new OmmuSystemPhrase;
 				$quote->location = $location.'_quotes';
-				$quote->en = $this->quotes;
+				$quote->en_us = $this->quotes;
 				if($quote->save())
 					$this->quote = $quote->phrase_id;
 				
 			} else {
 				$title = OmmuSystemPhrase::model()->findByPk($this->name);
-				$title->en = $this->title;
+				$title->en_us = $this->title;
 				$title->save();
 
 				$desc = OmmuSystemPhrase::model()->findByPk($this->desc);
-				$desc->en = $this->description;
+				$desc->en_us = $this->description;
 				$desc->save();
 				
 				if($this->quote != 0) {
 					$quote = OmmuSystemPhrase::model()->findByPk($this->quote);
-					$quote->en = $this->quotes;
+					$quote->en_us = $this->quotes;
 					$quote->save();						
 				} else {
 					$quote=new OmmuSystemPhrase;
 					$quote->location = $location.'_quotes';
-					$quote->en = $this->quotes;
+					$quote->en_us = $this->quotes;
 					if($quote->save()) {
 						$this->quote = $quote->phrase_id;
 					}						

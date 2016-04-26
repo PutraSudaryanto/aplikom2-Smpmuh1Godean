@@ -401,13 +401,13 @@ class OmmuMenu extends CActiveRecord
 				$location = strtolower(Yii::app()->controller->id);
 				$title=new OmmuSystemPhrase;
 				$title->location = $location.'_title';
-				$title->en = $this->title;
+				$title->en_us = $this->title;
 				if($title->save())
 					$this->name = $title->phrase_id;
 				
 			} else {
 				$title = OmmuSystemPhrase::model()->findByPk($this->name);
-				$title->en = $this->title;
+				$title->en_us = $this->title;
 				$title->save();
 			}
 		}
