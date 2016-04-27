@@ -1,7 +1,11 @@
 <?php
 /**
- * PsbRegisters * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
- * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
+ * PsbRegisters
+ * version: 0.0.1
+ *
+ * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @created date 27 April 2016, 12:05 WIB
  * @link http://company.ommu.co
  * @contact (+62)856-299-4114
  *
@@ -22,38 +26,42 @@
  * @property string $register_id
  * @property string $author_id
  * @property integer $status
- * @property string $year_id
+ * @property string $nisn
  * @property string $batch_id
  * @property string $register_name
- * @property integer $birth_province
  * @property string $birth_city
  * @property string $birth_date
+ * @property string $gender
+ * @property integer $religion
  * @property string $address
  * @property string $address_phone
  * @property string $address_yogya
  * @property string $address_yogya_phone
  * @property string $parent_name
  * @property string $parent_work
+ * @property integer $parent_religion
  * @property string $parent_address
  * @property string $parent_phone
+ * @property string $wali_name
+ * @property string $wali_work
+ * @property integer $wali_religion
+ * @property string $wali_address
+ * @property string $wali_phone
  * @property string $school_id
  * @property string $school_un_rank
  * @property string $creation_date
+ * @property string $creation_id
  *
  * The followings are the available model relations:
  * @property OmmuPsbYearBatch $batch
- * @property OmmuPsbYears $year
  * @property OmmuPsbSchools $school
  */
 class PsbRegisters extends CActiveRecord
 {
 	public $defaultColumns = array();
-	public $school_input;
 	
 	// Variable Search
-	public $year_search;
-	public $batch_search;
-	public $school_search;
+	public $creation_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
@@ -82,20 +90,18 @@ class PsbRegisters extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('batch_id, register_name, birth_city, birth_date, address, address_phone, address_yogya, address_yogya_phone, 
-				parent_name, parent_work, parent_address, parent_phone,
-				school_input', 'required'),
-			array('status, birth_province', 'numerical', 'integerOnly'=>true),
-			array('year_id, batch_id, birth_city, school_id', 'length', 'max'=>11),
-			array('address_phone, address_yogya_phone, parent_phone', 'length', 'max'=>15),
-			array('register_name, parent_name, parent_work, school_un_rank', 'length', 'max'=>32),
-			array('
-				school_input', 'length', 'max'=>64),
-			array('author_id, status, school_id, school_un_rank', 'safe'),
+			array('author_id, status, nisn, batch_id, register_name, birth_city, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, creation_date, creation_id', 'required'),
+			array('status, religion, parent_religion, wali_religion', 'numerical', 'integerOnly'=>true),
+			array('author_id, batch_id, birth_city, school_id, creation_id', 'length', 'max'=>11),
+			array('nisn', 'length', 'max'=>12),
+			array('register_name, parent_name, parent_work, wali_name, wali_work', 'length', 'max'=>32),
+			array('gender', 'length', 'max'=>6),
+			array('address_phone, address_yogya_phone, parent_phone, wali_phone', 'length', 'max'=>15),
+			array('birth_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('register_id, author_id, status, year_id, batch_id, register_name, birth_province, birth_city, birth_date, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_address, parent_phone, school_id, school_un_rank, creation_date,
-				year_search, batch_search, school_search', 'safe', 'on'=>'search'),
+			array('register_id, author_id, status, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, creation_date, creation_id,
+				creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -107,9 +113,9 @@ class PsbRegisters extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'year_relation' => array(self::BELONGS_TO, 'PsbYears', 'year_id'),
-			'batch_relation' => array(self::BELONGS_TO, 'PsbYearBatch', 'batch_id'),
-			'school_relation' => array(self::BELONGS_TO, 'PsbSchools', 'school_id'),
+			'batch_relation' => array(self::BELONGS_TO, 'OmmuPsbYearBatch', 'batch_id'),
+			'school_relation' => array(self::BELONGS_TO, 'OmmuPsbSchools', 'school_id'),
+			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 		);
 	}
 
@@ -119,31 +125,67 @@ class PsbRegisters extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'register_id' => 'Register',
-			'author_id' => 'Author',
-			'status' => 'Status',
-			'year_id' => 'Year',
-			'batch_id' => 'Batch',
-			'register_name' => 'Register Name',
-			'birth_province' => 'Birth Province',
-			'birth_city' => 'Birth City',
-			'birth_date' => 'Birth Date',
-			'address' => 'Address',
-			'address_phone' => 'Address Phone',
-			'address_yogya' => 'Address Yogya',
-			'address_yogya_phone' => 'Address Yogya Phone',
-			'parent_name' => 'Parent Name',
-			'parent_work' => 'Parent Work',
-			'parent_address' => 'Parent Address',
-			'parent_phone' => 'Parent Phone',
-			'school_id' => 'School',
-			'school_un_rank' => 'School Un Rank',
-			'creation_date' => 'Creation Date',
-			'year_search' => 'Year',
-			'batch_search' => 'Batch',
-			'school_search' => 'School',
-			'school_input' => 'School',
+			'register_id' => Yii::t('attribute', 'Register'),
+			'author_id' => Yii::t('attribute', 'Author'),
+			'status' => Yii::t('attribute', 'Status'),
+			'nisn' => Yii::t('attribute', 'Nisn'),
+			'batch_id' => Yii::t('attribute', 'Batch'),
+			'register_name' => Yii::t('attribute', 'Register Name'),
+			'birth_city' => Yii::t('attribute', 'Birth City'),
+			'birth_date' => Yii::t('attribute', 'Birth Date'),
+			'gender' => Yii::t('attribute', 'Gender'),
+			'religion' => Yii::t('attribute', 'Religion'),
+			'address' => Yii::t('attribute', 'Address'),
+			'address_phone' => Yii::t('attribute', 'Address Phone'),
+			'address_yogya' => Yii::t('attribute', 'Address Yogya'),
+			'address_yogya_phone' => Yii::t('attribute', 'Address Yogya Phone'),
+			'parent_name' => Yii::t('attribute', 'Parent Name'),
+			'parent_work' => Yii::t('attribute', 'Parent Work'),
+			'parent_religion' => Yii::t('attribute', 'Parent Religion'),
+			'parent_address' => Yii::t('attribute', 'Parent Address'),
+			'parent_phone' => Yii::t('attribute', 'Parent Phone'),
+			'wali_name' => Yii::t('attribute', 'Wali Name'),
+			'wali_work' => Yii::t('attribute', 'Wali Work'),
+			'wali_religion' => Yii::t('attribute', 'Wali Religion'),
+			'wali_address' => Yii::t('attribute', 'Wali Address'),
+			'wali_phone' => Yii::t('attribute', 'Wali Phone'),
+			'school_id' => Yii::t('attribute', 'School'),
+			'school_un_rank' => Yii::t('attribute', 'School Un Rank'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
 		);
+		/*
+			'Register' => 'Register',
+			'Author' => 'Author',
+			'Status' => 'Status',
+			'Nisn' => 'Nisn',
+			'Batch' => 'Batch',
+			'Register Name' => 'Register Name',
+			'Birth City' => 'Birth City',
+			'Birth Date' => 'Birth Date',
+			'Gender' => 'Gender',
+			'Religion' => 'Religion',
+			'Address' => 'Address',
+			'Address Phone' => 'Address Phone',
+			'Address Yogya' => 'Address Yogya',
+			'Address Yogya Phone' => 'Address Yogya Phone',
+			'Parent Name' => 'Parent Name',
+			'Parent Work' => 'Parent Work',
+			'Parent Religion' => 'Parent Religion',
+			'Parent Address' => 'Parent Address',
+			'Parent Phone' => 'Parent Phone',
+			'Wali Name' => 'Wali Name',
+			'Wali Work' => 'Wali Work',
+			'Wali Religion' => 'Wali Religion',
+			'Wali Address' => 'Wali Address',
+			'Wali Phone' => 'Wali Phone',
+			'School' => 'School',
+			'School Un Rank' => 'School Un Rank',
+			'Creation Date' => 'Creation Date',
+			'Creation' => 'Creation',
+		
+		*/
 	}
 
 	/**
@@ -164,66 +206,57 @@ class PsbRegisters extends CActiveRecord
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.register_id',$this->register_id,true);
-		if(isset($_GET['author'])) {
-			$criteria->compare('t.author_id',$_GET['author']);
-		} else {
-			$criteria->compare('t.author_id',$this->author_id);
-		}
+		$criteria->compare('t.register_id',strtolower($this->register_id),true);
+		$criteria->compare('t.author_id',strtolower($this->author_id),true);
 		$criteria->compare('t.status',$this->status);
-		if(isset($_GET['year'])) {
-			$criteria->compare('t.year_id',$_GET['year']);
-		} else {
-			$criteria->compare('t.year_id',$this->year_id);
-		}
-		if(isset($_GET['batch'])) {
+		$criteria->compare('t.nisn',strtolower($this->nisn),true);
+		if(isset($_GET['batch']))
 			$criteria->compare('t.batch_id',$_GET['batch']);
-		} else {
+		else
 			$criteria->compare('t.batch_id',$this->batch_id);
-		}
-		$criteria->compare('t.register_name',$this->register_name,true);
-		$criteria->compare('t.birth_province',$this->birth_province);
-		$criteria->compare('t.birth_city',$this->birth_city,true);
+		$criteria->compare('t.register_name',strtolower($this->register_name),true);
+		$criteria->compare('t.birth_city',strtolower($this->birth_city),true);
 		if($this->birth_date != null && !in_array($this->birth_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.birth_date)',date('Y-m-d', strtotime($this->birth_date)));
-		$criteria->compare('t.address',$this->address,true);
-		$criteria->compare('t.address_phone',$this->address_phone,true);
-		$criteria->compare('t.address_yogya',$this->address_yogya,true);
-		$criteria->compare('t.address_yogya_phone',$this->address_yogya_phone,true);
-		$criteria->compare('t.parent_name',$this->parent_name,true);
-		$criteria->compare('t.parent_work',$this->parent_work,true);
-		$criteria->compare('t.parent_address',$this->parent_address,true);
-		$criteria->compare('t.parent_phone',$this->parent_phone,true);
-		if(isset($_GET['school'])) {
+		$criteria->compare('t.gender',strtolower($this->gender),true);
+		$criteria->compare('t.religion',$this->religion);
+		$criteria->compare('t.address',strtolower($this->address),true);
+		$criteria->compare('t.address_phone',strtolower($this->address_phone),true);
+		$criteria->compare('t.address_yogya',strtolower($this->address_yogya),true);
+		$criteria->compare('t.address_yogya_phone',strtolower($this->address_yogya_phone),true);
+		$criteria->compare('t.parent_name',strtolower($this->parent_name),true);
+		$criteria->compare('t.parent_work',strtolower($this->parent_work),true);
+		$criteria->compare('t.parent_religion',$this->parent_religion);
+		$criteria->compare('t.parent_address',strtolower($this->parent_address),true);
+		$criteria->compare('t.parent_phone',strtolower($this->parent_phone),true);
+		$criteria->compare('t.wali_name',strtolower($this->wali_name),true);
+		$criteria->compare('t.wali_work',strtolower($this->wali_work),true);
+		$criteria->compare('t.wali_religion',$this->wali_religion);
+		$criteria->compare('t.wali_address',strtolower($this->wali_address),true);
+		$criteria->compare('t.wali_phone',strtolower($this->wali_phone),true);
+		if(isset($_GET['school']))
 			$criteria->compare('t.school_id',$_GET['school']);
-		} else {
+		else
 			$criteria->compare('t.school_id',$this->school_id);
-		}
-		$criteria->compare('t.school_un_rank',$this->school_un_rank,true);
+		$criteria->compare('t.school_un_rank',strtolower($this->school_un_rank),true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
+		if(isset($_GET['creation']))
+			$criteria->compare('t.creation_id',$_GET['creation']);
+		else
+			$criteria->compare('t.creation_id',$this->creation_id);
 		
 		// Custom Search
 		$criteria->with = array(
-			'year_relation' => array(
-				'alias'=>'year_relation',
-				'select'=>'years'
-			),
-			'batch_relation' => array(
-				'alias'=>'batch_relation',
-				'select'=>'batch_name'
-			),
-			'school_relation' => array(
-				'alias'=>'school_relation',
-				'select'=>'school_name'
+			'creation' => array(
+				'alias'=>'creation',
+				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('year_relation.years',strtolower($this->year_search), true);
-		$criteria->compare('batch_relation.batch_name',strtolower($this->batch_search), true);
-		$criteria->compare('school_relation.school_name',strtolower($this->school_search), true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 
 		if(!isset($_GET['PsbRegisters_sort']))
-			$criteria->order = 'register_id DESC';
+			$criteria->order = 't.register_id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -254,23 +287,31 @@ class PsbRegisters extends CActiveRecord
 			//$this->defaultColumns[] = 'register_id';
 			$this->defaultColumns[] = 'author_id';
 			$this->defaultColumns[] = 'status';
-			$this->defaultColumns[] = 'year_id';
+			$this->defaultColumns[] = 'nisn';
 			$this->defaultColumns[] = 'batch_id';
 			$this->defaultColumns[] = 'register_name';
-			$this->defaultColumns[] = 'birth_province';
 			$this->defaultColumns[] = 'birth_city';
 			$this->defaultColumns[] = 'birth_date';
+			$this->defaultColumns[] = 'gender';
+			$this->defaultColumns[] = 'religion';
 			$this->defaultColumns[] = 'address';
 			$this->defaultColumns[] = 'address_phone';
 			$this->defaultColumns[] = 'address_yogya';
 			$this->defaultColumns[] = 'address_yogya_phone';
 			$this->defaultColumns[] = 'parent_name';
 			$this->defaultColumns[] = 'parent_work';
+			$this->defaultColumns[] = 'parent_religion';
 			$this->defaultColumns[] = 'parent_address';
 			$this->defaultColumns[] = 'parent_phone';
+			$this->defaultColumns[] = 'wali_name';
+			$this->defaultColumns[] = 'wali_work';
+			$this->defaultColumns[] = 'wali_religion';
+			$this->defaultColumns[] = 'wali_address';
+			$this->defaultColumns[] = 'wali_phone';
 			$this->defaultColumns[] = 'school_id';
 			$this->defaultColumns[] = 'school_un_rank';
 			$this->defaultColumns[] = 'creation_date';
+			$this->defaultColumns[] = 'creation_id';
 		}
 
 		return $this->defaultColumns;
@@ -281,29 +322,123 @@ class PsbRegisters extends CActiveRecord
 	 */
 	protected function afterConstruct() {
 		if(count($this->defaultColumns) == 0) {
+			/*
+			$this->defaultColumns[] = array(
+				'class' => 'CCheckBoxColumn',
+				'name' => 'id',
+				'selectableRows' => 2,
+				'checkBoxHtmlOptions' => array('name' => 'trash_id[]')
+			);
+			*/
 			$this->defaultColumns[] = array(
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
+			$this->defaultColumns[] = 'author_id';
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'status',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("status",array("id"=>$data->register_id)), $data->status, 1)',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			$this->defaultColumns[] = 'nisn';
+			$this->defaultColumns[] = 'batch_id';
+			$this->defaultColumns[] = 'register_name';
+			$this->defaultColumns[] = 'birth_city';
 			$this->defaultColumns[] = array(
-				'name' => 'year_search',
-				'value' => '$data->year_relation->years',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'batch_search',
-				'value' => '$data->batch_relation->batch_name',
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'register_name',
-				'value' => '$data->register_name."<br/><span>".$data->address."</span>"',
+				'name' => 'birth_date',
+				'value' => 'Utility::dateFormat($data->birth_date)',
 				'htmlOptions' => array(
-					'class' => 'bold',
+					'class' => 'center',
 				),
-				'type' => 'raw',
+				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
+					'model'=>$this,
+					'attribute'=>'birth_date',
+					'language' => 'ja',
+					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					//'mode'=>'datetime',
+					'htmlOptions' => array(
+						'id' => 'birth_date_filter',
+					),
+					'options'=>array(
+						'showOn' => 'focus',
+						'dateFormat' => 'dd-mm-yy',
+						'showOtherMonths' => true,
+						'selectOtherMonths' => true,
+						'changeMonth' => true,
+						'changeYear' => true,
+						'showButtonPanel' => true,
+					),
+				), true),
 			);
+			$this->defaultColumns[] = 'gender';
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'religion',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("religion",array("id"=>$data->register_id)), $data->religion, 1)',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			$this->defaultColumns[] = 'address';
+			$this->defaultColumns[] = 'address_phone';
+			$this->defaultColumns[] = 'address_yogya';
+			$this->defaultColumns[] = 'address_yogya_phone';
+			$this->defaultColumns[] = 'parent_name';
+			$this->defaultColumns[] = 'parent_work';
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'parent_religion',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("parent_religion",array("id"=>$data->register_id)), $data->parent_religion, 1)',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			$this->defaultColumns[] = 'parent_address';
+			$this->defaultColumns[] = 'parent_phone';
+			$this->defaultColumns[] = 'wali_name';
+			$this->defaultColumns[] = 'wali_work';
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'wali_religion',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("wali_religion",array("id"=>$data->register_id)), $data->wali_religion, 1)',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			$this->defaultColumns[] = 'wali_address';
+			$this->defaultColumns[] = 'wali_phone';
+			$this->defaultColumns[] = 'school_id';
+			$this->defaultColumns[] = 'school_un_rank';
 			$this->defaultColumns[] = array(
-				'name' => 'school_search',
-				'value' => '$data->school_relation->school_name',
+				'name' => 'creation_search',
+				'value' => '$data->creation_id != 0 ? $data->creation->displayname : "-"',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_date',
@@ -331,20 +466,6 @@ class PsbRegisters extends CActiveRecord
 					),
 				), true),
 			);
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'status',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("status",array("id"=>$data->register_id)), $data->status, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
 		}
 		parent::afterConstruct();
 	}
@@ -364,6 +485,16 @@ class PsbRegisters extends CActiveRecord
 			$model = self::model()->findByPk($id);
 			return $model;			
 		}
+	}
+
+	/**
+	 * before validate attributes
+	 */
+	protected function beforeValidate() {
+		if(parent::beforeValidate()) {			
+			$this->creation_id = Yii::app()->user->id;
+		}
+		return true;
 	}
 
 }

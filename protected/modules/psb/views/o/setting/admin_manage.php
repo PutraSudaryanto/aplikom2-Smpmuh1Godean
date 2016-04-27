@@ -1,18 +1,20 @@
 <?php
 /**
- * Psb Year Courses (psb-year-course)
- * @var $this YearcourseController
- * @var $model PsbYearCourse
+ * Psb Settings (psb-settings)
+ * @var $this SettingController
+ * @var $model PsbSettings
+ * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
- * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
+ * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
+ * @created date 27 April 2016, 12:11 WIB
  * @link http://company.ommu.co
  * @contect (+62)856-299-4114
  *
  */
 
 	$this->breadcrumbs=array(
-		'Psb Year Courses'=>array('manage'),
+		'Psb Settings'=>array('manage'),
 		'Manage',
 	);
 	$this->menu=array(
@@ -34,7 +36,7 @@
 
 <?php //begin.Search ?>
 <div class="search-form">
-<?php $this->renderPartial('/o/year_course/_search',array(
+<?php $this->renderPartial('_search',array(
 	'model'=>$model,
 )); ?>
 </div>
@@ -42,13 +44,13 @@
 
 <?php //begin.Grid Option ?>
 <div class="grid-form">
-<?php $this->renderPartial('/o/year_course/_option_form',array(
+<?php $this->renderPartial('_option_form',array(
 	'model'=>$model,
 )); ?>
 </div>
 <?php //end.Grid Option ?>
 
-<div id="partial-psb-year-course">
+<div id="partial-psb-settings">
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 	<?php
@@ -72,8 +74,10 @@
 						'label' => 'view',
 						'options' => array(							
 							'class' => 'view',
+							'off_address' => '',
+							'target' => '_blank',
 						),
-						'url' => 'Yii::app()->controller->createUrl("view",array("id"=>$data->primaryKey))'),
+						'url' => 'Yii::app()->controller->createUrl("site/view",array("id"=>$data->primaryKey))'),
 					'update' => array(
 						'label' => 'update',
 						'options' => array(
@@ -87,11 +91,11 @@
 						),
 						'url' => 'Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))')
 				),
-				'template' => '{delete}',
+				'template' => '{view}|{update}|{delete}',
 			));
 
 			$this->widget('application.components.system.OGridView', array(
-				'id'=>'psb-year-course-grid',
+				'id'=>'psb-settings-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
 				'columns' => $columnData,

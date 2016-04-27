@@ -34,13 +34,22 @@ plugin_menu		:
 				urlPath: {url: o/course/manage, attr: -, icon: -}
 
 content_menu	:
+# controller o/admin
+	- urlTitle: Add Register
+		urlRules: {psb, o/admin, manage, siteType: 0, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+		
+	- urlTitle: Back to Manage
+		urlRules: {psb, o/admin, add,edit,view, siteType: 0, userLevel: 1,2}
+		urlPath: {url: manage, attr: -, icon: -}
+		
 # controller o/year
 	- urlTitle: Add Year
 		urlRules: {psb, o/year, manage, siteType: 0, userLevel: 1,2}
 		urlPath: {url: add, attr: -, icon: -}
 		
 	- urlTitle: Back to Manage
-		urlRules: {article, o/year, edit, siteType: 0, userLevel: 1,2}
+		urlRules: {psb, o/year, edit, siteType: 0, userLevel: 1,2}
 		urlPath: {url: manage, attr: -, icon: -}
 		
 # controller o/batch
