@@ -1,0 +1,59 @@
+code			: 
+name			: PSB
+description		: Penerimaan Siswa Baru
+folder_name		: psb
+global_model	: 
+version			: 0.1.0
+created_date	: 2015-09-20 22:09:13
+author			: Putra Sudaryanto [putra@sudaryanto.id]
+
+db_table_name	: 
+ 
+db_sql_filename	: 
+
+plugin_menu		:
+	- urlTitle: View Register
+		urlRules: {siteType: 0, userLevel: 1,2}
+		urlPath: {url: o/admin/manage, attr: -, icon: -}
+		
+	- urlTitle: Settings
+		urlRules: {siteType: 0, userLevel: 1,2}
+		urlPath: {url: -, attr: -, icon: -}
+		submenu :
+			- urlTitle: Years
+				urlRules: {siteType: 0, userLevel: 1,2}
+				urlPath: {url: o/year/manage, attr: -, icon: -}
+			- urlTitle: Batchs
+				urlRules: {siteType: 0, userLevel: 1,2}
+				urlPath: {url: o/batch/manage, attr: -, icon: -}
+			- urlTitle: Schools
+				urlRules: {siteType: 0, userLevel: 1,2}
+				urlPath: {url: o/school/manage, attr: -, icon: -}
+			- urlTitle: Courses
+				urlRules: {siteType: 0, userLevel: 1,2}
+				urlPath: {url: o/course/manage, attr: -, icon: -}
+
+content_menu	:
+# controller o/year
+	- urlTitle: Add Year
+		urlRules: {psb, o/year, manage, siteType: 0, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+		
+	- urlTitle: Back to Manage
+		urlRules: {article, o/year, edit, siteType: 0, userLevel: 1,2}
+		urlPath: {url: manage, attr: -, icon: -}
+		
+# controller o/batch
+	- urlTitle: Add Batch
+		urlRules: {psb, o/batch, manage, siteType: 0, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+		
+# controller o/school
+	- urlTitle: Add School
+		urlRules: {psb, o/school, manage, siteType: 0, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+		
+# controller o/course
+	- urlTitle: Add Course
+		urlRules: {psb, o/course, manage, siteType: 0, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}

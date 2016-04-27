@@ -1,11 +1,7 @@
 <?php
 /**
- * UserDevice
- * version: 0.0.1
- *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
- * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
- * @created date 9 April 2016, 06:35 WIB
+ * PsbYearBatch * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
  * @link http://company.ommu.co
  * @contact (+62)856-299-4114
  *
@@ -20,32 +16,38 @@
  *
  * --------------------------------------------------------------------------------------
  *
- * This is the model class for table "ommu_user_device".
+ * This is the model class for table "ommu_psb_year_batch".
  *
- * The followings are the available columns in table 'ommu_user_device':
- * @property string $id
+ * The followings are the available columns in table 'ommu_psb_year_batch':
+ * @property string $batch_id
  * @property integer $publish
- * @property string $user_id
- * @property string $android_id
+ * @property string $year_id
+ * @property string $batch_name
+ * @property string $batch_start
+ * @property string $batch_finish
  * @property string $creation_date
- * @property string $generate_date
- * @property string $unpublish_date
+ * @property string $creation_id
  * @property string $modified_date
  * @property string $modified_id
+ *
+ * The followings are the available model relations:
+ * @property OmmuPsbRegisters[] $ommuPsbRegisters
+ * @property OmmuPsbYears $year
  */
-class UserDevice extends CActiveRecord
+class PsbYearBatch extends CActiveRecord
 {
 	public $defaultColumns = array();
 	
 	// Variable Search
-	public $user_search;
+	public $year_search;
+	public $creation_search;
 	public $modified_search;
 
 	/**
 	 * Returns the static model of the specified AR class.
 	 * Please note that you should have this exact method in all your CActiveRecord descendants!
 	 * @param string $className active record class name.
-	 * @return UserDevice the static model class
+	 * @return PsbYearBatch the static model class
 	 */
 	public static function model($className=__CLASS__)
 	{
@@ -57,7 +59,7 @@ class UserDevice extends CActiveRecord
 	 */
 	public function tableName()
 	{
-		return 'ommu_user_device';
+		return 'ommu_psb_year_batch';
 	}
 
 	/**
@@ -68,14 +70,14 @@ class UserDevice extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('android_id', 'required'),
+			array('year_id, batch_name, batch_start, batch_finish', 'required'),
 			array('publish', 'numerical', 'integerOnly'=>true),
-			array('user_id, modified_id', 'length', 'max'=>11),
-			array('', 'safe'),
+			array('year_id, creation_id, modified_id', 'length', 'max'=>11),
+			array('batch_name, batch_start, batch_finish', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, publish, user_id, android_id, creation_date, generate_date, unpublish_date, modified_date, modified_id,
-				user_search, modified_search', 'safe', 'on'=>'search'),
+			array('batch_id, publish, year_id, batch_name, batch_start, batch_finish, creation_date, creation_id, modified_date, modified_id,
+				year_search, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -87,8 +89,11 @@ class UserDevice extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
+			'registers' => array(self::HAS_MANY, 'PsbRegisters', 'batch_id'),
+			'year' => array(self::BELONGS_TO, 'PsbYears', 'year_id'),
+			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
+			'view' => array(self::BELONGS_TO, 'ViewPsbYearBatch', 'batch_id'),
 		);
 	}
 
@@ -98,30 +103,32 @@ class UserDevice extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => Yii::t('attribute', 'ID'),
-			'publish' => Yii::t('attribute', 'Publish'),
-			'user_id' => Yii::t('attribute', 'User'),
-			'android_id' => Yii::t('attribute', 'Android'),
-			'creation_date' => Yii::t('attribute', 'Creation Date'),
-			'generate_date' => Yii::t('attribute', 'Generate Date'),
-			'unpublish_date' => Yii::t('attribute', 'Unpublish Date'),
-			'modified_date' => Yii::t('attribute', 'Modified Date'),
-			'modified_id' => Yii::t('attribute', 'Modified'),
-			'user_search' => Yii::t('attribute', 'User'),
-			'modified_search' => Yii::t('attribute', 'Modified'),
+            'batch_id' => Yii::t('attribute', 'Batch'),
+            'publish' => Yii::t('attribute', 'Publish'),
+            'year_id' => Yii::t('attribute', 'Year'),
+            'batch_name' => Yii::t('attribute', 'Batch Name'),
+            'batch_start' => Yii::t('attribute', 'Batch Start'),
+            'batch_finish' => Yii::t('attribute', 'Batch Finish'),
+            'creation_date' => Yii::t('attribute', 'Creation Date'),
+            'creation_id' => Yii::t('attribute', 'Creation'),
+            'modified_date' => Yii::t('attribute', 'Modified Date'),
+            'modified_id' => Yii::t('attribute', 'Modified'),
+            'creation_search' => Yii::t('attribute', 'Creation'),
+            'modified_search' => Yii::t('attribute', 'Modified'),
+            'year_search' => Yii::t('attribute', 'Year'),
 		);
-		/*
-			'ID' => 'ID',
-			'Publish' => 'Publish',
-			'User' => 'User',
-			'Android' => 'Android',
-			'Creation Date' => 'Creation Date',
-			'Generate Date' => 'Generate Date',
-			'Unpublish Date' => 'Unpublish Date',
-			'Modified Date' => 'Modified Date',
-			'Modified' => 'Modified',
-		
-		*/
+        /* 
+            'Batch' => 'Batch',
+            'Publish' => 'Publish',
+            'Year' => 'Year',
+            'Batch Name' => 'Batch Name',
+            'Batch Start' => 'Batch Start',
+            'Batch Finish' => 'Batch Finish',
+            'Creation Date' => 'Creation Date',
+            'Creation' => 'Creation',
+            'Modified Date' => 'Modified Date',
+            'Modified' => 'Modified',         
+        */ 		
 	}
 
 	/**
@@ -139,10 +146,11 @@ class UserDevice extends CActiveRecord
 	public function search()
 	{
 		// @todo Please modify the following code to remove attributes that should not be searched.
+		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 
 		$criteria=new CDbCriteria;
 
-		$criteria->compare('t.id',strtolower($this->id),true);
+		$criteria->compare('t.batch_id',$this->batch_id,true);
 		if(isset($_GET['type']) && $_GET['type'] == 'publish')
 			$criteria->compare('t.publish',1);
 		elseif(isset($_GET['type']) && $_GET['type'] == 'unpublish')
@@ -153,28 +161,34 @@ class UserDevice extends CActiveRecord
 			$criteria->addInCondition('t.publish',array(0,1));
 			$criteria->compare('t.publish',$this->publish);
 		}
-		if(isset($_GET['user']))
-			$criteria->compare('t.user_id',$_GET['user']);
-		else
-			$criteria->compare('t.user_id',$this->user_id);
-		$criteria->compare('t.android_id',strtolower($this->android_id),true);
+		if(isset($_GET['year']))
+			$criteria->compare('t.year_id',$_GET['year']);
+		else {
+			if($currentAction == 'o/year/edit' && isset($_GET['id']))
+				$criteria->compare('t.year_id',$_GET['id']);
+			else				
+				$criteria->compare('t.year_id',$this->year_id);
+		}
+		$criteria->compare('t.batch_name',$this->batch_name,true);
+		if($this->batch_start != null && !in_array($this->batch_start, array('0000-00-00 00:00:00', '0000-00-00')))
+			$criteria->compare('date(t.batch_start)',date('Y-m-d', strtotime($this->batch_start)));
+		if($this->batch_finish != null && !in_array($this->batch_finish, array('0000-00-00 00:00:00', '0000-00-00')))
+			$criteria->compare('date(t.batch_finish)',date('Y-m-d', strtotime($this->batch_finish)));
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
-		if($this->generate_date != null && !in_array($this->generate_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.generate_date)',date('Y-m-d', strtotime($this->generate_date)));
-		if($this->unpublish_date != null && !in_array($this->unpublish_date, array('0000-00-00 00:00:00', '0000-00-00')))
-			$criteria->compare('date(t.unpublish_date)',date('Y-m-d', strtotime($this->unpublish_date)));
+		$criteria->compare('t.creation_id',$this->creation_id,true);
 		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.modified_date)',date('Y-m-d', strtotime($this->modified_date)));
-		if(isset($_GET['modified']))
-			$criteria->compare('t.modified_id',$_GET['modified']);
-		else
-			$criteria->compare('t.modified_id',$this->modified_id);
+		$criteria->compare('t.modified_id',$this->modified_id,true);
 		
 		// Custom Search
 		$criteria->with = array(
-			'user' => array(
-				'alias'=>'user',
+			'year' => array(
+				'alias'=>'year',
+				'select'=>'years'
+			),
+			'creation' => array(
+				'alias'=>'creation',
 				'select'=>'displayname'
 			),
 			'modified' => array(
@@ -182,11 +196,12 @@ class UserDevice extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
-		$criteria->compare('user.displayname',strtolower($this->user_search), true);
+		$criteria->compare('year.years',strtolower($this->year_search), true);
+		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
-		if(!isset($_GET['UserDevice_sort']))
-			$criteria->order = 't.id DESC';
+		if(!isset($_GET['PsbYearBatch_sort']) && $currentAction != 'year/edit')
+			$criteria->order = 'batch_id DESC';
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
@@ -214,13 +229,14 @@ class UserDevice extends CActiveRecord
 				$this->defaultColumns[] = $val;
 			}
 		} else {
-			//$this->defaultColumns[] = 'id';
+			//$this->defaultColumns[] = 'batch_id';
 			$this->defaultColumns[] = 'publish';
-			$this->defaultColumns[] = 'user_id';
-			$this->defaultColumns[] = 'android_id';
+			$this->defaultColumns[] = 'year_id';
+			$this->defaultColumns[] = 'batch_name';
+			$this->defaultColumns[] = 'batch_start';
+			$this->defaultColumns[] = 'batch_finish';
 			$this->defaultColumns[] = 'creation_date';
-			$this->defaultColumns[] = 'generate_date';
-			$this->defaultColumns[] = 'unpublish_date';
+			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
 			$this->defaultColumns[] = 'modified_id';
 		}
@@ -246,10 +262,77 @@ class UserDevice extends CActiveRecord
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
 			$this->defaultColumns[] = array(
-				'name' => 'user_search',
-				'value' => '$data->user->displayname',
+				'name' => 'year_search',
+				'value' => '$data->year->years',
 			);
-			$this->defaultColumns[] = 'android_id';
+			$this->defaultColumns[] = array(
+				'name' => 'batch_name',
+				'value' => 'ucwords($data->batch_name)',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'batch_start',
+				'value' => 'Utility::dateFormat($data->batch_start)',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
+					'model'=>$this,
+					'attribute'=>'batch_start',
+					'language' => 'ja',
+					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					//'mode'=>'datetime',
+					'htmlOptions' => array(
+						'id' => 'batch_start_filter',
+					),
+					'options'=>array(
+						'showOn' => 'focus',
+						'dateFormat' => 'dd-mm-yy',
+						'showOtherMonths' => true,
+						'selectOtherMonths' => true,
+						'changeMonth' => true,
+						'changeYear' => true,
+						'showButtonPanel' => true,
+					),
+				), true),
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'batch_finish',
+				'value' => 'Utility::dateFormat($data->batch_finish)',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
+					'model'=>$this,
+					'attribute'=>'batch_finish',
+					'language' => 'ja',
+					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
+					//'mode'=>'datetime',
+					'htmlOptions' => array(
+						'id' => 'batch_finish_filter',
+					),
+					'options'=>array(
+						'showOn' => 'focus',
+						'dateFormat' => 'dd-mm-yy',
+						'showOtherMonths' => true,
+						'selectOtherMonths' => true,
+						'changeMonth' => true,
+						'changeYear' => true,
+						'showButtonPanel' => true,
+					),
+				), true),
+			);
+			$this->defaultColumns[] = array(
+				'header' => 'registers',
+				'value' => 'CHtml::link($data->view->registers, Yii::app()->controller->createUrl("o/admin/manage",array("batch"=>$data->batch_id)))',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'type' => 'raw',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'creation_search',
+				'value' => '$data->creation->displayname',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_date',
 				'value' => 'Utility::dateFormat($data->creation_date)',
@@ -276,62 +359,10 @@ class UserDevice extends CActiveRecord
 					),
 				), true),
 			);
-			$this->defaultColumns[] = array(
-				'name' => 'generate_date',
-				'value' => 'Utility::dateFormat($data->generate_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'generate_date',
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
-					//'mode'=>'datetime',
-					'htmlOptions' => array(
-						'id' => 'generate_date_filter',
-					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
-					),
-				), true),
-			);
-			$this->defaultColumns[] = array(
-				'name' => 'unpublish_date',
-				'value' => 'Utility::dateFormat($data->unpublish_date)',
-				'htmlOptions' => array(
-					'class' => 'center',
-				),
-				'filter' => Yii::app()->controller->widget('zii.widgets.jui.CJuiDatePicker', array(
-					'model'=>$this,
-					'attribute'=>'unpublish_date',
-					'language' => 'ja',
-					'i18nScriptFile' => 'jquery.ui.datepicker-en.js',
-					//'mode'=>'datetime',
-					'htmlOptions' => array(
-						'id' => 'unpublish_date_filter',
-					),
-					'options'=>array(
-						'showOn' => 'focus',
-						'dateFormat' => 'dd-mm-yy',
-						'showOtherMonths' => true,
-						'selectOtherMonths' => true,
-						'changeMonth' => true,
-						'changeYear' => true,
-						'showButtonPanel' => true,
-					),
-				), true),
-			);
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'publish',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->id)), $data->publish, 1)',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->batch_id)), $data->publish, 1)',
 					'htmlOptions' => array(
 						'class' => 'center',
 					),
@@ -368,8 +399,28 @@ class UserDevice extends CActiveRecord
 	 */
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {
-			if(!$this->isNewRecord)
+			$this->batch_start = date('Y-m-d', strtotime($this->batch_start));
+			$this->batch_finish = date('Y-m-d', strtotime($this->batch_finish));
+			
+			if($this->isNewRecord)
+				$this->creation_id = Yii::app()->user->id;	
+			else
 				$this->modified_id = Yii::app()->user->id;
+			
+			if($this->batch_start >= $this->batch_finish)
+				$this->addError('batch_finish', 'Batch Finish harus lebih besar dari Batch Start');
+		}
+		return true;
+	}
+	
+	/**
+	 * before save attributes
+	 */
+	protected function beforeSave() {
+		if(parent::beforeSave()) {
+			$this->batch_name = strtolower($this->batch_name);
+			$this->batch_start = date('Y-m-d', strtotime($this->batch_start));
+			$this->batch_finish = date('Y-m-d', strtotime($this->batch_finish));
 		}
 		return true;
 	}

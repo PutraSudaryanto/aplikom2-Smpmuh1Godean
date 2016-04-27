@@ -50,7 +50,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'dependency'); ?>
 			<div class="desc">
-				<?php echo $form->dropDownList($model,'dependency', $menu, array('0'=>Yii::t('phrase', 'No Parent'))); ?>
+				<?php echo $form->dropDownList($model,'dependency', $menu, array('prompt'=>Yii::t('phrase', 'No Parent'))); ?>
 				<?php echo $form->error($model,'dependency'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -60,11 +60,10 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'title'); ?>
 			<div class="desc">
-				<?php 
+				<?php
 				$model->title = Phrase::trans($model->name, 2);
 				echo $form->textField($model,'title',array('maxlength'=>32,'class'=>'span-8')); ?>
 				<?php echo $form->error($model,'title'); ?>
-				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
 		</div>
 

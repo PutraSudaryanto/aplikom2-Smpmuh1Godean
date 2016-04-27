@@ -100,3 +100,19 @@ mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\mo
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\controllers\o" "D:\htdocs\_project_ommu_module_support\modules\support\controllers\o"
 --
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\views\o" "D:\htdocs\_project_ommu_module_support\modules\support\views\o"
+
+///psb\\\
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\externals\psb" "D:\htdocs\_project_ommu_module_psb\externals\psb"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\psb.yaml" "D:\htdocs\_project_ommu_module_psb\modules\psb\psb.yaml"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\LICENSE" "D:\htdocs\_project_ommu_module_psb\modules\psb\LICENSE"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\PsbModule.php" "D:\htdocs\_project_ommu_module_psb\modules\psb\PsbModule.php"
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\assets" "D:\htdocs\_project_ommu_module_psb\modules\psb\assets"
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\components" "D:\htdocs\_project_ommu_module_psb\modules\psb\components"
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\models" "D:\htdocs\_project_ommu_module_psb\modules\psb\models"
+--
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\controllers\o" "D:\htdocs\_project_ommu_module_psb\modules\psb\controllers\o"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\controllers\CourseController.php" "D:\htdocs\_project_ommu_module_psb\modules\psb\controllers\CourseController.php"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\controllers\SchoolController.php" "D:\htdocs\_project_ommu_module_psb\modules\psb\controllers\SchoolController.php"
+
+--
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\views\o" "D:\htdocs\_project_ommu_module_psb\modules\psb\views\o"

@@ -369,7 +369,7 @@ class OmmuMenu extends CActiveRecord
 			$items = array();
 			if($model != null) {
 				foreach($model as $key => $val) {
-					$items[$val->cat_id] = Phrase::trans($val->name, 2);
+					$items[$val->id] = Phrase::trans($val->name, 2);
 				}
 				return $items;
 			} else {
