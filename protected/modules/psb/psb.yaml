@@ -18,7 +18,7 @@ plugin_menu		:
 		
 	- urlTitle: Settings
 		urlRules: {siteType: 0, userLevel: 1,2}
-		urlPath: {url: -, attr: -, icon: -}
+		urlPath: {url: o/setting/edit, attr: -, icon: -}
 		submenu :
 			- urlTitle: Years
 				urlRules: {siteType: 0, userLevel: 1,2}
@@ -32,6 +32,9 @@ plugin_menu		:
 			- urlTitle: Courses
 				urlRules: {siteType: 0, userLevel: 1,2}
 				urlPath: {url: o/course/manage, attr: -, icon: -}
+			- urlTitle: Religions
+				urlRules: {siteType: 0, userLevel: 1,2}
+				urlPath: {url: o/religion/manage, attr: -, icon: -}
 
 content_menu	:
 # controller o/admin
@@ -65,4 +68,9 @@ content_menu	:
 # controller o/course
 	- urlTitle: Add Course
 		urlRules: {psb, o/course, manage, siteType: 0, userLevel: 1,2}
+		urlPath: {url: add, attr: -, icon: -}
+		
+# controller o/religion
+	- urlTitle: Add Religion
+		urlRules: {psb, o/religion, manage, siteType: 0, userLevel: 1,2}
 		urlPath: {url: add, attr: -, icon: -}

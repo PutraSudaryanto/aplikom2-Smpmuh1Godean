@@ -1,20 +1,20 @@
 <?php
 /**
- * Psb Settings (psb-settings)
- * @var $this SettingController
- * @var $model PsbSettings
+ * Psb Religions (psb-religions)
+ * @var $this ReligionController
+ * @var $model PsbReligions
  * version: 0.0.1
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
- * @created date 27 April 2016, 12:11 WIB
+ * @created date 27 April 2016, 15:50 WIB
  * @link http://company.ommu.co
  * @contect (+62)856-299-4114
  *
  */
 
 	$this->breadcrumbs=array(
-		'Psb Settings'=>array('manage'),
+		'Psb Religions'=>array('manage'),
 		'Manage',
 	);
 	$this->menu=array(
@@ -50,7 +50,7 @@
 </div>
 <?php //end.Grid Option ?>
 
-<div id="partial-psb-settings">
+<div id="partial-psb-religions">
 	<?php //begin.Messages ?>
 	<div id="ajax-message">
 	<?php
@@ -74,10 +74,8 @@
 						'label' => 'view',
 						'options' => array(							
 							'class' => 'view',
-							'off_address' => '',
-							'target' => '_blank',
 						),
-						'url' => 'Yii::app()->controller->createUrl("site/view",array("id"=>$data->primaryKey))'),
+						'url' => 'Yii::app()->controller->createUrl("view",array("id"=>$data->primaryKey))'),
 					'update' => array(
 						'label' => 'update',
 						'options' => array(
@@ -91,11 +89,11 @@
 						),
 						'url' => 'Yii::app()->controller->createUrl("delete",array("id"=>$data->primaryKey))')
 				),
-				'template' => '{view}|{update}|{delete}',
+				'template' => '{update}|{delete}',
 			));
 
 			$this->widget('application.components.system.OGridView', array(
-				'id'=>'psb-settings-grid',
+				'id'=>'psb-religions-grid',
 				'dataProvider'=>$model->search(),
 				'filter'=>$model,
 				'columns' => $columnData,

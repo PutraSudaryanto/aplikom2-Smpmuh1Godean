@@ -219,19 +219,28 @@ class PsbRegisters extends CActiveRecord
 		if($this->birth_date != null && !in_array($this->birth_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.birth_date)',date('Y-m-d', strtotime($this->birth_date)));
 		$criteria->compare('t.gender',strtolower($this->gender),true);
-		$criteria->compare('t.religion',$this->religion);
+		if(isset($_GET['religion']))
+			$criteria->compare('t.religion',$_GET['religion']);
+		else
+			$criteria->compare('t.religion',$this->religion);			
 		$criteria->compare('t.address',strtolower($this->address),true);
 		$criteria->compare('t.address_phone',strtolower($this->address_phone),true);
 		$criteria->compare('t.address_yogya',strtolower($this->address_yogya),true);
 		$criteria->compare('t.address_yogya_phone',strtolower($this->address_yogya_phone),true);
 		$criteria->compare('t.parent_name',strtolower($this->parent_name),true);
 		$criteria->compare('t.parent_work',strtolower($this->parent_work),true);
-		$criteria->compare('t.parent_religion',$this->parent_religion);
+		if(isset($_GET['parentreligion']))
+			$criteria->compare('t.parent_religion',$_GET['parentreligion']);
+		else
+			$criteria->compare('t.parent_religion',$this->parent_religion);
 		$criteria->compare('t.parent_address',strtolower($this->parent_address),true);
 		$criteria->compare('t.parent_phone',strtolower($this->parent_phone),true);
 		$criteria->compare('t.wali_name',strtolower($this->wali_name),true);
 		$criteria->compare('t.wali_work',strtolower($this->wali_work),true);
-		$criteria->compare('t.wali_religion',$this->wali_religion);
+		if(isset($_GET['walireligion']))
+			$criteria->compare('t.wali_religion',$_GET['walireligion']);
+		else
+			$criteria->compare('t.wali_religion',$this->wali_religion);
 		$criteria->compare('t.wali_address',strtolower($this->wali_address),true);
 		$criteria->compare('t.wali_phone',strtolower($this->wali_phone),true);
 		if(isset($_GET['school']))
