@@ -92,6 +92,7 @@ class PsbSchools extends CActiveRecord
 			'registers' => array(self::HAS_MANY, 'PsbRegisters', 'school_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
+			'view' => array(self::BELONGS_TO, 'ViewPsbSchools', 'school_id'),
 		);
 	}
 
@@ -253,13 +254,11 @@ class PsbSchools extends CActiveRecord
 				),
 				'type' => 'raw',
 			);
-			/*
 			$this->defaultColumns[] = array(
 				'header' => 'registers',
-				'value' => 'CHtml::link($data->registers, Yii::app()->controller->createUrl("o/admin/manage",array("school"=>$data->school_id)))',
+				'value' => 'CHtml::link($data->view->registers, Yii::app()->controller->createUrl("o/admin/manage",array("school"=>$data->school_id)))',
 				'type' => 'raw',
 			);
-			*/
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
 				'value' => '$data->creation->displayname',
