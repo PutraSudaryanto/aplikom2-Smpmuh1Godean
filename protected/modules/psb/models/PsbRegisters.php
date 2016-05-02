@@ -113,8 +113,9 @@ class PsbRegisters extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'batch_relation' => array(self::BELONGS_TO, 'OmmuPsbYearBatch', 'batch_id'),
-			'school_relation' => array(self::BELONGS_TO, 'OmmuPsbSchools', 'school_id'),
+			'batch_relation' => array(self::BELONGS_TO, 'PsbYearBatch', 'batch_id'),
+			'school_relation' => array(self::BELONGS_TO, 'PsbSchools', 'school_id'),
+			'religion_relation' => array(self::BELONGS_TO, 'PsbReligions', 'religion'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 		);
 	}
