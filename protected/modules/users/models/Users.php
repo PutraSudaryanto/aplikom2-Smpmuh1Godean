@@ -537,7 +537,7 @@ class Users extends CActiveRecord
 				}
 
 				// Random password
-				if($setting->signup_random == 1 || $currentAction == 'admin/login') {
+				if($setting->signup_random == 1 || in_array($currentAction, array('admin/login'))) {
 					$this->confirmPassword = $this->newPassword = self::getGeneratePassword();
 					$this->verified = 1;
 				}
