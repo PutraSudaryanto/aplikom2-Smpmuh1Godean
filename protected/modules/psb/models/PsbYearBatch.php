@@ -25,6 +25,7 @@
  * @property string $batch_name
  * @property string $batch_start
  * @property string $batch_finish
+ * @property integer $batch_valuation
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -70,13 +71,13 @@ class PsbYearBatch extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('year_id, batch_name, batch_start, batch_finish', 'required'),
-			array('publish', 'numerical', 'integerOnly'=>true),
+			array('year_id, publish, batch_name, batch_start, batch_finish, batch_valuation', 'required'),
+			array('publish, batch_valuation', 'numerical', 'integerOnly'=>true),
 			array('year_id, creation_id, modified_id', 'length', 'max'=>11),
-			array('batch_name, batch_start, batch_finish', 'safe'),
+			array('', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('batch_id, publish, year_id, batch_name, batch_start, batch_finish, creation_date, creation_id, modified_date, modified_id,
+			array('batch_id, publish, year_id, batch_name, batch_start, batch_finish, batch_valuation, creation_date, creation_id, modified_date, modified_id,
 				year_search, creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -109,6 +110,7 @@ class PsbYearBatch extends CActiveRecord
             'batch_name' => Yii::t('attribute', 'Batch Name'),
             'batch_start' => Yii::t('attribute', 'Batch Start'),
             'batch_finish' => Yii::t('attribute', 'Batch Finish'),
+            'batch_valuation' => Yii::t('attribute', 'Batch Valuation'),
             'creation_date' => Yii::t('attribute', 'Creation Date'),
             'creation_id' => Yii::t('attribute', 'Creation'),
             'modified_date' => Yii::t('attribute', 'Modified Date'),
@@ -124,6 +126,7 @@ class PsbYearBatch extends CActiveRecord
             'Batch Name' => 'Batch Name',
             'Batch Start' => 'Batch Start',
             'Batch Finish' => 'Batch Finish',
+            'Batch Valuation' => 'Batch Valuation',
             'Creation Date' => 'Creation Date',
             'Creation' => 'Creation',
             'Modified Date' => 'Modified Date',
@@ -174,6 +177,7 @@ class PsbYearBatch extends CActiveRecord
 			$criteria->compare('date(t.batch_start)',date('Y-m-d', strtotime($this->batch_start)));
 		if($this->batch_finish != null && !in_array($this->batch_finish, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.batch_finish)',date('Y-m-d', strtotime($this->batch_finish)));
+		$criteria->compare('t.batch_valuation',$this->batch_valuation);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		$criteria->compare('t.creation_id',$this->creation_id,true);
@@ -235,6 +239,7 @@ class PsbYearBatch extends CActiveRecord
 			$this->defaultColumns[] = 'batch_name';
 			$this->defaultColumns[] = 'batch_start';
 			$this->defaultColumns[] = 'batch_finish';
+			$this->defaultColumns[] = 'batch_valuation';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -358,6 +363,18 @@ class PsbYearBatch extends CActiveRecord
 						'showButtonPanel' => true,
 					),
 				), true),
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'batch_valuation',
+				'value' => '$data->batch_valuation == 1 ? Yii::t("phrase", "Ujian Nasional") : Yii::t("phrase", "Raport")',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter'=>array(
+					1=>Yii::t('phrase', 'Ujian Nasional'),
+					0=>Yii::t('phrase', 'Raport'),
+				),
+				'type' => 'raw',
 			);
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(

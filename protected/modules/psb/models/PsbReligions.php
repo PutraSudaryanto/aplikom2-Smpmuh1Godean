@@ -323,6 +323,30 @@ class PsbReligions extends CActiveRecord
 	}
 
 	/**
+	 * Get Years
+	 */
+	public static function getReligion($publish=null, $type=null) 
+	{		
+		$criteria=new CDbCriteria;
+		if($publish != null)
+			$criteria->compare('t.publish',$publish);
+		$model = self::model()->findAll($criteria);
+
+		if($type == null) {
+			$items = array();
+			if($model != null) {
+				foreach($model as $key => $val)
+					$items[$val->religion_id] = Phrase::trans($val->religion_name, 2);
+				return $items;
+				
+			} else
+				return false;
+			
+		} else
+			return $model;
+	}
+
+	/**
 	 * before validate attributes
 	 */
 	protected function beforeValidate() {

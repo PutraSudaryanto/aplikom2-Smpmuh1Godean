@@ -344,24 +344,9 @@ class PsbRegisters extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'author_id';
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'status',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("status",array("id"=>$data->register_id)), $data->status, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
-			$this->defaultColumns[] = 'nisn';
 			$this->defaultColumns[] = 'batch_id';
 			$this->defaultColumns[] = 'register_name';
+			$this->defaultColumns[] = 'nisn';
 			$this->defaultColumns[] = 'birth_city';
 			$this->defaultColumns[] = array(
 				'name' => 'birth_date',
@@ -390,60 +375,7 @@ class PsbRegisters extends CActiveRecord
 				), true),
 			);
 			$this->defaultColumns[] = 'gender';
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'religion',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("religion",array("id"=>$data->register_id)), $data->religion, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
-			$this->defaultColumns[] = 'address';
-			$this->defaultColumns[] = 'address_phone';
-			$this->defaultColumns[] = 'address_yogya';
-			$this->defaultColumns[] = 'address_yogya_phone';
 			$this->defaultColumns[] = 'parent_name';
-			$this->defaultColumns[] = 'parent_work';
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'parent_religion',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("parent_religion",array("id"=>$data->register_id)), $data->parent_religion, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
-			$this->defaultColumns[] = 'parent_address';
-			$this->defaultColumns[] = 'parent_phone';
-			$this->defaultColumns[] = 'wali_name';
-			$this->defaultColumns[] = 'wali_work';
-			if(!isset($_GET['type'])) {
-				$this->defaultColumns[] = array(
-					'name' => 'wali_religion',
-					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("wali_religion",array("id"=>$data->register_id)), $data->wali_religion, 1)',
-					'htmlOptions' => array(
-						'class' => 'center',
-					),
-					'filter'=>array(
-						1=>Yii::t('phrase', 'Yes'),
-						0=>Yii::t('phrase', 'No'),
-					),
-					'type' => 'raw',
-				);
-			}
-			$this->defaultColumns[] = 'wali_address';
-			$this->defaultColumns[] = 'wali_phone';
 			$this->defaultColumns[] = 'school_id';
 			$this->defaultColumns[] = 'school_un_rank';
 			$this->defaultColumns[] = array(
@@ -476,6 +408,20 @@ class PsbRegisters extends CActiveRecord
 					),
 				), true),
 			);
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'status',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("status",array("id"=>$data->register_id)), $data->status, 1)',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
 		}
 		parent::afterConstruct();
 	}

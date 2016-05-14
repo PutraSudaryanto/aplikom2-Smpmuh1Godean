@@ -145,6 +145,9 @@ class AdminController extends Controller
 	public function actionAdd() 
 	{
 		$model=new PsbRegisters;
+		$setting = PsbSettings::model()->findByPk(1,array(
+			'select' => 'field_religion, field_wali',
+		));
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -164,6 +167,7 @@ class AdminController extends Controller
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
 			'model'=>$model,
+			'setting'=>$setting,
 		));
 	}
 
@@ -175,6 +179,9 @@ class AdminController extends Controller
 	public function actionEdit($id) 
 	{
 		$model=$this->loadModel($id);
+		$setting = PsbSettings::model()->findByPk(1,array(
+			'select' => 'field_religion, field_wali',
+		));
 
 		// Uncomment the following line if AJAX validation is needed
 		$this->performAjaxValidation($model);
@@ -194,6 +201,7 @@ class AdminController extends Controller
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
 			'model'=>$model,
+			'setting'=>$setting,
 		));
 	}
 	

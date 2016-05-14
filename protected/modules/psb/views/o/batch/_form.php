@@ -97,6 +97,18 @@
 			</div>
 		</div>
 
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'batch_valuation'); ?>
+			<div class="desc">
+				<?php echo $form->dropDownList($model,'batch_valuation', array(
+					1=>Yii::t('phrase', 'Ujian Nasional'),
+					0=>Yii::t('phrase', 'Raport'),					
+				)); ?>
+				<?php echo $form->error($model,'batch_valuation'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
+		</div>
+
 		<div class="clearfix publish">
 			<?php echo $form->labelEx($model,'publish'); ?>
 			<div class="desc">

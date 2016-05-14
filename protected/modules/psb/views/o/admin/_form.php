@@ -29,15 +29,6 @@
 
 <fieldset>
 
-	<div class="clearfix">
-		<?php echo $form->labelEx($model,'author_id'); ?>
-		<div class="desc">
-			<?php echo $form->textField($model,'author_id',array('maxlength'=>11)); ?>
-			<?php echo $form->error($model,'author_id'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
-		</div>
-	</div>
-
 	<div class="clearfix publish">
 		<?php echo $form->labelEx($model,'status'); ?>
 		<div class="desc">
@@ -49,10 +40,10 @@
 	</div>
 
 	<div class="clearfix">
-		<?php echo $form->labelEx($model,'nisn'); ?>
+		<?php echo $form->labelEx($model,'author_id'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'nisn',array('maxlength'=>12)); ?>
-			<?php echo $form->error($model,'nisn'); ?>
+			<?php echo $form->textField($model,'author_id',array('maxlength'=>11)); ?>
+			<?php echo $form->error($model,'author_id'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
@@ -65,12 +56,22 @@
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
-
+	
+	<h3><?php echo Yii::t('phrase', 'Identitas Peserta Seleksi');?></h3>
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'register_name'); ?>
 		<div class="desc">
 			<?php echo $form->textField($model,'register_name',array('maxlength'=>32)); ?>
 			<?php echo $form->error($model,'register_name'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+
+	<div class="clearfix">
+		<?php echo $form->labelEx($model,'nisn'); ?>
+		<div class="desc">
+			<?php echo $form->textField($model,'nisn',array('maxlength'=>12)); ?>
+			<?php echo $form->error($model,'nisn'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
@@ -109,21 +110,30 @@
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'gender'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'gender',array('maxlength'=>6)); ?>
+			<?php echo $form->dropDownList($model,'gender',array(
+				'male'=>Yii::t('phrase', 'Laki-laki'),
+				'female'=>Yii::t('phrase', 'Perempuan'),
+			)); ?>
 			<?php echo $form->error($model,'gender'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
 
-	<div class="clearfix publish">
-		<?php echo $form->labelEx($model,'religion'); ?>
-		<div class="desc">
-			<?php echo $form->checkBox($model,'religion'); ?>
+	<?php if($setting->field_religion == 1) {?>
+		<div class="clearfix">
 			<?php echo $form->labelEx($model,'religion'); ?>
-			<?php echo $form->error($model,'religion'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+			<div class="desc">
+				<?php 
+				$religion = PsbReligions::getReligion(1);
+				if($religion != null)
+					echo $form->dropDownList($model,'religion', $religion, array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));
+				else
+					echo $form->dropDownList($model,'religion', array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));?>
+				<?php echo $form->error($model,'religion'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
 		</div>
-	</div>
+	<?php }?>
 
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'address'); ?>
@@ -161,6 +171,7 @@
 		</div>
 	</div>
 
+	<h3><?php echo Yii::t('phrase', 'Identitas Orang Tua / Wali');?></h3>
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'parent_name'); ?>
 		<div class="desc">
@@ -179,15 +190,21 @@
 		</div>
 	</div>
 
-	<div class="clearfix publish">
-		<?php echo $form->labelEx($model,'parent_religion'); ?>
-		<div class="desc">
-			<?php echo $form->checkBox($model,'parent_religion'); ?>
+	<?php if($setting->field_religion == 1) {?>
+		<div class="clearfix">
 			<?php echo $form->labelEx($model,'parent_religion'); ?>
-			<?php echo $form->error($model,'parent_religion'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+			<div class="desc">
+				<?php 
+				$religion = PsbReligions::getReligion(1);
+				if($religion != null)
+					echo $form->dropDownList($model,'parent_religion', $religion, array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));
+				else
+					echo $form->dropDownList($model,'parent_religion', array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));?>
+				<?php echo $form->error($model,'parent_religion'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
 		</div>
-	</div>
+	<?php }?>
 
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'parent_address'); ?>
@@ -207,52 +224,61 @@
 		</div>
 	</div>
 
-	<div class="clearfix">
-		<?php echo $form->labelEx($model,'wali_name'); ?>
-		<div class="desc">
-			<?php echo $form->textField($model,'wali_name',array('maxlength'=>32)); ?>
-			<?php echo $form->error($model,'wali_name'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+	<?php if($setting->field_wali == 1) {?>
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'wali_name'); ?>
+			<div class="desc">
+				<?php echo $form->textField($model,'wali_name',array('maxlength'=>32)); ?>
+				<?php echo $form->error($model,'wali_name'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
 		</div>
-	</div>
 
-	<div class="clearfix">
-		<?php echo $form->labelEx($model,'wali_work'); ?>
-		<div class="desc">
-			<?php echo $form->textField($model,'wali_work',array('maxlength'=>32)); ?>
-			<?php echo $form->error($model,'wali_work'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'wali_work'); ?>
+			<div class="desc">
+				<?php echo $form->textField($model,'wali_work',array('maxlength'=>32)); ?>
+				<?php echo $form->error($model,'wali_work'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
 		</div>
-	</div>
 
-	<div class="clearfix publish">
-		<?php echo $form->labelEx($model,'wali_religion'); ?>
-		<div class="desc">
-			<?php echo $form->checkBox($model,'wali_religion'); ?>
-			<?php echo $form->labelEx($model,'wali_religion'); ?>
-			<?php echo $form->error($model,'wali_religion'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+		<?php if($setting->field_religion == 1) {?>
+			<div class="clearfix">
+				<?php echo $form->labelEx($model,'wali_religion'); ?>
+				<div class="desc">
+					<?php 
+					$religion = PsbReligions::getReligion(1);
+					if($religion != null)
+						echo $form->dropDownList($model,'wali_religion', $religion, array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));
+					else
+						echo $form->dropDownList($model,'wali_religion', array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));?>
+					<?php echo $form->error($model,'wali_religion'); ?>
+					<?php /*<div class="small-px silent"></div>*/?>
+				</div>
+			</div>
+		<?php }?>
+
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'wali_address'); ?>
+			<div class="desc">
+				<?php echo $form->textArea($model,'wali_address',array('rows'=>6, 'cols'=>50)); ?>
+				<?php echo $form->error($model,'wali_address'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
 		</div>
-	</div>
 
-	<div class="clearfix">
-		<?php echo $form->labelEx($model,'wali_address'); ?>
-		<div class="desc">
-			<?php echo $form->textArea($model,'wali_address',array('rows'=>6, 'cols'=>50)); ?>
-			<?php echo $form->error($model,'wali_address'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'wali_phone'); ?>
+			<div class="desc">
+				<?php echo $form->textField($model,'wali_phone',array('maxlength'=>15)); ?>
+				<?php echo $form->error($model,'wali_phone'); ?>
+				<?php /*<div class="small-px silent"></div>*/?>
+			</div>
 		</div>
-	</div>
+	<?php }?>
 
-	<div class="clearfix">
-		<?php echo $form->labelEx($model,'wali_phone'); ?>
-		<div class="desc">
-			<?php echo $form->textField($model,'wali_phone',array('maxlength'=>15)); ?>
-			<?php echo $form->error($model,'wali_phone'); ?>
-			<?php /*<div class="small-px silent"></div>*/?>
-		</div>
-	</div>
-
+	<h3><?php echo Yii::t('phrase', 'Asal Sekolah');?></h3>
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'school_id'); ?>
 		<div class="desc">
@@ -262,6 +288,7 @@
 		</div>
 	</div>
 
+	<h3><?php echo Yii::t('phrase', 'Nilai Ujian Nasional / UASBN');?></h3>
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'school_un_rank'); ?>
 		<div class="desc">
