@@ -9,7 +9,7 @@
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 27 April 2016, 12:23 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contect (+62)856-299-4114
  *
  */
@@ -20,9 +20,19 @@
 	);
 ?>
 
+<?php //begin.Messages ?>
+<?php
+if(Yii::app()->user->hasFlash('success'))
+	echo Utility::flashSuccess(Yii::app()->user->getFlash('success'));
+?>
+<?php //end.Messages ?>
+
 <div class="form">
 	<?php echo $this->renderPartial('_form', array(
-		'model'=>$model,
+		'batch'=>$batch,
 		'setting'=>$setting,
+		'model'=>$model,
+		'school'=>$school,
+		'author'=>$author,
 	)); ?>
 </div>

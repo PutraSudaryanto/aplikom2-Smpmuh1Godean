@@ -342,7 +342,7 @@ class OmmuZoneCity extends CActiveRecord
 	 * Get city
 	 */
 	public static function getCity($province=null) {
-		if($province == null || $province == '') {
+		if($province == null || ($province != null && $province == '')) {
 			$model = self::model()->findAll();
 		} else {
 			$model = self::model()->findAll(array(

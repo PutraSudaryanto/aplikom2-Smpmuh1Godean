@@ -110,14 +110,34 @@ class ZoneprovinceController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionSuggest($id) 
+	public function actionSuggest($id=null) 
 	{
-		$model = OmmuZoneProvince::getProvince($id);
-		$message['data'] = '<option value="">'.Yii::t('phrase', 'Select one').'</option>';
-		foreach($model as $key => $val) {
-			$message['data'] .= '<option value="'.$key.'">'.$val.'</option>';
+		if($id == null) {
+			if(isset($_GET['term'])) {
+				$criteria = new CDbCriteria;
+				$criteria->condition = 'province LIKE :province';
+				$criteria->select	= "province_id, province";
+				$criteria->order = "province_id ASC";
+				$criteria->params = array(':province' => '%' . strtolower($_GET['term']) . '%');
+				$model = OmmuZoneProvince::model()->findAll($criteria);
+
+				if($model) {
+					foreach($model as $items) {
+						$result[] = array('id' => $items->province_id, 'value' => $items->province);
+					}
+				}
+			}
+			echo CJSON::encode($result);
+			Yii::app()->end();
+			
+		} else {
+			$model = OmmuZoneProvince::getProvince($id);
+			$message['data'] = '<option value="">'.Yii::t('phrase', 'Select one').'</option>';
+			foreach($model as $key => $val) {
+				$message['data'] .= '<option value="'.$key.'">'.$val.'</option>';
+			}
+			echo CJSON::encode($message);			
 		}
-		echo CJSON::encode($message);
 	}
 
 	/**

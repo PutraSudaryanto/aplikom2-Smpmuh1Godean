@@ -1,8 +1,11 @@
 <?php
 /**
- * PsbSchools * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * PsbSchools
+ * version: 0.0.1
+ *
+ * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -68,12 +71,12 @@ class PsbSchools extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('school_name', 'required', 'on'=>'schoolmaster, schoolmasterEdit'),
-			array('school_address, school_phone, school_status', 'required', 'on'=>'edit, schoolmasterEdit'),
+			array('school_name', 'required'),
+			array('school_address, school_phone, school_status', 'required', 'on'=>'masterEdit'),
 			array('publish, school_status', 'numerical', 'integerOnly'=>true),
 			array('school_name', 'length', 'max'=>64),
 			array('school_phone', 'length', 'max'=>15),
-			array('school_name, school_address, school_phone, school_status', 'safe'),
+			array('school_address, school_phone, school_status', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('school_id, publish, school_name, school_address, school_phone, school_status, creation_date, creation_id, modified_date, modified_id,
@@ -249,8 +252,8 @@ class PsbSchools extends CActiveRecord
 					'class' => 'center',
 				),
 				'filter'=>array(
-					1=>'Negeri',
-					0=>'Swasta',
+					1=>Yii::t('phrase', 'Negeri'),
+					0=>Yii::t('phrase', 'Swasta'),
 				),
 				'type' => 'raw',
 			);

@@ -110,14 +110,34 @@ class ZonedistrictController extends Controller
 	/**
 	 * Lists all models.
 	 */
-	public function actionSuggest($id) 
+	public function actionSuggest($id=null) 
 	{
-		$model = OmmuZoneDistricts::getDistrict($id);
-		$message['data'] = '<option value="">'.Yii::t('phrase', 'Select one').'</option>';
-		foreach($model as $key => $val) {
-			$message['data'] .= '<option value="'.$key.'">'.$val.'</option>';
+		if($id == null) {
+			if(isset($_GET['term'])) {
+				$criteria = new CDbCriteria;
+				$criteria->condition = 'district_name LIKE :district';
+				$criteria->select	= "district_id, district_name";
+				$criteria->order = "district_id ASC";
+				$criteria->params = array(':district' => '%' . strtolower($_GET['term']) . '%');
+				$model = OmmuZoneDistricts::model()->findAll($criteria);
+
+				if($model) {
+					foreach($model as $items) {
+						$result[] = array('id' => $items->district_id, 'value' => $items->district_name);
+					}
+				}
+			}
+			echo CJSON::encode($result);
+			Yii::app()->end();
+			
+		} else {
+			$model = OmmuZoneDistricts::getDistrict($id);
+			$message['data'] = '<option value="">'.Yii::t('phrase', 'Select one').'</option>';
+			foreach($model as $key => $val) {
+				$message['data'] .= '<option value="'.$key.'">'.$val.'</option>';
+			}
+			echo CJSON::encode($message);			
 		}
-		echo CJSON::encode($message);
 	}
 
 	/**

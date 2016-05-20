@@ -9,7 +9,7 @@
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 27 April 2016, 12:11 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contect (+62)856-299-4114
  *
  */
@@ -66,6 +66,15 @@
 		<div class="desc">
 			<?php echo $form->textArea($model,'meta_description',array('rows'=>6, 'cols'=>50, 'class'=>'span-7 smaller')); ?>
 			<?php echo $form->error($model,'meta_description'); ?>
+		</div>
+	</div>
+
+	<div class="clearfix publish">
+		<?php echo $form->labelEx($model,'form_online'); ?>
+		<div class="desc">
+			<?php echo $form->checkBox($model,'form_online'); ?>
+			<?php echo $form->error($model,'form_online'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
 

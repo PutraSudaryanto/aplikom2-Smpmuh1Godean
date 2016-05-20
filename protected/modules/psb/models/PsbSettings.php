@@ -6,7 +6,7 @@
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 27 April 2016, 12:00 WIB
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -28,6 +28,7 @@
  * @property integer $permission
  * @property string $meta_keyword
  * @property string $meta_description
+ * @property integer $form_online
  * @property integer $field_religion
  * @property integer $field_wali
  * @property string $modified_date
@@ -67,13 +68,13 @@ class PsbSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, license, permission, meta_keyword, meta_description, field_religion, field_wali, modified_date, modified_id', 'required'),
-			array('id, permission, field_religion, field_wali', 'numerical', 'integerOnly'=>true),
+			array('id, license, permission, meta_keyword, meta_description, form_online, field_religion, field_wali, modified_date, modified_id', 'required'),
+			array('id, permission, form_online, field_religion, field_wali', 'numerical', 'integerOnly'=>true),
 			array('license', 'length', 'max'=>32),
 			array('modified_id', 'length', 'max'=>11),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, license, permission, meta_keyword, meta_description, field_religion, field_wali, modified_date, modified_id,
+			array('id, license, permission, meta_keyword, meta_description, form_online, field_religion, field_wali, modified_date, modified_id,
 				modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -101,6 +102,7 @@ class PsbSettings extends CActiveRecord
 			'permission' => Yii::t('attribute', 'Permission'),
 			'meta_keyword' => Yii::t('attribute', 'Meta Keyword'),
 			'meta_description' => Yii::t('attribute', 'Meta Description'),
+			'form_online' => Yii::t('attribute', 'Form Online'),
 			'field_religion' => Yii::t('attribute', 'Field Religion'),
 			'field_wali' => Yii::t('attribute', 'Field Wali'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
@@ -113,6 +115,7 @@ class PsbSettings extends CActiveRecord
 			'Permission' => 'Permission',
 			'Meta Keyword' => 'Meta Keyword',
 			'Meta Description' => 'Meta Description',
+			'Form Online' => 'Form Online',
 			'Field Religion' => 'Field Religion',
 			'Field Wali' => 'Field Wali',
 			'Modified Date' => 'Modified Date',
@@ -144,6 +147,7 @@ class PsbSettings extends CActiveRecord
 		$criteria->compare('t.permission',$this->permission);
 		$criteria->compare('t.meta_keyword',strtolower($this->meta_keyword),true);
 		$criteria->compare('t.meta_description',strtolower($this->meta_description),true);
+		$criteria->compare('t.form_online',$this->form_online);
 		$criteria->compare('t.field_religion',$this->field_religion);
 		$criteria->compare('t.field_wali',$this->field_wali);
 		if($this->modified_date != null && !in_array($this->modified_date, array('0000-00-00 00:00:00', '0000-00-00')))
@@ -197,6 +201,7 @@ class PsbSettings extends CActiveRecord
 			$this->defaultColumns[] = 'permission';
 			$this->defaultColumns[] = 'meta_keyword';
 			$this->defaultColumns[] = 'meta_description';
+			$this->defaultColumns[] = 'form_online';
 			$this->defaultColumns[] = 'field_religion';
 			$this->defaultColumns[] = 'field_wali';
 			$this->defaultColumns[] = 'modified_date';
@@ -219,6 +224,7 @@ class PsbSettings extends CActiveRecord
 			$this->defaultColumns[] = 'permission';
 			$this->defaultColumns[] = 'meta_keyword';
 			$this->defaultColumns[] = 'meta_description';
+			$this->defaultColumns[] = 'form_online';
 			$this->defaultColumns[] = 'field_religion';
 			$this->defaultColumns[] = 'field_wali';
 			$this->defaultColumns[] = array(

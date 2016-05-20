@@ -2,8 +2,8 @@
 /**
  * SchoolController
  * @var $this SchoolController
- * @var $model PsbSchools * @var $form CActiveForm
- * Copyright (c) 2013, Ommu Platform (ommu.co). All rights reserved.
+ * @var $model PsbSchools
+ * @var $form CActiveForm
  * version: 0.0.1
  * Reference start
  *
@@ -21,7 +21,7 @@
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contect (+62)856-299-4114
  *
  *----------------------------------------------------------------------------------------------------------
@@ -149,7 +149,6 @@ class SchoolController extends Controller
 
 		if(isset($_POST['PsbSchools'])) {
 			$model->attributes=$_POST['PsbSchools'];
-			$model->scenario='schoolmaster';
 			
 			$jsonError = CActiveForm::validate($model);
 			if(strlen($jsonError) > 2) {
@@ -199,7 +198,7 @@ class SchoolController extends Controller
 
 		if(isset($_POST['PsbSchools'])) {
 			$model->attributes=$_POST['PsbSchools'];
-			$model->scenario='schoolmasterEdit';
+			$model->scenario='masterEdit';
 			
 			$jsonError = CActiveForm::validate($model);
 			if(strlen($jsonError) > 2) {

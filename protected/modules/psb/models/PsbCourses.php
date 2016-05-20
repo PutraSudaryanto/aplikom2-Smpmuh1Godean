@@ -1,8 +1,11 @@
 <?php
 /**
- * PsbCourses * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * PsbCourses
+ * version: 0.0.1
+ *
+ * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contact (+62)856-299-4114
  *
  * This is the template for generating the model class of a specified table.
@@ -21,6 +24,7 @@
  * The followings are the available columns in table 'ommu_psb_courses':
  * @property string $course_id
  * @property integer $publish
+ * @property integer $defaults
  * @property string $course_name
  * @property string $course_desc
  * @property string $creation_date
@@ -67,13 +71,13 @@ class PsbCourses extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('course_name', 'required'),
-			array('publish', 'numerical', 'integerOnly'=>true),
+			array('publish, defaults', 'numerical', 'integerOnly'=>true),
 			array('course_name', 'length', 'max'=>32),
 			array('creation_id', 'length', 'max'=>11),
 			array('course_desc', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('course_id, publish, course_name, course_desc, creation_date, creation_id, modified_date, modified_id,
+			array('course_id, publish, defaults, course_name, course_desc, creation_date, creation_id, modified_date, modified_id,
 				creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -101,6 +105,7 @@ class PsbCourses extends CActiveRecord
 		return array(
             'course_id' => Yii::t('attribute', 'Course'),
             'publish' => Yii::t('attribute', 'Publish'),
+            'defaults' => Yii::t('attribute', 'Default'),
             'course_name' => Yii::t('attribute', 'Course Name'),
             'course_desc' => Yii::t('attribute', 'Course Desc'),
             'creation_date' => Yii::t('attribute', 'Creation Date'),
@@ -113,6 +118,7 @@ class PsbCourses extends CActiveRecord
         /* 
             'Course' => 'Course',
             'Publish' => 'Publish',
+            'Default' => 'Default',
             'Course Name' => 'Course Name',
             'Course Desc' => 'Course Desc',
             'Creation Date' => 'Creation Date',
@@ -152,6 +158,7 @@ class PsbCourses extends CActiveRecord
 			$criteria->addInCondition('t.publish',array(0,1));
 			$criteria->compare('t.publish',$this->publish);
 		}
+		$criteria->compare('t.defaults',$this->defaults);
 		$criteria->compare('t.course_name',$this->course_name,true);
 		$criteria->compare('t.course_desc',$this->course_desc,true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
@@ -206,6 +213,7 @@ class PsbCourses extends CActiveRecord
 		} else {
 			//$this->defaultColumns[] = 'course_id';
 			$this->defaultColumns[] = 'publish';
+			$this->defaultColumns[] = 'defaults';
 			$this->defaultColumns[] = 'course_name';
 			$this->defaultColumns[] = 'course_desc';
 			$this->defaultColumns[] = 'creation_date';
@@ -271,6 +279,20 @@ class PsbCourses extends CActiveRecord
 			);
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
+					'name' => 'defaults',
+					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("default",array("id"=>$data->course_id)), $data->defaults, 1)',
+					'htmlOptions' => array(
+						'class' => 'center',
+					),
+					'filter'=>array(
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
+					),
+					'type' => 'raw',
+				);
+			}
+			if(!isset($_GET['type'])) {
+				$this->defaultColumns[] = array(
 					'name' => 'publish',
 					'value' => 'Utility::getPublish(Yii::app()->controller->createUrl("publish",array("id"=>$data->course_id)), $data->publish, 1)',
 					'htmlOptions' => array(
@@ -302,6 +324,30 @@ class PsbCourses extends CActiveRecord
 			$model = self::model()->findByPk($id);
 			return $model;			
 		}
+	}
+
+	/**
+	 * Get Years
+	 */
+	public static function getCourse($default=null, $type=null) 
+	{		
+		$criteria=new CDbCriteria;
+		if($default != null)
+			$criteria->compare('t.defaults',$default);
+		$model = self::model()->findAll($criteria);
+
+		if($type == null) {
+			$items = array();
+			if($model != null) {
+				foreach($model as $key => $val)
+					$items[$val->course_id] = $val->course_name;
+				return $items;
+				
+			} else
+				return false;
+			
+		} else
+			return $model;
 	}
 
 	/**

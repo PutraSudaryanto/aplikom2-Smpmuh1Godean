@@ -95,14 +95,9 @@ class AdminController extends /*SBaseController*/ Controller
 		if(!Yii::app()->user->isGuest) {
 			$this->redirect(Yii::app()->createUrl('admin/index'));
 
-		} else {				
-			if(isset($_GET['oauth'])) {
-				$model=new LoginFormOauth;
-				$modelForm = 'LoginFormOauth';
-			} else {
-				$model=new LoginFormAdmin;
-				$modelForm = 'LoginFormAdmin';
-			}
+		} else {
+			$model=new LoginFormAdmin;
+			$modelForm = 'LoginFormAdmin';
 			
 			// if it is ajax validation request
 			if(isset($_POST['ajax']) && $_POST['ajax']==='login-form') {

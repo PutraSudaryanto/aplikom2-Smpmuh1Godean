@@ -17,7 +17,7 @@
  *
  * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
  * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
- * @link http://company.ommu.co
+ * @link https://github.com/Ommu/Ommu-PSB
  * @contect (+62)856-299-4114
  *
  *----------------------------------------------------------------------------------------------------------
@@ -107,7 +107,7 @@ class SchoolController extends Controller
 
 			if($model) {
 				foreach($model as $items) {
-					$result[] = array('id' => $items->school_id, 'value' => ucwords($items->school_name));
+					$result[] = array('id' => $items->school_id, 'value' => $items->school_name);
 				}
 			}
 		}
@@ -124,10 +124,10 @@ class SchoolController extends Controller
 		if(isset($_POST['school_id'])) {
 			$model=$this->loadModel($_POST['school_id']);
 			echo CJSON::encode(array(
-				'publisher_input' => ucwords($model->school_name),
-				'publisher_id' => $model->publisher_id,
-				'publisher_id' => $model->publisher_id,
-				'publisher_id' => $model->publisher_id,
+				'school_name' => $model->school_name,
+				'school_address' => $model->school_address,
+				'school_phone' => $model->school_phone,
+				'school_status' => $model->school_status,
 			));
 		}
 	}

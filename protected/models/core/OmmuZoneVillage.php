@@ -307,6 +307,33 @@ class OmmuZoneVillage extends CActiveRecord
 	}
 
 	/**
+	 * Get city
+	 */
+	public static function getVillage($district=null) {
+		if($district == null || ($district != null && $district == '')) {
+			$model = self::model()->findAll();
+		} else {
+			$model = self::model()->findAll(array(
+				//'select' => 'publish, name',
+				'condition' => 'district_id = :district',
+				'params' => array(
+					':district' => $district,
+				),
+			));
+		}
+
+		$items = array();
+		if($model != null) {
+			foreach($model as $key => $val) {
+				$items[$val->village_id] = $val->village_name;
+			}
+			return $items;
+		} else {
+			return false;
+		}
+	}
+
+	/**
 	 * User get information
 	 */
 	public static function getInfo($id, $column=null)
