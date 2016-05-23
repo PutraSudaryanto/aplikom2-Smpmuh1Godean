@@ -65,6 +65,8 @@ class PsbRegisters extends CActiveRecord
 	public $back_field;
 	
 	// Variable Search
+	public $birth_city_search;
+	public $school_search;
 	public $creation_search;
 
 	/**
@@ -108,7 +110,7 @@ class PsbRegisters extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('register_id, author_id, status, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, creation_date, creation_id,
-				creation_search', 'safe', 'on'=>'search'),
+				birth_city_search, school_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -126,7 +128,7 @@ class PsbRegisters extends CActiveRecord
 			'religion' => array(self::BELONGS_TO, 'PsbReligions', 'religion'),
 			'parent_religion' => array(self::BELONGS_TO, 'PsbReligions', 'parent_religion'),
 			'wali_religion' => array(self::BELONGS_TO, 'PsbReligions', 'wali_religion'),
-			'school_relation' => array(self::BELONGS_TO, 'PsbSchools', 'school_id'),
+			'school' => array(self::BELONGS_TO, 'PsbSchools', 'school_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 		);
 	}
@@ -168,6 +170,8 @@ class PsbRegisters extends CActiveRecord
 			'birthcity_field' => Yii::t('attribute', 'Birth City'),
 			'back_field' => Yii::t('attribute', 'Back to Manage'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
+			'birth_city_search' => Yii::t('attribute', 'Birth City'),
+			'school_search' => Yii::t('attribute', 'School'),
 		);
 		/*
 			'Register' => 'Register',
@@ -272,11 +276,21 @@ class PsbRegisters extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'city_relation' => array(
+				'alias'=>'city_relation',
+				'select'=>'city'
+			),
+			'school' => array(
+				'alias'=>'school',
+				'select'=>'school_name'
+			),
 			'creation' => array(
 				'alias'=>'creation',
 				'select'=>'displayname'
 			),
 		);
+		$criteria->compare('city_relation.city',strtolower($this->birth_city_search), true);
+		$criteria->compare('school.school_name',strtolower($this->school_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
 
 		if(!isset($_GET['PsbRegisters_sort']))
@@ -361,7 +375,10 @@ class PsbRegisters extends CActiveRecord
 			$this->defaultColumns[] = 'batch_id';
 			$this->defaultColumns[] = 'register_name';
 			$this->defaultColumns[] = 'nisn';
-			$this->defaultColumns[] = 'birth_city';
+			$this->defaultColumns[] = array(
+				'name' => 'birth_city_search',
+				'value' => '$data->city_relation->city',
+			);
 			$this->defaultColumns[] = array(
 				'name' => 'birth_date',
 				'value' => 'Utility::dateFormat($data->birth_date)',
@@ -388,10 +405,24 @@ class PsbRegisters extends CActiveRecord
 					),
 				), true),
 			);
-			$this->defaultColumns[] = 'gender';
+			$this->defaultColumns[] = array(
+				'name' => 'gender',
+				'value' => '$data->gender == "male" ? Yii::t("phrase", "Laki-laki") : Yii::t("phrase", "Perempuan")',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+				'filter'=>array(
+					'male'=>Yii::t('phrase', 'Laki-laki'),
+					'female'=>Yii::t('phrase', 'Perempuan'),
+				),
+				'type' => 'raw',
+			);
 			$this->defaultColumns[] = 'parent_name';
-			$this->defaultColumns[] = 'school_id';
-			$this->defaultColumns[] = 'school_un_rank';
+			$this->defaultColumns[] = array(
+				'name' => 'school_search',
+				'value' => '$data->school->school_name',
+			);		
+			/*
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
 				'value' => '$data->creation_id != 0 ? $data->creation->displayname : "-"',
@@ -422,6 +453,7 @@ class PsbRegisters extends CActiveRecord
 					),
 				), true),
 			);
+			*/
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'status',
