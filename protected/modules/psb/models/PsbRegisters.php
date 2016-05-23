@@ -59,6 +59,7 @@
 class PsbRegisters extends CActiveRecord
 {
 	public $defaultColumns = array();
+	public $batch_field;
 	public $birthcity_field;
 	public $school_id_old;
 	public $school_name_old;
@@ -97,7 +98,7 @@ class PsbRegisters extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('nisn, batch_id, register_name, birth_date, gender, address, parent_name, parent_work, parent_address, parent_phone,
-				birthcity_field, back_field', 'required'),
+				batch_field, birthcity_field, back_field', 'required'),
 			array('status, religion, parent_religion, wali_religion,
 				back_field', 'numerical', 'integerOnly'=>true),
 			array('author_id, batch_id, birth_city, school_id, creation_id', 'length', 'max'=>11),
@@ -106,7 +107,7 @@ class PsbRegisters extends CActiveRecord
 			array('gender', 'length', 'max'=>6),
 			array('address_phone, address_yogya_phone, parent_phone, wali_phone', 'length', 'max'=>15),
 			array('author_id, birth_city, religion, address_phone, address_yogya, address_yogya_phone, parent_religion, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id,
-				school_id_old, school_name_old', 'safe'),
+				batch_field, school_id_old, school_name_old', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('register_id, author_id, status, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, creation_date, creation_id,
@@ -172,6 +173,7 @@ class PsbRegisters extends CActiveRecord
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'birth_city_search' => Yii::t('attribute', 'Birth City'),
 			'school_search' => Yii::t('attribute', 'School'),
+			'batch_field' => Yii::t('attribute', 'Batch Detected'),
 		);
 		/*
 			'Register' => 'Register',

@@ -13,6 +13,19 @@
  * @contect (+62)856-299-4114
  *
  */
+
+	$cs = Yii::app()->getClientScript();
+$js=<<<EOP
+	$('#PsbRegisters_batch_field').live('change', function() {
+		var id = $(this).prop('checked');		
+		if(id == true) {
+			$('div#batch').slideUp();
+		} else {
+			$('div#batch').slideDown();
+		}
+	});
+EOP;
+	$cs->registerScript('batch', $js, CClientScript::POS_END);
 ?>
 
 <?php $form=$this->beginWidget('application.components.system.OActiveForm', array(
@@ -29,7 +42,7 @@
 
 <fieldset>
 
-	<?php if(!$model->isNewRecord ) {?>
+	<?php if(!$model->isNewRecord) {?>
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'status'); ?>
 		<div class="desc">
@@ -39,11 +52,32 @@
 		</div>
 	</div>
 	<?php }?>
-
+	
+	<?php if($model->isNewRecord) {
+		$model->batch_field = 1;
+		if($batch != null) {
+			$batch_name = '<em><strong>'.$batch->batch_name.' '.$batch->year->years.'</strong></em>';
+			$model->batch_id = $batch->batch_id;
+		} else
+			$model->batch_field = 0;?>
 	<div class="clearfix">
+		<?php echo $form->labelEx($model,'batch_field'); ?>
+		<div class="desc">
+			<?php echo $form->checkBox($model,'batch_field'); ?> <?php echo $batch != null ? $batch_name : '';?>
+			<?php echo $form->error($model,'batch_field'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+	<?php }?>
+	
+	<div id="batch" class="clearfix <?php echo $model->isNewRecord && $model->batch_field == 1 ? 'hide' : ''?>">
 		<?php echo $form->labelEx($model,'batch_id'); ?>
 		<div class="desc">
-			<?php echo $form->textField($model,'batch_id',array('maxlength'=>11)); ?>
+			<?php $getBatch = PsbYearBatch::getBatch(1);
+			if($getBatch != null)
+				echo $form->dropDownList($model,'batch_id', $getBatch, array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));
+			else
+				echo $form->dropDownList($model,'batch_id', array('prompt'=>Yii::t('phrase', 'Pilih salah satu')));?>
 			<?php echo $form->error($model,'batch_id'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>

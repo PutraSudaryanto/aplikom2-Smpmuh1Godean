@@ -146,6 +146,7 @@ class AdminController extends Controller
 	{
 		$criteria=new CDbCriteria;
 		$criteria->condition = 'curdate() BETWEEN `batch_start` AND `batch_finish`';
+		$criteria->compare('publish',1);
 		$batch = PsbYearBatch::model()->find($criteria);
 		
 		$setting = PsbSettings::model()->findByPk(1,array(

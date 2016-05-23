@@ -415,6 +415,31 @@ class PsbYearBatch extends CActiveRecord
 	}
 
 	/**
+	 * Get Years
+	 */
+	public static function getBatch($publish=null, $type=null) 
+	{		
+		$criteria=new CDbCriteria;
+		if($publish != null)
+			$criteria->compare('t.publish',$publish);
+		$criteria->order = 'year_id ASC, batch_start ASC';
+		$model = self::model()->findAll($criteria);
+
+		if($type == null) {
+			$items = array();
+			if($model != null) {
+				foreach($model as $key => $val)
+					$items[$val->batch_id] = $val->batch_name.' '.$val->year->years;
+				return $items;
+				
+			} else
+				return false;
+			
+		} else
+			return $model;
+	}
+
+	/**
 	 * before validate attributes
 	 */
 	protected function beforeValidate() {
@@ -438,7 +463,6 @@ class PsbYearBatch extends CActiveRecord
 	 */
 	protected function beforeSave() {
 		if(parent::beforeSave()) {
-			$this->batch_name = strtolower($this->batch_name);
 			$this->batch_start = date('Y-m-d', strtotime($this->batch_start));
 			$this->batch_finish = date('Y-m-d', strtotime($this->batch_finish));
 		}
