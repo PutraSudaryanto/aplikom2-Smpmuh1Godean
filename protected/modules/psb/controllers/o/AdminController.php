@@ -144,10 +144,14 @@ class AdminController extends Controller
 	 */
 	public function actionAdd() 
 	{
-		$criteria=new CDbCriteria;
-		$criteria->condition = 'curdate() BETWEEN `batch_start` AND `batch_finish`';
-		$criteria->compare('publish',1);
-		$batch = PsbYearBatch::model()->find($criteria);
+		if(isset($_GET['batch']))
+			$batch = PsbYearBatch::model()->findByPk($_GET['batch']);
+		else {
+			$criteria=new CDbCriteria;
+			$criteria->condition = 'curdate() BETWEEN `batch_start` AND `batch_finish`';
+			$criteria->compare('publish',1);
+			$batch = PsbYearBatch::model()->find($criteria);
+		}
 		
 		$setting = PsbSettings::model()->findByPk(1,array(
 			'select' => 'form_online, field_religion, field_wali',
@@ -258,6 +262,7 @@ class AdminController extends Controller
 		));
 		
 		$model=$this->loadModel($id);
+		$batch = PsbYearBatch::model()->findByPk($model->batch_id);
 		$school=PsbSchools::model()->findByPk($model->school_id);		
 		if($setting->form_online == 1) {
 			$author=OmmuAuthors::model()->findByPk($model->author_id);
@@ -334,6 +339,7 @@ class AdminController extends Controller
 		$this->render('admin_edit',array(
 			'setting'=>$setting,
 			'model'=>$model,
+			'batch'=>$batch,
 			'school'=>$school,
 			'author'=>$setting->form_online == 1 ? $author : 0,
 		));

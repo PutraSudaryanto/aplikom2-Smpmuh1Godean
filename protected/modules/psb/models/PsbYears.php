@@ -96,6 +96,10 @@ class PsbYears extends CActiveRecord
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 			'modified' => array(self::BELONGS_TO, 'Users', 'modified_id'),
 			'view' => array(self::BELONGS_TO, 'ViewPsbYears', 'year_id'),
+			'batchs' => array(self::HAS_MANY, 'PsbYearBatch', 'year_id'),
+			'batch_publish' => array(self::HAS_MANY, 'PsbYearBatch', 'year_id', 'on'=>'batch_publish.publish = 1'),
+			'batch_unpublish' => array(self::HAS_MANY, 'PsbYearBatch', 'year_id', 'on'=>'batch_unpublish.publish = 0'),
+			'courses' => array(self::HAS_MANY, 'PsbYearCourse', 'year_id'),
 		);
 	}
 

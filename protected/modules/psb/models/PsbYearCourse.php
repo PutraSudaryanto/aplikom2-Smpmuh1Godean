@@ -89,7 +89,7 @@ class PsbYearCourse extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'year_relation' => array(self::BELONGS_TO, 'PsbYears', 'year_id'),
-			'course_relation' => array(self::BELONGS_TO, 'PsbCourses', 'course_id'),
+			'course' => array(self::BELONGS_TO, 'PsbCourses', 'course_id'),
 			'creation_relation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 		);
 	}
@@ -151,8 +151,8 @@ class PsbYearCourse extends CActiveRecord
 				'alias'=>'year_relation',
 				'select'=>'years'
 			),
-			'course_relation' => array(
-				'alias'=>'course_relation',
+			'course' => array(
+				'alias'=>'course',
 				'select'=>'course_name'
 			),
 			'creation_relation' => array(
@@ -161,7 +161,7 @@ class PsbYearCourse extends CActiveRecord
 			),
 		);
 		$criteria->compare('year_relation.years',strtolower($this->year_search), true);
-		$criteria->compare('course_relation.course_name',strtolower($this->course_search), true);
+		$criteria->compare('course.course_name',strtolower($this->course_search), true);
 		$criteria->compare('creation_relation.displayname',strtolower($this->creation_search), true);
 
 		if(!isset($_GET['PsbYearCourse_sort']))
@@ -217,7 +217,7 @@ class PsbYearCourse extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'course_search',
-				'value' => '$data->course_relation->course_name',
+				'value' => '$data->course->course_name',
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',

@@ -154,7 +154,7 @@ class YearcourseController extends Controller
 				else 
 					$url = Yii::app()->controller->createUrl('delete',array('id'=>$model->id));
 				echo CJSON::encode(array(
-					'data' => '<div>'.ucwords($model->course_relation->course_name).'<a href="'.$url.'" title="'.Yii::t('phrase', 'Delete').'">'.Yii::t('phrase', 'Delete').'</a></div>',
+					'data' => '<div>'.$model->course->course_name.'<a href="'.$url.'" title="'.Yii::t('phrase', 'Delete').'">'.Yii::t('phrase', 'Delete').'</a></div>',
 				));
 			}
 		}

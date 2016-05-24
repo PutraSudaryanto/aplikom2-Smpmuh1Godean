@@ -16,13 +16,21 @@
 
 	$cs = Yii::app()->getClientScript();
 $js=<<<EOP
-	$('#PsbRegisters_batch_field').live('change', function() {
+	$('#PsbRegisters_batch_field').on('change', function() {
 		var id = $(this).prop('checked');		
 		if(id == true) {
 			$('div#batch').slideUp();
 		} else {
 			$('div#batch').slideDown();
 		}
+	});
+	$('#PsbRegisters_batch_id').bind('change', function() {
+		var url = $(this).parents('form').attr('action');
+		var id = $(this).val();
+		if(id != '')
+			location.href = url+'/batch/'+id;
+		else
+			location.href = url;
 	});
 EOP;
 	$cs->registerScript('batch', $js, CClientScript::POS_END);
@@ -402,14 +410,36 @@ EOP;
 	</div>
 
 	<h3><?php echo Yii::t('phrase', 'Nilai Ujian Nasional / UASBN');?></h3>
+	<?php if($batch != null) {?>
 	<div class="clearfix">
-		<?php echo $form->labelEx($model,'school_un_rank'); ?>
+		<?php echo $form->labelEx($model,'school_un_detail'); ?>
 		<div class="desc">
-			<?php echo $form->textArea($model,'school_un_rank',array('rows'=>6, 'cols'=>50, 'class'=>'span-8 smaller')); ?>
-			<?php echo $form->error($model,'school_un_rank'); ?>
+			<?php //echo $form->textArea($model,'school_un_detail',array('rows'=>6, 'cols'=>50, 'class'=>'span-8 smaller'));?>
+			<table>
+			<?php 
+			$valuation = $batch->batch_valuation == 1 ? 1 : 3;
+			$courses = $batch->year->courses;
+			$model->school_un_detail = unserialize($model->school_un_detail);
+			if($courses != '') {?>
+				<tr>
+					<?php foreach($courses as $key => $val) {?>
+						<td><?php echo $val->course->course_name;?></td>
+					<?php }?>
+				</tr>
+				<?php for($i = 0; $i<$valuation; $i++) {?>
+					<tr>
+						<?php foreach($courses as $key => $val) {?>
+							<td><?php echo $form->textField($model,"school_un_detail[$i][$val->course_id]");?></td>
+						<?php }?>
+					</tr>
+				<?php }
+			}?>
+			</table>
+			<?php echo $form->error($model,'school_un_detail'); ?>
 			<?php /*<div class="small-px silent"></div>*/?>
 		</div>
 	</div>
+	<?php }?>
 	
 	<?php if($setting->form_online == 1) {?>
 		<h3><?php echo Yii::t('phrase', 'Author');?></h3>		

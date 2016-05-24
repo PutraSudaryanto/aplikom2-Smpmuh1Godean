@@ -105,7 +105,7 @@ class CourseController extends Controller
 
 			if($model) {
 				foreach($model as $items) {
-					$result[] = array('id' => $items->course_id, 'value' => ucwords($items->course_name));
+					$result[] = array('id' => $items->course_id, 'value' => $items->course_name);
 				}
 			} else {
 				$result[] = array('id' => 0, 'value' => $_GET['term']);

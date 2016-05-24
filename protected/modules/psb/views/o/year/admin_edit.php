@@ -80,7 +80,7 @@
 					<div id="course-suggest" class="suggest clearfix">
 						<?php if($course != null) {
 							foreach($course as $key => $val) {?>
-								<div><?php echo ucwords($val->course_relation->course_name);?><a href="<?php echo Yii::app()->controller->createUrl('o/yearcourse/delete',array('id'=>$val->id,'type'=>'year'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
+								<div><?php echo $val->course->course_name;?><a href="<?php echo Yii::app()->controller->createUrl('o/yearcourse/delete',array('id'=>$val->id,'type'=>'year'));?>" title="<?php echo Yii::t('phrase', 'Delete');?>"><?php echo Yii::t('phrase', 'Delete');?></a></div>
 						<?php }
 						} ?>
 					</div>

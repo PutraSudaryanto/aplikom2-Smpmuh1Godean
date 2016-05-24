@@ -32,7 +32,7 @@
 			<?php echo $form->labelEx($model,'school_name'); ?>
 			<div class="desc">
 				<?php
-				$model->school_name = ucwords($model->school_name);
+				$model->school_name = $model->school_name;
 				echo $form->textField($model,'school_name',array('maxlength'=>64, 'class'=>'span-8')); ?>
 				<?php echo $form->error($model,'school_name'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
