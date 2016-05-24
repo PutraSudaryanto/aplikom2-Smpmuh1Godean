@@ -64,6 +64,7 @@ class PsbRegisters extends CActiveRecord
 	public $birthcity_field;
 	public $school_id_old;
 	public $school_name_old;
+	public $school_un_average;
 	public $back_field;
 	
 	// Variable Search
@@ -114,7 +115,7 @@ class PsbRegisters extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('register_id, author_id, status, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, school_un_detail, creation_date, creation_id,
-				year_search, batch_search, birth_city_search, school_search, creation_search', 'safe', 'on'=>'search'),
+				year_search, batch_search, birth_city_search, school_search, school_un_average, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -180,6 +181,7 @@ class PsbRegisters extends CActiveRecord
 			'batch_field' => Yii::t('attribute', 'Batch Detected'),
 			'year_search' => Yii::t('attribute', 'Year'),
 			'batch_search' => Yii::t('attribute', 'Batch'),
+			'school_un_average' => Yii::t('attribute', 'School Un Average'),
 		);
 		/*
 			'Register' => 'Register',
@@ -280,7 +282,8 @@ class PsbRegisters extends CActiveRecord
 		if(isset($_GET['creation']))
 			$criteria->compare('t.creation_id',$_GET['creation']);
 		else
-			$criteria->compare('t.creation_id',$this->creation_id);
+			$criteria->compare('t.creation_id',$this->creation_id);	
+		$criteria->compare('t.school_un_average',$this->school_un_average);
 		
 		// Custom Search
 		$criteria->with = array(
@@ -450,7 +453,15 @@ class PsbRegisters extends CActiveRecord
 			$this->defaultColumns[] = array(
 				'name' => 'school_search',
 				'value' => '$data->school->school_name',
-			);		
+			);
+			$this->defaultColumns[] = array(
+				'header' => Yii::t('phrase', 'Average'),
+				'name' => 'school_un_average',
+				'value' => '$data->school_un_average',
+				'htmlOptions' => array(
+					'class' => 'center',
+				),
+			);
 			/*
 			$this->defaultColumns[] = array(
 				'name' => 'creation_search',
@@ -535,11 +546,33 @@ class PsbRegisters extends CActiveRecord
 			$return[$key] = number_format($val/3, 2);
 		}
 		
+		/*
 		$returnAttr = array_map(function($val, $key) {
 			return $key.'='.$val;
 		}, array_values($return), array_keys($return));
+		*/
 		
-		return implode(',', $returnAttr);
+		//return implode(',', $returnAttr);
+		return $return;
+	}
+
+	/**
+	 * User get information
+	 */
+	public static function getUNAverage($data)
+	{
+		$count = count($data);
+		$total = 0;
+		foreach($data as $key => $val)
+			$total = $total + $val;
+		$return = $total/$count;
+		
+		return $return;
+	}
+	
+	protected function afterFind() {
+		$this->school_un_average = $this->school_un_rank != '' ? self::getUNAverage(unserialize($this->school_un_rank)) : 0;
+		parent::afterFind();		
 	}
 
 	/**
@@ -558,7 +591,7 @@ class PsbRegisters extends CActiveRecord
 	protected function beforeSave() {
 		if(parent::beforeSave()) {	
 			$this->birth_date = date('Y-m-d', strtotime($this->birth_date));
-			$this->school_un_rank = self::getUNRank($this->school_un_detail);
+			$this->school_un_rank = serialize(self::getUNRank($this->school_un_detail));
 			$this->school_un_detail = serialize($this->school_un_detail);
 		}
 		return true;

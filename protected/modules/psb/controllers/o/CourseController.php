@@ -128,7 +128,7 @@ class CourseController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = 'Psb Courses Manage';
+		$this->pageTitle = Yii::t('phrase', 'Psb Courses Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -162,7 +162,7 @@ class CourseController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-courses',
-							'msg' => '<div class="errorSummary success"><strong>PsbCourses success created.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbCourses success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -176,7 +176,7 @@ class CourseController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 			
-			$this->pageTitle = 'Create Psb Courses';
+			$this->pageTitle = Yii::t('phrase', 'Create Psb Courses');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -211,7 +211,7 @@ class CourseController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-courses',
-							'msg' => '<div class="errorSummary success"><strong>PsbCourses success updated.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbCourses success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -225,7 +225,7 @@ class CourseController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 			
-			$this->pageTitle = 'Update Psb Courses';
+			$this->pageTitle = Yii::t('phrase', 'Update Psb Courses');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_edit',array(
@@ -287,7 +287,7 @@ class CourseController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-courses',
-						'msg' => '<div class="errorSummary success"><strong>PsbCourses success deleted.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbCourses success deleted.').'</strong></div>',
 					));
 				}
 			}
@@ -297,7 +297,7 @@ class CourseController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = 'PsbCourses Delete.';
+			$this->pageTitle = Yii::t('phrase', 'PsbCourses Delete.');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -332,7 +332,7 @@ class CourseController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-courses',
-						'msg' => '<div class="errorSummary success"><strong>PsbCourses success updated.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbCourses success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -380,7 +380,7 @@ class CourseController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-courses',
-						'msg' => '<div class="errorSummary success"><strong>PsbCourses success updated.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbCourses success updated.').'</strong></div>',
 					));
 				}
 			}

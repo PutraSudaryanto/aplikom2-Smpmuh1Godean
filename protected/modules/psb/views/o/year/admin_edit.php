@@ -101,7 +101,7 @@
 
 <div class="contentmenu clearfix">
 <ul class="left clearfix">
-	<li><a href="<?php echo Yii::app()->controller->createUrl('o/batch/add',array('id'=>$model->year_id,'type'=>'year'));?>" title="Tambah Gelombang"><span class="icons">C</span>Tambah Gelombang</a></li>
+	<li><a href="<?php echo Yii::app()->controller->createUrl('o/batch/add',array('id'=>$model->year_id,'type'=>'year'));?>" title="<?php echo Yii::t('phrase', 'Tambah Gelombang');?>"><span class="icons">C</span><?php echo Yii::t('phrase', 'Tambah Gelombang');?></a></li>
 </ul>
 </div>
 

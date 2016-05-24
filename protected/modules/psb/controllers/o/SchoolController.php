@@ -127,7 +127,7 @@ class SchoolController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = 'Psb Schools Manage';
+		$this->pageTitle = Yii::t('phrase', 'Psb Schools Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -161,7 +161,7 @@ class SchoolController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-schools',
-							'msg' => '<div class="errorSummary success"><strong>PsbSchools success created.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbSchools success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -175,7 +175,7 @@ class SchoolController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 			
-			$this->pageTitle = 'Create Psb Schools';
+			$this->pageTitle = Yii::t('phrase', 'Create Psb Schools');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -211,7 +211,7 @@ class SchoolController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-schools',
-							'msg' => '<div class="errorSummary success"><strong>PsbSchools success updated.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbSchools success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -225,7 +225,7 @@ class SchoolController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 			
-			$this->pageTitle = 'Update Psb Schools';
+			$this->pageTitle = Yii::t('phrase', 'Update Psb Schools');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_edit',array(
@@ -287,7 +287,7 @@ class SchoolController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-schools',
-						'msg' => '<div class="errorSummary success"><strong>PsbSchools success deleted.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbSchools success deleted.').'</strong></div>',
 					));
 				}
 			}
@@ -297,7 +297,7 @@ class SchoolController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = 'PsbSchools Delete.';
+			$this->pageTitle = Yii::t('phrase', 'PsbSchools Delete.');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -332,7 +332,7 @@ class SchoolController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-schools',
-						'msg' => '<div class="errorSummary success"><strong>PsbSchools success updated.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbSchools success updated.').'</strong></div>',
 					));
 				}
 			}

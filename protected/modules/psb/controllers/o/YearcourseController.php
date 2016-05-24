@@ -123,7 +123,7 @@ class YearcourseController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = 'Psb Year Courses Manage';
+		$this->pageTitle = Yii::t('phrase', 'Psb Year Courses Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('/o/year_course/admin_manage',array(
@@ -182,7 +182,7 @@ class YearcourseController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-year-course',
-							'msg' => '<div class="errorSummary success"><strong>PsbYearCourse success deleted.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYearCourse success deleted.').'</strong></div>',
 						));
 					}
 				}
@@ -193,7 +193,7 @@ class YearcourseController extends Controller
 			$this->dialogGroundUrl = (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = 'PsbYearCourse Delete.';
+			$this->pageTitle = Yii::t('phrase', 'PsbYearCourse Delete.');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('/o/year_course/admin_delete');

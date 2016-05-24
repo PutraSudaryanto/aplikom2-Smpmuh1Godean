@@ -100,15 +100,15 @@ class PsbYearCourse extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'year_id' => 'Year',
-			'course_id' => 'Course',
-			'creation_date' => 'Creation Date',
-			'creation_id' => 'Creation',
-			'body' => 'Course Name',
-			'year_search' => 'Year',
-			'course_search' => 'Course',
-			'creation_search' => 'Creation',
+			'id' => Yii::t('attribute', 'ID'),
+			'year_id' => Yii::t('attribute', 'Year'),
+			'course_id' => Yii::t('attribute', 'Course'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'body' => Yii::t('attribute', 'Course Name'),
+			'year_search' => Yii::t('attribute', 'Year'),
+			'course_search' => Yii::t('attribute', 'Course'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
 		);
 	}
 

@@ -127,7 +127,7 @@ class BatchController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = 'Psb Year Batches Manage';
+		$this->pageTitle = Yii::t('phrase', 'Psb Year Batches Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -161,7 +161,7 @@ class BatchController extends Controller
 							'type' => 5,
 							'get' => (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-year-batch',
-							'msg' => '<div class="errorSummary success"><strong>PsbYearBatch success created.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYearBatch success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -175,7 +175,7 @@ class BatchController extends Controller
 		$this->dialogGroundUrl = (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$_GET['id'])) : Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = 'Create Psb Year Batches';
+		$this->pageTitle = Yii::t('phrase', 'Create Psb Year Batches');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_add',array(
@@ -209,7 +209,7 @@ class BatchController extends Controller
 							'type' => 5,
 							'get' => (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-year-batch',
-							'msg' => '<div class="errorSummary success"><strong>PsbYearBatch success updated.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYearBatch success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -223,7 +223,7 @@ class BatchController extends Controller
 		$this->dialogGroundUrl = (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 
-		$this->pageTitle = 'Update Psb Year Batches';
+		$this->pageTitle = Yii::t('phrase', 'Update Psb Year Batches');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_edit',array(
@@ -284,7 +284,7 @@ class BatchController extends Controller
 						'type' => 5,
 						'get' => (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-year-batch',
-						'msg' => '<div class="errorSummary success"><strong>PsbYearBatch success deleted.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYearBatch success deleted.').'</strong></div>',
 					));
 				}
 			}
@@ -294,7 +294,7 @@ class BatchController extends Controller
 			$this->dialogGroundUrl = (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = 'PsbYearBatch Delete.';
+			$this->pageTitle = Yii::t('phrase', 'PsbYearBatch Delete.');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -329,7 +329,7 @@ class BatchController extends Controller
 						'type' => 5,
 						'get' => (isset($_GET['type']) && $_GET['type'] == 'year') ? Yii::app()->controller->createUrl('o/year/edit', array('id'=>$model->year_id)) : Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-year-batch',
-						'msg' => '<div class="errorSummary success"><strong>PsbYearBatch success updated.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYearBatch success updated.').'</strong></div>',
 					));
 				}
 			}

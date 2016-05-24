@@ -127,7 +127,7 @@ class YearController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = 'Psb Years Manage';
+		$this->pageTitle = Yii::t('phrase', 'Psb Years Manage');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -161,7 +161,7 @@ class YearController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('edit', array('id'=>$model->year_id)),
 							'id' => 'partial-psb-years',
-							'msg' => '<div class="errorSummary success"><strong>PsbYears success created.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYears success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -175,7 +175,7 @@ class YearController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 
-			$this->pageTitle = 'Create Psb Years';
+			$this->pageTitle = Yii::t('phrase', 'Create Psb Years');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -232,7 +232,7 @@ class YearController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-psb-years',
-							'msg' => '<div class="errorSummary success"><strong>PsbYears success updated.</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYears success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -242,7 +242,7 @@ class YearController extends Controller
 			Yii::app()->end();
 			
 		} else {
-			$this->pageTitle = 'Update Psb Years';
+			$this->pageTitle = Yii::t('phrase', 'Update Psb Years');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_edit',array(
@@ -308,7 +308,7 @@ class YearController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-years',
-						'msg' => '<div class="errorSummary success"><strong>PsbYears success deleted.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYears success deleted.').'</strong></div>',
 					));
 				}
 			}
@@ -318,7 +318,7 @@ class YearController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = 'PsbYears Delete.';
+			$this->pageTitle = Yii::t('phrase', 'PsbYears Delete.');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -353,7 +353,7 @@ class YearController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-psb-years',
-						'msg' => '<div class="errorSummary success"><strong>PsbYears success updated.</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'PsbYears success updated.').'</strong></div>',
 					));
 				}
 			}
