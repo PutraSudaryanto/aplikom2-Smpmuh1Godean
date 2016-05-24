@@ -67,6 +67,8 @@ class PsbRegisters extends CActiveRecord
 	public $back_field;
 	
 	// Variable Search
+	public $year_search;
+	public $batch_search;
 	public $birth_city_search;
 	public $school_search;
 	public $creation_search;
@@ -112,7 +114,7 @@ class PsbRegisters extends CActiveRecord
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
 			array('register_id, author_id, status, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, school_un_detail, creation_date, creation_id,
-				birth_city_search, school_search, creation_search', 'safe', 'on'=>'search'),
+				year_search, batch_search, birth_city_search, school_search, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -176,6 +178,8 @@ class PsbRegisters extends CActiveRecord
 			'birth_city_search' => Yii::t('attribute', 'Birth City'),
 			'school_search' => Yii::t('attribute', 'School'),
 			'batch_field' => Yii::t('attribute', 'Batch Detected'),
+			'year_search' => Yii::t('attribute', 'Year'),
+			'batch_search' => Yii::t('attribute', 'Batch'),
 		);
 		/*
 			'Register' => 'Register',
@@ -228,7 +232,6 @@ class PsbRegisters extends CActiveRecord
 		// @todo Please modify the following code to remove attributes that should not be searched.
 
 		$criteria=new CDbCriteria;
-
 		$criteria->compare('t.register_id',strtolower($this->register_id),true);
 		$criteria->compare('t.author_id',strtolower($this->author_id),true);
 		$criteria->compare('t.status',$this->status);
@@ -236,7 +239,7 @@ class PsbRegisters extends CActiveRecord
 		if(isset($_GET['batch']))
 			$criteria->compare('t.batch_id',$_GET['batch']);
 		else
-			$criteria->compare('t.batch_id',$this->batch_id);
+			$criteria->compare('t.batch_id',$this->batch_id);		
 		$criteria->compare('t.register_name',strtolower($this->register_name),true);
 		$criteria->compare('t.birth_city',strtolower($this->birth_city),true);
 		if($this->birth_date != null && !in_array($this->birth_date, array('0000-00-00 00:00:00', '0000-00-00')))
@@ -281,6 +284,10 @@ class PsbRegisters extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
+			'batch_relation' => array(
+				'alias'=>'batch_relation',
+				'select'=>'year_id, batch_name'
+			),
 			'city_relation' => array(
 				'alias'=>'city_relation',
 				'select'=>'city'
@@ -294,6 +301,11 @@ class PsbRegisters extends CActiveRecord
 				'select'=>'displayname'
 			),
 		);
+		if(isset($_GET['year']))
+			$criteria->compare('batch_relation.year_id',$_GET['year']);
+		else
+			$criteria->compare('batch_relation.year_id',$this->year_search);
+		$criteria->compare('batch_relation.batch_name',strtolower($this->batch_search), true);
 		$criteria->compare('city_relation.city',strtolower($this->birth_city_search), true);
 		$criteria->compare('school.school_name',strtolower($this->school_search), true);
 		$criteria->compare('creation.displayname',strtolower($this->creation_search), true);
@@ -378,7 +390,18 @@ class PsbRegisters extends CActiveRecord
 				'header' => 'No',
 				'value' => '$this->grid->dataProvider->pagination->currentPage*$this->grid->dataProvider->pagination->pageSize + $row+1'
 			);
-			$this->defaultColumns[] = 'batch_id';
+			if(!isset($_GET['year'])) {
+				$this->defaultColumns[] = array(
+					'name' => 'year_search',
+					'value' => '$data->batch_relation->year->years',
+					'filter'=> PsbYears::getYear(),
+					'type' => 'raw',
+				);				
+			}
+			$this->defaultColumns[] = array(
+				'name' => 'batch_search',
+				'value' => '$data->batch_relation->batch_name',
+			);
 			$this->defaultColumns[] = 'register_name';
 			$this->defaultColumns[] = 'nisn';
 			$this->defaultColumns[] = array(
