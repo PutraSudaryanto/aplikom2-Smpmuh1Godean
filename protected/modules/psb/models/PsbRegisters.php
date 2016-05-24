@@ -98,10 +98,10 @@ class PsbRegisters extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nisn, batch_id, register_name, birth_date, gender, address, parent_name, parent_work, parent_address, parent_phone, school_un_detail,
-				batch_field, birthcity_field, back_field', 'required'),
+			array('nisn, batch_id, register_name, birth_date, gender, address, parent_name, parent_work, parent_address, parent_phone,
+				birthcity_field', 'required'),
 			array('status, religion, parent_religion, wali_religion,
-				back_field', 'numerical', 'integerOnly'=>true),
+				batch_field, back_field', 'numerical', 'integerOnly'=>true),
 			array('author_id, batch_id, birth_city, school_id, creation_id', 'length', 'max'=>11),
 			array('nisn', 'length', 'max'=>12),
 			array('register_name, parent_name, parent_work, wali_name, wali_work', 'length', 'max'=>32),
@@ -127,9 +127,9 @@ class PsbRegisters extends CActiveRecord
 			'author' => array(self::BELONGS_TO, 'OmmuAuthors', 'author_id'),
 			'batch_relation' => array(self::BELONGS_TO, 'PsbYearBatch', 'batch_id'),
 			'city_relation' => array(self::BELONGS_TO, 'OmmuZoneCity', 'birth_city'),
-			'religion' => array(self::BELONGS_TO, 'PsbReligions', 'religion'),
-			'parent_religion' => array(self::BELONGS_TO, 'PsbReligions', 'parent_religion'),
-			'wali_religion' => array(self::BELONGS_TO, 'PsbReligions', 'wali_religion'),
+			'religion_relation' => array(self::BELONGS_TO, 'PsbReligions', 'religion'),
+			'parent_religion_relation' => array(self::BELONGS_TO, 'PsbReligions', 'parent_religion'),
+			'wali_religion_relation' => array(self::BELONGS_TO, 'PsbReligions', 'wali_religion'),
 			'school' => array(self::BELONGS_TO, 'PsbSchools', 'school_id'),
 			'creation' => array(self::BELONGS_TO, 'Users', 'creation_id'),
 		);
@@ -491,8 +491,32 @@ class PsbRegisters extends CActiveRecord
 			
 		} else {
 			$model = self::model()->findByPk($id);
-			return $model;			
+			return $model;
 		}
+	}
+
+	/**
+	 * User get information
+	 */
+	public static function getUNRank($data)
+	{
+		$return = '';
+		$count = count($data);
+		for($i = 0; $i<$count; $i++) {
+			foreach($data[$i] as $key => $val) {
+				$return[$key] = $return[$key] + $val;
+			}
+		}
+		
+		foreach($return as $key => $val) {
+			$return[$key] = number_format($val/3, 2);
+		}
+		
+		$returnAttr = array_map(function($val, $key) {
+			return $key.'='.$val;
+		}, array_values($return), array_keys($return));
+		
+		return implode(',', $returnAttr);
 	}
 
 	/**
@@ -501,7 +525,6 @@ class PsbRegisters extends CActiveRecord
 	protected function beforeValidate() {
 		if(parent::beforeValidate()) {			
 			$this->creation_id = Yii::app()->user->id;
-			$this->school_un_detail = serialize($this->school_un_detail);
 		}
 		return true;
 	}
@@ -512,6 +535,8 @@ class PsbRegisters extends CActiveRecord
 	protected function beforeSave() {
 		if(parent::beforeSave()) {	
 			$this->birth_date = date('Y-m-d', strtotime($this->birth_date));
+			$this->school_un_rank = self::getUNRank($this->school_un_detail);
+			$this->school_un_detail = serialize($this->school_un_detail);
 		}
 		return true;
 	}
