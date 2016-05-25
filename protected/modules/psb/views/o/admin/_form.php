@@ -419,7 +419,8 @@ EOP;
 			<?php 
 			$valuation = $batch->batch_valuation == 1 ? 1 : 3;
 			$courses = $batch->year->courses;
-			$model->school_un_detail = unserialize($model->school_un_detail);
+			if(!$model->isNewRecord)
+				$model->school_un_detail = unserialize($model->school_un_detail);
 			if($courses != '') {?>
 				<tr>
 					<?php foreach($courses as $key => $val) {?>
