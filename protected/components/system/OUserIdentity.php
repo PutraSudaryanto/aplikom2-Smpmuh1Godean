@@ -7,7 +7,7 @@
  * @copyright 2008-2013 Yii Software LLC
  * @license http://www.yiiframework.com/license/
  *
- * @modify Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @modify Putra Sudaryanto <putra@sudaryanto.id>
  * @contect (+62)856-299-4114
  *
  */

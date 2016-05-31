@@ -3,7 +3,7 @@
  * PsbSchools
  * version: 0.0.1
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2014 Ommu Platform (ommu.co)
  * @link https://github.com/Ommu/Ommu-PSB
  * @contact (+62)856-299-4114

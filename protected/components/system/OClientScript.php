@@ -2,7 +2,7 @@
 /**
  * OClientScript class file.
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @create date Maret 1, 2014 14:02 WIB
  * @updated date Maret 1, 2014 15:50 WIB
  * @version 1.0.1

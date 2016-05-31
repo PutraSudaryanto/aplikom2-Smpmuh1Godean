@@ -27,7 +27,7 @@
  *	recursiveDelete
  *	formatSizeUnits
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @create date November 27, 2013 15:02 WIB
  * @update date April 3, 2014 15:02 WIB
  * @version 1.0

@@ -5,7 +5,7 @@
  * @var $model PsbReligions
  * version: 0.0.1
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 27 April 2016, 15:50 WIB
  * @link https://github.com/Ommu/Ommu-PSB

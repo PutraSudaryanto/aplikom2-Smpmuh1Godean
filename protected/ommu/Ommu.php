@@ -11,7 +11,7 @@
  *	getDefaultTheme
  *	getRulePos
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @create date August 6, 2012 15:02 WIB
  * @updated date February 20, 2014 15:50 WIB
  * @version 1.0.9

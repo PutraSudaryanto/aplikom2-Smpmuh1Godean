@@ -5,7 +5,7 @@
  * @var $model UserDevice
  * version: 0.0.1
  *
- * @author Putra Sudaryanto <putra.sudaryanto@gmail.com>
+ * @author Putra Sudaryanto <putra@sudaryanto.id>
  * @copyright Copyright (c) 2016 Ommu Platform (ommu.co)
  * @created date 9 April 2016, 06:37 WIB
  * @link http://company.ommu.co
