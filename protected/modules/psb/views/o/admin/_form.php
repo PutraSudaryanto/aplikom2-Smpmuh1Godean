@@ -421,6 +421,10 @@ EOP;
 			$courses = $batch->year->courses;
 			if(!$model->isNewRecord)
 				$model->school_un_detail = unserialize($model->school_un_detail);
+			/*echo '<pre>';
+			print_r($model->school_un_detail);
+			print_r(unserialize($model->school_un_rank));
+			echo '</pre>';*/
 			if($courses != '') {?>
 				<tr>
 					<?php foreach($courses as $key => $val) {?>

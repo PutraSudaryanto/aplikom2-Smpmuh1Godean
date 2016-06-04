@@ -543,7 +543,7 @@ class PsbRegisters extends CActiveRecord
 		}
 		
 		foreach($return as $key => $val) {
-			$return[$key] = number_format($val/3, 2);
+			$return[$key] = number_format($val/$count, 2);
 		}
 		
 		/*
