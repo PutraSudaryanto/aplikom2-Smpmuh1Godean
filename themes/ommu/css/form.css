@@ -434,9 +434,6 @@ fieldset div div.desc span.desc {
 	line-height: 14px;
 	color: #808080;
 }
-fieldset div div.desc span.small-px * {
-	display: inline;
-}
 fieldset div label span {
 	padding: 5px 0 0 0;
 }
@@ -516,6 +513,9 @@ fieldset div div.desc p {
 	line-height: 16px;
 	color: #333;
 }
+fieldset div div.desc span.small-px * {
+	display: inline;
+}
 fieldset div div.desc p:first-child,
 fieldset div div.desc span.small-px:first-child {
 	border-top: none;
@@ -541,6 +541,9 @@ fieldset div div.desc div.errorMessage,
 .notifier fieldset div div.desc .errorMessage {
 	padding: 5px 0 0 0;
 	color: #ff0000;
+}
+fieldset div div.desc div.field {
+	padding: 0 0 10px 0;
 }
 
 /* Template */
