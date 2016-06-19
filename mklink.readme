@@ -18,6 +18,7 @@ mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\yiic.php" "D:\htdo
 protected\components
 =======
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\components\Controller.php" "D:\htdocs\_project_ommu_platform\protected\components\Controller.php"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\components\ControllerApi.php" "D:\htdocs\_project_ommu_platform\protected\components\ControllerApi.php"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\components\OauthIdentity.php" "D:\htdocs\_project_ommu_platform\protected\components\OauthIdentity.php"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\components\UserIdentity.php" "D:\htdocs\_project_ommu_platform\protected\components\UserIdentity.php"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\components\admin" "D:\htdocs\_project_ommu_platform\protected\components\admin"
