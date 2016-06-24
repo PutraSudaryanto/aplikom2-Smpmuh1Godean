@@ -135,16 +135,22 @@ if(Yii::app()->user->hasFlash('success'))
 		),
 		array(
 			'name'=>'school_id',
-			'value'=>$model->school_id != 0 ? 'Name: '.($model->school->school_name ? $model->school->school_name : '-').'<br/>Address: '.($model->school->school_address ? $model->school->school_address : '-').'<br/>Phone: '.($model->school->school_phone ? $model->school->school_phone : '-').'<br/> Status: '.($model->school->school_status == 1 ? Yii::t('phrase', 'Negeri') : Yii::t('phrase', 'Swasta')) : '-',
+			'value'=>PsbSchools::getDetailSchool($model->school_id),
+			'type'=>'raw',
+		),
+		array(
+			'name'=>'school_un_detail',
+			'value'=>PsbRegisters::getUNDetail($model->school_un_detail, $model->batch_relation->batch_valuation),
 			'type'=>'raw',
 		),
 		array(
 			'name'=>'school_un_rank',
-			'value'=>$model->school_un_rank != '' ? $model->school_un_rank : '-',
+			'value'=>PsbRegisters::getDetailCourse(unserialize($model->school_un_rank)),
+			'type'=>'raw',
 		),
 		array(
-			'name'=>'school_un_detail',
-			'value'=>$model->school_un_detail != '' ? $model->school_un_detail : '-',
+			'name'=>'school_un_average',
+			'value'=>$model->school_un_average,
 		),
 		array(
 			'name'=>'creation_date',

@@ -8,6 +8,5 @@
  * @contact (+62)856-299-4114
  *
  */
- 
-	$this->redirect(Yii::app()->createUrl('admin/index'));
+	$this->redirect(Yii::app()->createUrl('admin'));
 ?>

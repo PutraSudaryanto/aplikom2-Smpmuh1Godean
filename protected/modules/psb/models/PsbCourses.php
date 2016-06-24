@@ -327,6 +327,19 @@ class PsbCourses extends CActiveRecord
 	}
 
 	/**
+	 * User get information
+	 */
+	public static function getValue($id, $value=null)
+	{
+		$course = self::model()->findByPk($id,array(
+			'select' => 'course_id, course_name',
+		));
+		$value = $value != null && $value != '' && $value != 0 ? $value : '-';
+		
+		return $course->course_name.': '.$value;
+	}
+
+	/**
 	 * Get Years
 	 */
 	public static function getCourse($default=null, $type=null) 

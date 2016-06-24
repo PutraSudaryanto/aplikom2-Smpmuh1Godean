@@ -46,6 +46,14 @@ content_menu	:
 		urlRules: {psb, o/admin, add,edit,view, siteType: 0, userLevel: 1,2}
 		urlPath: {url: manage, attr: -, icon: -}
 		
+	- urlTitle: View Register
+		urlRules: {psb, o/admin, edit, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: view, attr: id=$_GET*id, icon: -}
+		
+	- urlTitle: Edit Register
+		urlRules: {psb, o/admin, view, siteType: 0,1, userLevel: 1,2}
+		urlPath: {url: edit, attr: id=$_GET*id, icon: -}
+		
 # controller o/year
 	- urlTitle: Add Year
 		urlRules: {psb, o/year, manage, siteType: 0, userLevel: 1,2}

@@ -173,14 +173,14 @@ class PsbRegisters extends CActiveRecord
 			'school_un_detail' => Yii::t('attribute', 'School Un Detail'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
-			'birthcity_field' => Yii::t('attribute', 'Birth City'),
-			'back_field' => Yii::t('attribute', 'Back to Manage'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
 			'birth_city_search' => Yii::t('attribute', 'Birth City'),
 			'school_search' => Yii::t('attribute', 'School'),
 			'batch_field' => Yii::t('attribute', 'Batch Detected'),
+			'birthcity_field' => Yii::t('attribute', 'Birth City'),
 			'year_search' => Yii::t('attribute', 'Year'),
 			'batch_search' => Yii::t('attribute', 'Batch'),
+			'back_field' => Yii::t('attribute', 'Back to Manage'),
 			'school_un_average' => Yii::t('attribute', 'School Un Average'),
 		);
 		/*
@@ -282,8 +282,8 @@ class PsbRegisters extends CActiveRecord
 		if(isset($_GET['creation']))
 			$criteria->compare('t.creation_id',$_GET['creation']);
 		else
-			$criteria->compare('t.creation_id',$this->creation_id);	
-		$criteria->compare('t.school_un_average',$this->school_un_average);
+			$criteria->compare('t.creation_id',$this->creation_id);
+		$criteria->compare('t.school_un_average',$this->school_un_average,true);
 		
 		// Custom Search
 		$criteria->with = array(
@@ -406,7 +406,7 @@ class PsbRegisters extends CActiveRecord
 				'value' => '$data->batch_relation->batch_name',
 			);
 			$this->defaultColumns[] = 'register_name';
-			$this->defaultColumns[] = 'nisn';
+			//$this->defaultColumns[] = 'nisn';
 			$this->defaultColumns[] = array(
 				'name' => 'birth_city_search',
 				'value' => '$data->city_relation->city',
@@ -455,8 +455,7 @@ class PsbRegisters extends CActiveRecord
 				'value' => '$data->school->school_name',
 			);
 			$this->defaultColumns[] = array(
-				'header' => Yii::t('phrase', 'Average'),
-				'name' => 'school_un_average',
+				'header' => 'school_un_average',
 				'value' => '$data->school_un_average',
 				'htmlOptions' => array(
 					'class' => 'center',
@@ -493,7 +492,6 @@ class PsbRegisters extends CActiveRecord
 					),
 				), true),
 			);
-			*/
 			if(!isset($_GET['type'])) {
 				$this->defaultColumns[] = array(
 					'name' => 'status',
@@ -508,6 +506,7 @@ class PsbRegisters extends CActiveRecord
 					'type' => 'raw',
 				);
 			}
+			*/
 		}
 		parent::afterConstruct();
 	}
@@ -530,6 +529,49 @@ class PsbRegisters extends CActiveRecord
 	}
 
 	/**
+	 * get Detail
+	 */
+	public static function getDetailCourse($data)
+	{
+		$countData = count($data);
+		$i = 0;
+		foreach($data as $key => $val) {
+			$i++;
+			if($i != $countData)
+				$return .= PsbCourses::getValue($key, $val).'<br/>';
+			else
+				$return .= PsbCourses::getValue($key, $val);					
+		}
+		
+		return $return;
+	}
+
+	/**
+	 * get Detail
+	 */
+	public static function getUNDetail($data, $valuation=1)
+	{
+		$data = unserialize($data);
+		$countData = count($data);
+			
+		if($valuation == 1 || $countData == 1)
+			$return = self::getDetailCourse($data[0]);
+		
+		else {
+			$i = 0;
+			foreach($data as $key => $val) {
+				$i++;
+				if($i != $countData)
+					$return .= self::getDetailCourse($data[$key]).'<hr/>';
+				else
+					$return .= self::getDetailCourse($data[$key]);
+			}
+		}
+		
+		return $return;
+	}
+
+	/**
 	 * User get information
 	 */
 	public static function getUNRank($data)
@@ -537,22 +579,13 @@ class PsbRegisters extends CActiveRecord
 		$return = '';
 		$count = count($data);
 		for($i = 0; $i<$count; $i++) {
-			foreach($data[$i] as $key => $val) {
+			foreach($data[$i] as $key => $val)
 				$return[$key] = $return[$key] + $val;
-			}
 		}
 		
-		foreach($return as $key => $val) {
+		foreach($return as $key => $val)
 			$return[$key] = number_format($val/$count, 2);
-		}
 		
-		/*
-		$returnAttr = array_map(function($val, $key) {
-			return $key.'='.$val;
-		}, array_values($return), array_keys($return));
-		*/
-		
-		//return implode(',', $returnAttr);
 		return $return;
 	}
 
@@ -561,6 +594,7 @@ class PsbRegisters extends CActiveRecord
 	 */
 	public static function getUNAverage($data)
 	{
+		$data = unserialize($data);
 		$count = count($data);
 		$total = 0;
 		foreach($data as $key => $val)
@@ -571,7 +605,7 @@ class PsbRegisters extends CActiveRecord
 	}
 	
 	protected function afterFind() {
-		$this->school_un_average = $this->school_un_rank != '' ? self::getUNAverage(unserialize($this->school_un_rank)) : 0;
+		$this->school_un_average = $this->school_un_rank != '' ? number_format(self::getUNAverage($this->school_un_rank), 2) : 0;
 		parent::afterFind();		
 	}
 

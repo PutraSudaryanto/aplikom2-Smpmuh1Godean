@@ -332,6 +332,32 @@ class PsbSchools extends CActiveRecord
 	 * 0 = unpublish
 	 * 1 = publish
 	 */
+	public static function getDetailSchool($id=0) 
+	{
+		if($id == 0)
+			$return = '-';
+		else {
+			$school = self::model()->findByPk($id,array(
+				'select' => 'school_name, school_address, school_phone, school_status',
+			));
+			if($school != null) {
+				$return .= 'Name: '.($school->school_name != '' ? $school->school_name : '-').'<br/>';
+				$return .= 'Address: '.($school->school_address != '' ? $school->school_address : '-').'<br/>';
+				$return .= 'Phone: '.($school->school_phone != '' ? $school->school_phone : '-').'<br/>';
+				$return .= 'Status: '.($school->school_status == 1 ? Yii::t('phrase', 'Negeri') : Yii::t('phrase', 'Swasta'));
+				
+			} else
+				$return = '-';
+		}
+		
+		return $return;
+	}
+
+	/**
+	 * Get category
+	 * 0 = unpublish
+	 * 1 = publish
+	 */
 	public static function getSchool() {
 		
 		$criteria=new CDbCriteria;		
