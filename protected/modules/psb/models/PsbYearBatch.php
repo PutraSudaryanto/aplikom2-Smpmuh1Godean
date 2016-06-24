@@ -381,7 +381,7 @@ class PsbYearBatch extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'header' => Yii::t('phrase', 'Recap'),
-				'value' => 'CHtml::link(Yii::t("phrase", "Recap"), Yii::app()->controller->createUrl("recap",array("year"=>$data->batch_id)))',
+				'value' => 'CHtml::link(Yii::t("phrase", "Recap"), Yii::app()->controller->createUrl("o/admin/recap",array("id"=>$data->batch_id,"type"=>"batch")))',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),

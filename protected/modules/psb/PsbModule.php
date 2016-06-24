@@ -13,6 +13,7 @@ class PsbModule extends CWebModule
 		$this->setImport(array(
 			'psb.models.*',
 			'psb.components.*',
+			'psb.components.extensions.*',
 		));
 	}
 

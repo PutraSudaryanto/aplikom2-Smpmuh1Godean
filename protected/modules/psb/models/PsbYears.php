@@ -280,7 +280,7 @@ class PsbYears extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'header' => Yii::t('phrase', 'Recap'),
-				'value' => 'CHtml::link(Yii::t("phrase", "Recap"), Yii::app()->controller->createUrl("recap",array("year"=>$data->year_id)))',
+				'value' => 'CHtml::link(Yii::t("phrase", "Recap"), Yii::app()->controller->createUrl("o/admin/recap",array("id"=>$data->year_id,"type"=>"year")))',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
