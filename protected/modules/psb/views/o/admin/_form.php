@@ -428,7 +428,7 @@ EOP;
 			if($courses != '') {?>
 				<tr>
 					<?php foreach($courses as $key => $val) {?>
-						<td><?php echo $val->course->course_name;?></td>
+						<th><?php echo $val->course->course_name;?></th>
 					<?php }?>
 				</tr>
 				<?php for($i = 0; $i<$valuation; $i++) {?>

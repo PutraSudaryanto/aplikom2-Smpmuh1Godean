@@ -446,6 +446,23 @@ fieldset div label span.required {
 fieldset div div.desc {
 	width: 70%;
 }
+fieldset div div.desc table {
+	
+}
+fieldset div div.desc table th,
+fieldset div div.desc table td {
+	padding: 0 10px 10px 0;
+}
+fieldset div div.desc table tr:last-child td {
+	padding: 0 10px 0 0;	
+}
+fieldset div div.desc table th {
+	font-weight: 700;
+	text-align: left;
+}
+fieldset div div.desc table td input {
+	width: 100%;
+}
 fieldset div div.desc img {
 	display: block;
 	max-width: 100%;
