@@ -38,8 +38,8 @@ class Zend_Search_Lucene_LockManager
     /**
      * consts for name of file to show lock status
      */
-    const WRITE_LOCK_FILE                = 'write.lock.file';
-    const READ_LOCK_FILE                 = 'read.lock.file';
+    const WRITE_LOCK_FILE			    = 'write.lock.file';
+    const READ_LOCK_FILE			     = 'read.lock.file';
     const READ_LOCK_PROCESSING_LOCK_FILE = 'read-lock-processing.lock.file';
     const OPTIMIZATION_LOCK_FILE         = 'optimization.lock.file';
 
@@ -54,8 +54,8 @@ class Zend_Search_Lucene_LockManager
     {
         $lock = $lockDirectory->createFile(self::WRITE_LOCK_FILE);
         if (!$lock->lock(LOCK_EX)) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Can\'t obtain exclusive index lock');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('Can\'t obtain exclusive index lock');
         }
         return $lock;
     }
@@ -99,8 +99,8 @@ class Zend_Search_Lucene_LockManager
     {
         $lock = $lockDirectory->createFile(self::READ_LOCK_PROCESSING_LOCK_FILE);
         if (!$lock->lock(LOCK_EX)) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Can\'t obtain exclusive lock for the read lock processing file');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('Can\'t obtain exclusive lock for the read lock processing file');
         }
         return $lock;
     }
@@ -133,8 +133,8 @@ class Zend_Search_Lucene_LockManager
     {
         $lock = $lockDirectory->createFile(self::READ_LOCK_FILE);
         if (!$lock->lock(LOCK_SH)) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Can\'t obtain shared reading index lock');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('Can\'t obtain shared reading index lock');
         }
         return $lock;
     }
@@ -177,14 +177,14 @@ class Zend_Search_Lucene_LockManager
         // filesystems or if another local process has the shared lock
         // on local filesystems.
         for ($retries = 0; $retries < 10; $retries++) {
-            if ($lock->lock(LOCK_EX, true)) {
-                // Exclusive lock is obtained!
-                self::_stopReadLockProcessing($lockDirectory);
-                return true;
-            }
+			if ($lock->lock(LOCK_EX, true)) {
+			    // Exclusive lock is obtained!
+			    self::_stopReadLockProcessing($lockDirectory);
+			    return true;
+			}
 
-            // wait 1 microsecond
-            usleep(1);
+			// wait 1 microsecond
+			usleep(1);
         }
 
         // Restore lock state
@@ -217,7 +217,7 @@ class Zend_Search_Lucene_LockManager
     {
         $lock = $lockDirectory->createFile(self::OPTIMIZATION_LOCK_FILE);
         if (!$lock->lock(LOCK_EX, true)) {
-            return false;
+			return false;
         }
         return $lock;
     }

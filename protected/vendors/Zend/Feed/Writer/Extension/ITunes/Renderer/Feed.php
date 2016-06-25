@@ -62,7 +62,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
         $this->_setSubtitle($this->_dom, $this->_base);
         $this->_setSummary($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -74,7 +74,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:itunes',
-            'http://www.itunes.com/dtds/podcast-1.0.dtd');  
+			'http://www.itunes.com/dtds/podcast-1.0.dtd');  
     }
 
     /**
@@ -88,13 +88,13 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $authors = $this->getDataContainer()->getItunesAuthors();
         if (!$authors || empty($authors)) {
-            return;
+			return;
         }
         foreach ($authors as $author) {
-            $el = $dom->createElement('itunes:author');
-            $text = $dom->createTextNode($author);
-            $el->appendChild($text);
-            $root->appendChild($el);
+			$el = $dom->createElement('itunes:author');
+			$text = $dom->createTextNode($author);
+			$el->appendChild($text);
+			$root->appendChild($el);
         }
         $this->_called = true;
     }
@@ -110,7 +110,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $block = $this->getDataContainer()->getItunesBlock();
         if (is_null($block)) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:block');
         $text = $dom->createTextNode($block);
@@ -130,23 +130,23 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $cats = $this->getDataContainer()->getItunesCategories();
         if (!$cats || empty($cats)) {
-            return;
+			return;
         }
         foreach ($cats as $key=>$cat) {
-            if (!is_array($cat)) {
-                $el = $dom->createElement('itunes:category');
-                $el->setAttribute('text', $cat);
-                $root->appendChild($el);
-            } else {
-                $el = $dom->createElement('itunes:category');
-                $el->setAttribute('text', $key);
-                $root->appendChild($el);
-                foreach ($cat as $subcat) {
-                    $el2 = $dom->createElement('itunes:category');
-                    $el2->setAttribute('text', $subcat);
-                    $el->appendChild($el2);
-                }
-            }
+			if (!is_array($cat)) {
+			    $el = $dom->createElement('itunes:category');
+			    $el->setAttribute('text', $cat);
+			    $root->appendChild($el);
+			} else {
+			    $el = $dom->createElement('itunes:category');
+			    $el->setAttribute('text', $key);
+			    $root->appendChild($el);
+			    foreach ($cat as $subcat) {
+			        $el2 = $dom->createElement('itunes:category');
+			        $el2->setAttribute('text', $subcat);
+			        $el->appendChild($el2);
+			    }
+			}
         }
         $this->_called = true;
     }
@@ -162,7 +162,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $image = $this->getDataContainer()->getItunesImage();
         if (!$image) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:image');
         $el->setAttribute('href', $image);
@@ -181,7 +181,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $duration = $this->getDataContainer()->getItunesDuration();
         if (!$duration) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:duration');
         $text = $dom->createTextNode($duration);
@@ -201,7 +201,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $explicit = $this->getDataContainer()->getItunesExplicit();
         if (is_null($explicit)) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:explicit');
         $text = $dom->createTextNode($explicit);
@@ -221,7 +221,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $keywords = $this->getDataContainer()->getItunesKeywords();
         if (!$keywords || empty($keywords)) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:keywords');
         $text = $dom->createTextNode(implode(',', $keywords));
@@ -241,7 +241,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $url = $this->getDataContainer()->getItunesNewFeedUrl();
         if (!$url) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:new-feed-url');
         $text = $dom->createTextNode($url);
@@ -261,19 +261,19 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $owners = $this->getDataContainer()->getItunesOwners();
         if (!$owners || empty($owners)) {
-            return;
+			return;
         }
         foreach ($owners as $owner) {
-            $el = $dom->createElement('itunes:owner');
-            $name = $dom->createElement('itunes:name');
-            $text = $dom->createTextNode($owner['name']);
-            $name->appendChild($text);
-            $email = $dom->createElement('itunes:email');
-            $text = $dom->createTextNode($owner['email']);
-            $email->appendChild($text);
-            $root->appendChild($el);
-            $el->appendChild($name);
-            $el->appendChild($email);
+			$el = $dom->createElement('itunes:owner');
+			$name = $dom->createElement('itunes:name');
+			$text = $dom->createTextNode($owner['name']);
+			$name->appendChild($text);
+			$email = $dom->createElement('itunes:email');
+			$text = $dom->createTextNode($owner['email']);
+			$email->appendChild($text);
+			$root->appendChild($el);
+			$el->appendChild($name);
+			$el->appendChild($email);
         }
         $this->_called = true;
     }
@@ -289,7 +289,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $subtitle = $this->getDataContainer()->getItunesSubtitle();
         if (!$subtitle) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:subtitle');
         $text = $dom->createTextNode($subtitle);
@@ -309,7 +309,7 @@ class Zend_Feed_Writer_Extension_ITunes_Renderer_Feed
     {
         $summary = $this->getDataContainer()->getItunesSummary();
         if (!$summary) {
-            return;
+			return;
         }
         $el = $dom->createElement('itunes:summary');
         $text = $dom->createTextNode($summary);

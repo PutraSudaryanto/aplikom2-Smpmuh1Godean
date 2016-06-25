@@ -83,15 +83,15 @@ abstract class Zend_Feed_Reader_Extension_FeedAbstract
         $this->_domDocument = $dom;
 
         if ($type !== null) {
-            $this->_data['type'] = $type;
+			$this->_data['type'] = $type;
         } else {
-            $this->_data['type'] = Zend_Feed_Reader::detectType($dom);
+			$this->_data['type'] = Zend_Feed_Reader::detectType($dom);
         }
 
         if ($xpath !== null) {
-            $this->_xpath = $xpath;
+			$this->_xpath = $xpath;
         } else {
-            $this->_xpath = new DOMXPath($this->_domDocument);
+			$this->_xpath = new DOMXPath($this->_domDocument);
         }
 
         $this->_registerNamespaces();

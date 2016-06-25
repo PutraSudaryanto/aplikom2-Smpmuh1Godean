@@ -54,11 +54,11 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
     public function __get($var)
     {
         switch ($var) {
-            case 'content':
-                $prefix = $this->_element->lookupPrefix('http://purl.org/rss/1.0/modules/content/');
-                return parent::__get("$prefix:encoded");
-            default:
-                return parent::__get($var);
+			case 'content':
+			    $prefix = $this->_element->lookupPrefix('http://purl.org/rss/1.0/modules/content/');
+			    return parent::__get("$prefix:encoded");
+			default:
+			    return parent::__get($var);
         }
     }
 
@@ -73,11 +73,11 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
     public function __set($var, $value)
     {
         switch ($var) {
-            case 'content':
-                parent::__set('content:encoded', $value);
-                break;
-            default:
-                parent::__set($var, $value);
+			case 'content':
+			    parent::__set('content:encoded', $value);
+			    break;
+			default:
+			    parent::__set($var, $value);
         }
     }
 
@@ -91,11 +91,11 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
     public function __isset($var)
     {
         switch ($var) {
-            case 'content':
-                // don't use other callback to prevent invalid returned value
-                return $this->content() !== null;
-            default:
-                return parent::__isset($var);
+			case 'content':
+			    // don't use other callback to prevent invalid returned value
+			    return $this->content() !== null;
+			default:
+			    return parent::__isset($var);
         }
     }
 
@@ -112,11 +112,11 @@ class Zend_Feed_Entry_Rss extends Zend_Feed_Entry_Abstract
     public function __call($var, $unused)
     {
         switch ($var) {
-            case 'content':
-                $prefix = $this->_element->lookupPrefix('http://purl.org/rss/1.0/modules/content/');
-                return parent::__call("$prefix:encoded", $unused);
-            default:
-                return parent::__call($var, $unused);
+			case 'content':
+			    $prefix = $this->_element->lookupPrefix('http://purl.org/rss/1.0/modules/content/');
+			    return parent::__call("$prefix:encoded", $unused);
+			default:
+			    return parent::__call($var, $unused);
         }
     }
 }

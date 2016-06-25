@@ -53,11 +53,11 @@ class Zend_Feed_Pubsubhubbub_Model_ModelAbstract
     public function __construct(Zend_Db_Table_Abstract $tableGateway = null)
     {
         if (is_null($tableGateway)) {
-            $parts = explode('_', get_class($this));
-            $table = strtolower(array_pop($parts));
-            $this->_db = new Zend_Db_Table($table);
+			$parts = explode('_', get_class($this));
+			$table = strtolower(array_pop($parts));
+			$this->_db = new Zend_Db_Table($table);
         } else {
-            $this->_db = $tableGateway;
+			$this->_db = $tableGateway;
         }
     }
 

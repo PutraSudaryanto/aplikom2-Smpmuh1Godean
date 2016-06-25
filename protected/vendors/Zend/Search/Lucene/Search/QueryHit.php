@@ -90,7 +90,7 @@ class Zend_Search_Lucene_Search_QueryHit
     public function getDocument()
     {
         if (!$this->_document instanceof Zend_Search_Lucene_Document) {
-            $this->_document = $this->_index->getDocument($this->id);
+			$this->_document = $this->_index->getDocument($this->id);
         }
 
         return $this->_document;

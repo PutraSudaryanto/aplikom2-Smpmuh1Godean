@@ -68,17 +68,17 @@ class Zend_Feed_Reader_Extension_Slash_Entry
         $name = 'hit_parade';
 
         if (isset($this->_data[$name])) {
-            return $this->_data[$name];
+			return $this->_data[$name];
         }
 
         $stringParade = $this->_getData($name);
         $hitParade    = array();
 
         if (!empty($stringParade)) {
-            $stringParade = explode(',', $stringParade);
+			$stringParade = explode(',', $stringParade);
 
-            foreach ($stringParade as $hit)
-                $hitParade[] = $hit + 0; //cast to integer
+			foreach ($stringParade as $hit)
+			    $hitParade[] = $hit + 0; //cast to integer
         }
 
         $this->_data[$name] = $hitParade;
@@ -95,14 +95,14 @@ class Zend_Feed_Reader_Extension_Slash_Entry
         $name = 'comments';
 
         if (isset($this->_data[$name])) {
-            return $this->_data[$name];
+			return $this->_data[$name];
         }
 
         $comments = $this->_getData($name, 'string');
 
         if (!$comments) {
-            $this->_data[$name] = null;
-            return $this->_data[$name];
+			$this->_data[$name] = null;
+			return $this->_data[$name];
         }
 
         return $comments;
@@ -118,13 +118,13 @@ class Zend_Feed_Reader_Extension_Slash_Entry
     protected function _getData($name, $type = 'string')
     {
         if (array_key_exists($name, $this->_data)) {
-            return $this->_data[$name];
+			return $this->_data[$name];
         }
 
         $data = $this->_xpath->evaluate($type . '(' . $this->getXpathPrefix() . '/slash10:' . $name . ')');
 
         if (!$data) {
-            $data = null;
+			$data = null;
         }
 
         $this->_data[$name] = $data;

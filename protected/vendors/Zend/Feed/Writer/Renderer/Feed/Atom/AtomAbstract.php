@@ -64,8 +64,8 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setLanguage(DOMDocument $dom, DOMElement $root)
     {
         if ($this->getDataContainer()->getLanguage()) {
-            $root->setAttribute('xml:lang', $this->getDataContainer()
-                ->getLanguage());
+			$root->setAttribute('xml:lang', $this->getDataContainer()
+			    ->getLanguage());
         }
     }
 
@@ -79,16 +79,16 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setTitle(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getTitle()) {
-            require_once 'Zend/Feed/Exception.php';
-            $message = 'Atom 1.0 feed elements MUST contain exactly one'
-            . ' atom:title element but a title has not been set';
-            $exception = new Zend_Feed_Exception($message);
-            if (!$this->_ignoreExceptions) {
-                throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
-            }
+			require_once 'Zend/Feed/Exception.php';
+			$message = 'Atom 1.0 feed elements MUST contain exactly one'
+			. ' atom:title element but a title has not been set';
+			$exception = new Zend_Feed_Exception($message);
+			if (!$this->_ignoreExceptions) {
+			    throw $exception;
+			} else {
+			    $this->_exceptions[] = $exception;
+			    return;
+			}
         }
 
         $title = $dom->createElement('title');
@@ -108,7 +108,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setDescription(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getDescription()) {
-            return;
+			return;
         }
         $subtitle = $dom->createElement('subtitle');
         $root->appendChild($subtitle);
@@ -127,22 +127,22 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setDateModified(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getDateModified()) {
-            require_once 'Zend/Feed/Exception.php';
-            $message = 'Atom 1.0 feed elements MUST contain exactly one'
-            . ' atom:updated element but a modification date has not been set';
-            $exception = new Zend_Feed_Exception($message);
-            if (!$this->_ignoreExceptions) {
-                throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
-            }
+			require_once 'Zend/Feed/Exception.php';
+			$message = 'Atom 1.0 feed elements MUST contain exactly one'
+			. ' atom:updated element but a modification date has not been set';
+			$exception = new Zend_Feed_Exception($message);
+			if (!$this->_ignoreExceptions) {
+			    throw $exception;
+			} else {
+			    $this->_exceptions[] = $exception;
+			    return;
+			}
         }
 
         $updated = $dom->createElement('updated');
         $root->appendChild($updated);
         $text = $dom->createTextNode(
-            $this->getDataContainer()->getDateModified()->get(Zend_Date::ISO_8601)
+			$this->getDataContainer()->getDateModified()->get(Zend_Date::ISO_8601)
         );
         $updated->appendChild($text);
     }
@@ -157,8 +157,8 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setGenerator(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getGenerator()) {
-            $this->getDataContainer()->setGenerator('Zend_Feed_Writer',
-                Zend_Version::VERSION, 'http://framework.zend.com');
+			$this->getDataContainer()->setGenerator('Zend_Feed_Writer',
+			    Zend_Version::VERSION, 'http://framework.zend.com');
         }
 
         $gdata = $this->getDataContainer()->getGenerator();
@@ -167,10 +167,10 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
         $text = $dom->createTextNode($gdata['name']);
         $generator->appendChild($text);
         if (array_key_exists('uri', $gdata)) {
-            $generator->setAttribute('uri', $gdata['uri']);
+			$generator->setAttribute('uri', $gdata['uri']);
         }
         if (array_key_exists('version', $gdata)) {
-            $generator->setAttribute('version', $gdata['version']);
+			$generator->setAttribute('version', $gdata['version']);
         }
     }
 
@@ -184,7 +184,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setLink(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getLink()) {
-            return;
+			return;
         }
         $link = $dom->createElement('link');
         $root->appendChild($link);
@@ -204,27 +204,27 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $flinks = $this->getDataContainer()->getFeedLinks();
         if(!$flinks || !array_key_exists('atom', $flinks)) {
-            require_once 'Zend/Feed/Exception.php';
-            $message = 'Atom 1.0 feed elements SHOULD contain one atom:link '
-            . 'element with a rel attribute value of "self".  This is the '
-            . 'preferred URI for retrieving Atom Feed Documents representing '
-            . 'this Atom feed but a feed link has not been set';
-            $exception = new Zend_Feed_Exception($message);
-            if (!$this->_ignoreExceptions) {
-                throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
-            }
+			require_once 'Zend/Feed/Exception.php';
+			$message = 'Atom 1.0 feed elements SHOULD contain one atom:link '
+			. 'element with a rel attribute value of "self".  This is the '
+			. 'preferred URI for retrieving Atom Feed Documents representing '
+			. 'this Atom feed but a feed link has not been set';
+			$exception = new Zend_Feed_Exception($message);
+			if (!$this->_ignoreExceptions) {
+			    throw $exception;
+			} else {
+			    $this->_exceptions[] = $exception;
+			    return;
+			}
         }
 
         foreach ($flinks as $type => $href) {
-            $mime = 'application/' . strtolower($type) . '+xml';
-            $flink = $dom->createElement('link');
-            $root->appendChild($flink);
-            $flink->setAttribute('rel', 'self');
-            $flink->setAttribute('type', $mime);
-            $flink->setAttribute('href', $href);
+			$mime = 'application/' . strtolower($type) . '+xml';
+			$flink = $dom->createElement('link');
+			$root->appendChild($flink);
+			$flink->setAttribute('rel', 'self');
+			$flink->setAttribute('type', $mime);
+			$flink->setAttribute('href', $href);
         }
     }
     
@@ -239,32 +239,32 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $authors = $this->_container->getAuthors();
         if (!$authors || empty($authors)) {
-            /**
-             * Technically we should defer an exception until we can check
-             * that all entries contain an author. If any entry is missing
-             * an author, then a missing feed author element is invalid
-             */
-            return;
+			/**
+			 * Technically we should defer an exception until we can check
+			 * that all entries contain an author. If any entry is missing
+			 * an author, then a missing feed author element is invalid
+			 */
+			return;
         }
         foreach ($authors as $data) {
-            $author = $this->_dom->createElement('author');
-            $name = $this->_dom->createElement('name');
-            $author->appendChild($name);
-            $root->appendChild($author);
-            $text = $dom->createTextNode($data['name']);
-            $name->appendChild($text);
-            if (array_key_exists('email', $data)) {
-                $email = $this->_dom->createElement('email');
-                $author->appendChild($email);
-                $text = $dom->createTextNode($data['email']);
-                $email->appendChild($text);
-            }
-            if (array_key_exists('uri', $data)) {
-                $uri = $this->_dom->createElement('uri');
-                $author->appendChild($uri);
-                $text = $dom->createTextNode($data['uri']);
-                $uri->appendChild($text);
-            }
+			$author = $this->_dom->createElement('author');
+			$name = $this->_dom->createElement('name');
+			$author->appendChild($name);
+			$root->appendChild($author);
+			$text = $dom->createTextNode($data['name']);
+			$name->appendChild($text);
+			if (array_key_exists('email', $data)) {
+			    $email = $this->_dom->createElement('email');
+			    $author->appendChild($email);
+			    $text = $dom->createTextNode($data['email']);
+			    $email->appendChild($text);
+			}
+			if (array_key_exists('uri', $data)) {
+			    $uri = $this->_dom->createElement('uri');
+			    $author->appendChild($uri);
+			    $text = $dom->createTextNode($data['uri']);
+			    $uri->appendChild($text);
+			}
         }
     }
 
@@ -279,23 +279,23 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         if(!$this->getDataContainer()->getId()
         && !$this->getDataContainer()->getLink()) {
-            require_once 'Zend/Feed/Exception.php';
-            $message = 'Atom 1.0 feed elements MUST contain exactly one '
-            . 'atom:id element, or as an alternative, we can use the same '
-            . 'value as atom:link however neither a suitable link nor an '
-            . 'id have been set';
-            $exception = new Zend_Feed_Exception($message);
-            if (!$this->_ignoreExceptions) {
-                throw $exception;
-            } else {
-                $this->_exceptions[] = $exception;
-                return;
-            }
+			require_once 'Zend/Feed/Exception.php';
+			$message = 'Atom 1.0 feed elements MUST contain exactly one '
+			. 'atom:id element, or as an alternative, we can use the same '
+			. 'value as atom:link however neither a suitable link nor an '
+			. 'id have been set';
+			$exception = new Zend_Feed_Exception($message);
+			if (!$this->_ignoreExceptions) {
+			    throw $exception;
+			} else {
+			    $this->_exceptions[] = $exception;
+			    return;
+			}
         }
 
         if (!$this->getDataContainer()->getId()) {
-            $this->getDataContainer()->setId(
-                $this->getDataContainer()->getLink());
+			$this->getDataContainer()->setId(
+			    $this->getDataContainer()->getLink());
         }
         $id = $dom->createElement('id');
         $root->appendChild($id);
@@ -314,7 +314,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $copyright = $this->getDataContainer()->getCopyright();
         if (!$copyright) {
-            return;
+			return;
         }
         $copy = $dom->createElement('rights');
         $root->appendChild($copy);
@@ -333,7 +333,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $image = $this->getDataContainer()->getImage();
         if (!$image) {
-            return;
+			return;
         }
         $img = $dom->createElement('logo');
         $root->appendChild($img);
@@ -351,12 +351,12 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     protected function _setDateCreated(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getDateCreated()) {
-            return;
+			return;
         }
         if(!$this->getDataContainer()->getDateModified()) {
-            $this->getDataContainer()->setDateModified(
-                $this->getDataContainer()->getDateCreated()
-            );
+			$this->getDataContainer()->setDateModified(
+			    $this->getDataContainer()->getDateCreated()
+			);
         }
     }
     
@@ -371,7 +371,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $baseUrl = $this->getDataContainer()->getBaseUrl();
         if (!$baseUrl) {
-            return;
+			return;
         }
         $root->setAttribute('xml:base', $baseUrl);
     }
@@ -387,13 +387,13 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $hubs = $this->getDataContainer()->getHubs();
         if (!$hubs) {
-            return;
+			return;
         }
         foreach ($hubs as $hubUrl) {
-            $hub = $dom->createElement('link');
-            $hub->setAttribute('rel', 'hub');
-            $hub->setAttribute('href', $hubUrl);
-            $root->appendChild($hub);
+			$hub = $dom->createElement('link');
+			$hub->setAttribute('rel', 'hub');
+			$hub->setAttribute('href', $hubUrl);
+			$root->appendChild($hub);
         }
     }
     
@@ -408,20 +408,20 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_AtomAbstract
     {
         $categories = $this->getDataContainer()->getCategories();
         if (!$categories) {
-            return;
+			return;
         }
         foreach ($categories as $cat) {
-            $category = $dom->createElement('category');
-            $category->setAttribute('term', $cat['term']);
-            if (isset($cat['label'])) {
-                $category->setAttribute('label', $cat['label']);
-            } else {
-                $category->setAttribute('label', $cat['term']);
-            }
-            if (isset($cat['scheme'])) {
-                $category->setAttribute('scheme', $cat['scheme']);
-            }
-            $root->appendChild($category);
+			$category = $dom->createElement('category');
+			$category->setAttribute('term', $cat['term']);
+			if (isset($cat['label'])) {
+			    $category->setAttribute('label', $cat['label']);
+			} else {
+			    $category->setAttribute('label', $cat['term']);
+			}
+			if (isset($cat['scheme'])) {
+			    $category->setAttribute('scheme', $cat['scheme']);
+			}
+			$root->appendChild($category);
         }
     }
 }

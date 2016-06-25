@@ -51,11 +51,11 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Entry
     public function render()
     {
         if (strtolower($this->getType()) == 'atom') {
-            return;
+			return;
         }
         $this->_setAuthors($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -67,7 +67,7 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Entry
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:dc',
-            'http://purl.org/dc/elements/1.1/');  
+			'http://purl.org/dc/elements/1.1/');  
     }
 
     /**
@@ -81,15 +81,15 @@ class Zend_Feed_Writer_Extension_DublinCore_Renderer_Entry
     {
         $authors = $this->getDataContainer()->getAuthors();
         if (!$authors || empty($authors)) {
-            return;
+			return;
         }
         foreach ($authors as $data) {
-            $author = $this->_dom->createElement('dc:creator');
-            if (array_key_exists('name', $data)) {
-                $text = $dom->createTextNode($data['name']);
-                $author->appendChild($text);
-                $root->appendChild($author);   
-            }
+			$author = $this->_dom->createElement('dc:creator');
+			if (array_key_exists('name', $data)) {
+			    $text = $dom->createTextNode($data['name']);
+			    $author->appendChild($text);
+			    $root->appendChild($author);   
+			}
         }
         $this->_called = true;
     }

@@ -51,11 +51,11 @@ class Zend_Feed_Writer_Extension_Slash_Renderer_Entry
     public function render()
     {
         if (strtolower($this->getType()) == 'atom') {
-            return; // RSS 2.0 only
+			return; // RSS 2.0 only
         }
         $this->_setCommentCount($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -67,7 +67,7 @@ class Zend_Feed_Writer_Extension_Slash_Renderer_Entry
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:slash',
-            'http://purl.org/rss/1.0/modules/slash/');  
+			'http://purl.org/rss/1.0/modules/slash/');  
     }
 
     /**
@@ -81,7 +81,7 @@ class Zend_Feed_Writer_Extension_Slash_Renderer_Entry
     {
         $count = $this->getDataContainer()->getCommentCount();
         if (!$count) {
-            $count = 0;
+			$count = 0;
         }
         $tcount = $this->_dom->createElement('slash:comments');
         $tcount->nodeValue = $count;

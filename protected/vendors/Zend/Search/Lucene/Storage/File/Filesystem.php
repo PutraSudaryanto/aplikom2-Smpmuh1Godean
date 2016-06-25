@@ -51,9 +51,9 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
         global $php_errormsg;
 
         if (strpos($mode, 'w') === false  &&  !is_readable($filename)) {
-            // opening for reading non-readable file
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('File \'' . $filename . '\' is not readable.');
+			// opening for reading non-readable file
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('File \'' . $filename . '\' is not readable.');
         }
 
         $trackErrors = ini_get('track_errors');
@@ -62,9 +62,9 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
         $this->_fileHandle = @fopen($filename, $mode);
 
         if ($this->_fileHandle === false) {
-            ini_set('track_errors', $trackErrors);
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception($php_errormsg);
+			ini_set('track_errors', $trackErrors);
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception($php_errormsg);
         }
 
         ini_set('track_errors', $trackErrors);
@@ -122,8 +122,8 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
     public function close()
     {
         if ($this->_fileHandle !== null ) {
-            @fclose($this->_fileHandle);
-            $this->_fileHandle = null;
+			@fclose($this->_fileHandle);
+			$this->_fileHandle = null;
         }
     }
 
@@ -151,27 +151,27 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
     protected function _fread($length=1)
     {
         if ($length == 0) {
-            return '';
+			return '';
         }
 
         if ($length < 1024) {
-            return fread($this->_fileHandle, $length);
+			return fread($this->_fileHandle, $length);
         }
 
         $data = '';
         while ($length > 0 && !feof($this->_fileHandle)) {
-            $nextBlock = fread($this->_fileHandle, $length);
-            if ($nextBlock === false) {
-                require_once 'Zend/Search/Lucene/Exception.php';
-                throw new Zend_Search_Lucene_Exception( "Error occured while file reading." );
-            }
+			$nextBlock = fread($this->_fileHandle, $length);
+			if ($nextBlock === false) {
+			    require_once 'Zend/Search/Lucene/Exception.php';
+			    throw new Zend_Search_Lucene_Exception( "Error occured while file reading." );
+			}
 
-            $data .= $nextBlock;
-            $length -= strlen($nextBlock);
+			$data .= $nextBlock;
+			$length -= strlen($nextBlock);
         }
         if ($length != 0) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception( "Error occured while file reading." );
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception( "Error occured while file reading." );
         }
 
         return $data;
@@ -188,9 +188,9 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
     protected function _fwrite($data, $length=null)
     {
         if ($length === null ) {
-            fwrite($this->_fileHandle, $data);
+			fwrite($this->_fileHandle, $data);
         } else {
-            fwrite($this->_fileHandle, $data, $length);
+			fwrite($this->_fileHandle, $data, $length);
         }
     }
 
@@ -206,9 +206,9 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
     public function lock($lockType, $nonBlockingLock = false)
     {
         if ($nonBlockingLock) {
-            return flock($this->_fileHandle, $lockType | LOCK_NB);
+			return flock($this->_fileHandle, $lockType | LOCK_NB);
         } else {
-            return flock($this->_fileHandle, $lockType);
+			return flock($this->_fileHandle, $lockType);
         }
     }
 
@@ -222,9 +222,9 @@ class Zend_Search_Lucene_Storage_File_Filesystem extends Zend_Search_Lucene_Stor
     public function unlock()
     {
         if ($this->_fileHandle !== null ) {
-            return flock($this->_fileHandle, LOCK_UN);
+			return flock($this->_fileHandle, LOCK_UN);
         } else {
-            return true;
+			return true;
         }
     }
 }

@@ -51,11 +51,11 @@ class Zend_Feed_Writer_Extension_Content_Renderer_Entry
     public function render()
     {
         if (strtolower($this->getType()) == 'atom') {
-            return;
+			return;
         }
         $this->_setContent($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -67,7 +67,7 @@ class Zend_Feed_Writer_Extension_Content_Renderer_Entry
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:content',
-            'http://purl.org/rss/1.0/modules/content/');  
+			'http://purl.org/rss/1.0/modules/content/');  
     }
 
     /**
@@ -81,7 +81,7 @@ class Zend_Feed_Writer_Extension_Content_Renderer_Entry
     {
         $content = $this->getDataContainer()->getContent();
         if (!$content) {
-            return;
+			return;
         }
         $element = $dom->createElement('content:encoded');
         $root->appendChild($element);

@@ -66,7 +66,7 @@ class Zend_Search_Lucene_Search_Weight_MultiTerm extends Zend_Search_Lucene_Sear
      * @param Zend_Search_Lucene_Interface    $reader
      */
     public function __construct(Zend_Search_Lucene_Search_Query $query,
-                                Zend_Search_Lucene_Interface    $reader)
+						        Zend_Search_Lucene_Interface    $reader)
     {
         $this->_query   = $query;
         $this->_reader  = $reader;
@@ -75,11 +75,11 @@ class Zend_Search_Lucene_Search_Weight_MultiTerm extends Zend_Search_Lucene_Sear
         $signs = $query->getSigns();
 
         foreach ($query->getTerms() as $id => $term) {
-            if ($signs === null || $signs[$id] === null || $signs[$id]) {
-                require_once 'Zend/Search/Lucene/Search/Weight/Term.php';
-                $this->_weights[$id] = new Zend_Search_Lucene_Search_Weight_Term($term, $query, $reader);
-                $query->setWeight($id, $this->_weights[$id]);
-            }
+			if ($signs === null || $signs[$id] === null || $signs[$id]) {
+			    require_once 'Zend/Search/Lucene/Search/Weight/Term.php';
+			    $this->_weights[$id] = new Zend_Search_Lucene_Search_Weight_Term($term, $query, $reader);
+			    $query->setWeight($id, $this->_weights[$id]);
+			}
         }
     }
 
@@ -105,8 +105,8 @@ class Zend_Search_Lucene_Search_Weight_MultiTerm extends Zend_Search_Lucene_Sear
     {
         $sum = 0;
         foreach ($this->_weights as $weight) {
-            // sum sub weights
-            $sum += $weight->sumOfSquaredWeights();
+			// sum sub weights
+			$sum += $weight->sumOfSquaredWeights();
         }
 
         // boost each sub-weight
@@ -114,7 +114,7 @@ class Zend_Search_Lucene_Search_Weight_MultiTerm extends Zend_Search_Lucene_Sear
 
         // check for empty query (like '-something -another')
         if ($sum == 0) {
-            $sum = 1.0;
+			$sum = 1.0;
         }
         return $sum;
     }
@@ -131,7 +131,7 @@ class Zend_Search_Lucene_Search_Weight_MultiTerm extends Zend_Search_Lucene_Sear
         $queryNorm *= $this->_query->getBoost();
 
         foreach ($this->_weights as $weight) {
-            $weight->normalize($queryNorm);
+			$weight->normalize($queryNorm);
         }
     }
 }

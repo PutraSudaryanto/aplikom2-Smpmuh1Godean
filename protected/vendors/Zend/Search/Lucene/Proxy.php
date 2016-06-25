@@ -59,8 +59,8 @@ class Zend_Search_Lucene_Proxy implements Zend_Search_Lucene_Interface
     public function __destruct()
     {
         if ($this->_index !== null) {
-            // This code is invoked if Zend_Search_Lucene_Interface object constructor throws an exception
-            $this->_index->removeReference();
+			// This code is invoked if Zend_Search_Lucene_Interface object constructor throws an exception
+			$this->_index->removeReference();
         }
         $this->_index = null;
     }

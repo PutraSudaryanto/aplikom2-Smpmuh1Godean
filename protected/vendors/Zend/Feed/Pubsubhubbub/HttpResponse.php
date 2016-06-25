@@ -74,22 +74,22 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
     public function sendHeaders()
     {
         if (count($this->_headers) || (200 != $this->_httpResponseCode)) {
-            $this->canSendHeaders(true);
+			$this->canSendHeaders(true);
         } elseif (200 == $this->_httpResponseCode) {
-            return;
+			return;
         }
         $httpCodeSent = false;
         foreach ($this->_headers as $header) {
-            if (!$httpCodeSent && $this->_httpResponseCode) {
-                header($header['name'] . ': ' . $header['value'], $header['replace'], $this->_httpResponseCode);
-                $httpCodeSent = true;
-            } else {
-                header($header['name'] . ': ' . $header['value'], $header['replace']);
-            }
+			if (!$httpCodeSent && $this->_httpResponseCode) {
+			    header($header['name'] . ': ' . $header['value'], $header['replace'], $this->_httpResponseCode);
+			    $httpCodeSent = true;
+			} else {
+			    header($header['name'] . ': ' . $header['value'], $header['replace']);
+			}
         }
         if (!$httpCodeSent) {
-            header('HTTP/1.1 ' . $this->_httpResponseCode);
-            $httpCodeSent = true;
+			header('HTTP/1.1 ' . $this->_httpResponseCode);
+			$httpCodeSent = true;
         }
     }
 
@@ -109,16 +109,16 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
         $name  = $this->_normalizeHeader($name);
         $value = (string) $value;
         if ($replace) {
-            foreach ($this->_headers as $key => $header) {
-                if ($name == $header['name']) {
-                    unset($this->_headers[$key]);
-                }
-            }
+			foreach ($this->_headers as $key => $header) {
+			    if ($name == $header['name']) {
+			        unset($this->_headers[$key]);
+			    }
+			}
         }
         $this->_headers[] = array(
-            'name'    => $name,
-            'value'   => $value,
-            'replace' => $replace,
+			'name'    => $name,
+			'value'   => $value,
+			'replace' => $replace,
         );
 
         return $this;
@@ -134,9 +134,9 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
     {
         $name = $this->_normalizeHeader($name);
         foreach ($this->_headers as $header) {
-            if ($header['name'] == $name) {
-                return $header['value'];
-            }
+			if ($header['name'] == $name) {
+			    return $header['value'];
+			}
         }
     }
 
@@ -161,8 +161,8 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
     {
         $ok = headers_sent($file, $line);
         if ($ok && $throw) {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('Cannot send headers; headers already sent in ' . $file . ', line ' . $line);
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('Cannot send headers; headers already sent in ' . $file . ', line ' . $line);
         }
         return !$ok;
     }
@@ -176,9 +176,9 @@ class Zend_Feed_Pubsubhubbub_HttpResponse
     public function setHttpResponseCode($code)
     {
         if (!is_int($code) || (100 > $code) || (599 < $code)) {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('Invalid HTTP response'
-            . ' code:' . $code);
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('Invalid HTTP response'
+			. ' code:' . $code);
         }
         $this->_httpResponseCode = $code;
         return $this;

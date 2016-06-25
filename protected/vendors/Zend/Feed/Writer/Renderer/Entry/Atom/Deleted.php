@@ -76,7 +76,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
     protected function _setComment(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getComment()) {
-            return;
+			return;
         }
         $c = $dom->createElement('at:comment');
         $root->appendChild($c);
@@ -96,7 +96,7 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
     {
         $data = $this->_container->getBy();
         if ((!$data || empty($data))) {
-            return;
+			return;
         }
         $author = $this->_dom->createElement('at:by');
         $name = $this->_dom->createElement('name');
@@ -105,16 +105,16 @@ class Zend_Feed_Writer_Renderer_Entry_Atom_Deleted
         $text = $dom->createTextNode($data['name']);
         $name->appendChild($text);
         if (array_key_exists('email', $data)) {
-            $email = $this->_dom->createElement('email');
-            $author->appendChild($email);
-            $text = $dom->createTextNode($data['email']);
-            $email->appendChild($text);
+			$email = $this->_dom->createElement('email');
+			$author->appendChild($email);
+			$text = $dom->createTextNode($data['email']);
+			$email->appendChild($text);
         }
         if (array_key_exists('uri', $data)) {
-            $uri = $this->_dom->createElement('uri');
-            $author->appendChild($uri);
-            $text = $dom->createTextNode($data['uri']);
-            $uri->appendChild($text);
+			$uri = $this->_dom->createElement('uri');
+			$author->appendChild($uri);
+			$text = $dom->createTextNode($data['uri']);
+			$uri->appendChild($text);
         }
     }
     

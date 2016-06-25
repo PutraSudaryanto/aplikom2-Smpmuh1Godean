@@ -39,8 +39,8 @@ class Zend_Xml_Security
     protected static function heuristicScan($xml)
     {
         if (strpos($xml, '<!ENTITY') !== false) {
-            require_once 'Exception.php';
-            throw new Zend_Xml_Exception(self::ENTITY_DETECT);
+			require_once 'Exception.php';
+			throw new Zend_Xml_Exception(self::ENTITY_DETECT);
         }
     }
 
@@ -54,7 +54,7 @@ class Zend_Xml_Security
     public static function loadXmlErrorHandler($errno, $errstr, $errfile, $errline)
     {
         if (substr_count($errstr, 'DOMDocument::loadXML()') > 0) {
-            return true;
+			return true;
         }
         return false;
     }
@@ -73,17 +73,17 @@ class Zend_Xml_Security
         // We cannot use libxml_disable_entity_loader because of this bug
         // @see https://bugs.php.net/bug.php?id=64938
         if (self::isPhpFpm()) {
-            self::heuristicScan($xml);
+			self::heuristicScan($xml);
         }
 
         if (null === $dom) {
-            $simpleXml = true;
-            $dom = new DOMDocument();
+			$simpleXml = true;
+			$dom = new DOMDocument();
         }
 
         if (!self::isPhpFpm()) {
-            $loadEntities = libxml_disable_entity_loader(true);
-            $useInternalXmlErrors = libxml_use_internal_errors(true);
+			$loadEntities = libxml_disable_entity_loader(true);
+			$useInternalXmlErrors = libxml_use_internal_errors(true);
         }
 
         // Load XML with network access disabled (LIBXML_NONET)
@@ -95,32 +95,32 @@ class Zend_Xml_Security
 
         // Entity load to previous setting
         if (!self::isPhpFpm()) {
-            libxml_disable_entity_loader($loadEntities);
-            libxml_use_internal_errors($useInternalXmlErrors);
+			libxml_disable_entity_loader($loadEntities);
+			libxml_use_internal_errors($useInternalXmlErrors);
         }
 
         if (!$result) {
-            return false;
+			return false;
         }
 
         // Scan for potential XEE attacks using ENTITY, if not PHP-FPM
         if (!self::isPhpFpm()) {
-            foreach ($dom->childNodes as $child) {
-                if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
-                    if ($child->entities->length > 0) {
-                        require_once 'Exception.php';
-                        throw new Zend_Xml_Exception(self::ENTITY_DETECT);
-                    }
-                }
-            }
+			foreach ($dom->childNodes as $child) {
+			    if ($child->nodeType === XML_DOCUMENT_TYPE_NODE) {
+			        if ($child->entities->length > 0) {
+						require_once 'Exception.php';
+						throw new Zend_Xml_Exception(self::ENTITY_DETECT);
+			        }
+			    }
+			}
         }
 
         if (isset($simpleXml)) {
-            $result = simplexml_import_dom($dom);
-            if (!$result instanceof SimpleXMLElement) {
-                return false;
-            }
-            return $result;
+			$result = simplexml_import_dom($dom);
+			if (!$result instanceof SimpleXMLElement) {
+			    return false;
+			}
+			return $result;
         }
         return $dom;
     }
@@ -136,10 +136,10 @@ class Zend_Xml_Security
     public static function scanFile($file, DOMDocument $dom = null)
     {
         if (!file_exists($file)) {
-            require_once 'Exception.php';
-            throw new Zend_Xml_Exception(
-                "The file $file specified doesn't exist"
-            );
+			require_once 'Exception.php';
+			throw new Zend_Xml_Exception(
+			    "The file $file specified doesn't exist"
+			);
         }
         return self::scan(file_get_contents($file), $dom);
     }
@@ -152,7 +152,7 @@ class Zend_Xml_Security
     public static function isPhpFpm()
     {
         if (substr(php_sapi_name(), 0, 3) === 'fpm') {
-            return true;
+			return true;
         }
         return false;
     }

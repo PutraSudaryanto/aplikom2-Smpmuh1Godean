@@ -66,7 +66,7 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
      * @param Zend_Search_Lucene_Interface    $reader
      */
     public function __construct(Zend_Search_Lucene_Search_Query $query,
-                                Zend_Search_Lucene_Interface    $reader)
+						        Zend_Search_Lucene_Interface    $reader)
     {
         $this->_query   = $query;
         $this->_reader  = $reader;
@@ -75,9 +75,9 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         $signs = $query->getSigns();
 
         foreach ($query->getSubqueries() as $num => $subquery) {
-            if ($signs === null || $signs[$num] === null || $signs[$num]) {
-                $this->_weights[$num] = $subquery->createWeight($reader);
-            }
+			if ($signs === null || $signs[$num] === null || $signs[$num]) {
+			    $this->_weights[$num] = $subquery->createWeight($reader);
+			}
         }
     }
 
@@ -103,8 +103,8 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
     {
         $sum = 0;
         foreach ($this->_weights as $weight) {
-            // sum sub weights
-            $sum += $weight->sumOfSquaredWeights();
+			// sum sub weights
+			$sum += $weight->sumOfSquaredWeights();
         }
 
         // boost each sub-weight
@@ -112,7 +112,7 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
 
         // check for empty query (like '-something -another')
         if ($sum == 0) {
-            $sum = 1.0;
+			$sum = 1.0;
         }
         return $sum;
     }
@@ -129,7 +129,7 @@ class Zend_Search_Lucene_Search_Weight_Boolean extends Zend_Search_Lucene_Search
         $queryNorm *= $this->_query->getBoost();
 
         foreach ($this->_weights as $weight) {
-            $weight->normalize($queryNorm);
+			$weight->normalize($queryNorm);
         }
     }
 }

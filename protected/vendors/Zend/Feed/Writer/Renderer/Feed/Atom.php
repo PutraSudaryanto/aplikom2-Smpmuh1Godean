@@ -68,12 +68,12 @@ class Zend_Feed_Writer_Renderer_Feed_Atom
     public function render()
     {
         if (!$this->_container->getEncoding()) {
-            $this->_container->setEncoding('UTF-8');
+			$this->_container->setEncoding('UTF-8');
         }
         $this->_dom = new DOMDocument('1.0', $this->_container->getEncoding());
         $this->_dom->formatOutput = true;
         $root = $this->_dom->createElementNS(
-            Zend_Feed_Writer::NAMESPACE_ATOM_10, 'feed'
+			Zend_Feed_Writer::NAMESPACE_ATOM_10, 'feed'
         );
         $this->setRootElement($root);
         $this->_dom->appendChild($root);
@@ -94,35 +94,35 @@ class Zend_Feed_Writer_Renderer_Feed_Atom
         $this->_setHubs($this->_dom, $root);
         
         foreach ($this->_extensions as $ext) {
-            $ext->setType($this->getType());
-            $ext->setRootElement($this->getRootElement());
-            $ext->setDomDocument($this->getDomDocument(), $root);
-            $ext->render();
+			$ext->setType($this->getType());
+			$ext->setRootElement($this->getRootElement());
+			$ext->setDomDocument($this->getDomDocument(), $root);
+			$ext->render();
         }
         
         foreach ($this->_container as $entry) {
-            if ($this->getDataContainer()->getEncoding()) {
-                $entry->setEncoding($this->getDataContainer()->getEncoding());
-            }
-            if ($entry instanceof Zend_Feed_Writer_Entry) {
-                $renderer = new Zend_Feed_Writer_Renderer_Entry_Atom($entry);
-            } else {
-                if (!$this->_dom->documentElement->hasAttribute('xmlns:at')) {
-                    $this->_dom->documentElement->setAttribute(
-                        'xmlns:at', 'http://purl.org/atompub/tombstones/1.0'
-                    );
-                }
-                $renderer = new Zend_Feed_Writer_Renderer_Entry_Atom_Deleted($entry);
-            }
-            if ($this->_ignoreExceptions === true) {
-                $renderer->ignoreExceptions();
-            }
-            $renderer->setType($this->getType());
-            $renderer->setRootElement($this->_dom->documentElement);
-            $renderer->render();
-            $element = $renderer->getElement();
-            $imported = $this->_dom->importNode($element, true);
-            $root->appendChild($imported);
+			if ($this->getDataContainer()->getEncoding()) {
+			    $entry->setEncoding($this->getDataContainer()->getEncoding());
+			}
+			if ($entry instanceof Zend_Feed_Writer_Entry) {
+			    $renderer = new Zend_Feed_Writer_Renderer_Entry_Atom($entry);
+			} else {
+			    if (!$this->_dom->documentElement->hasAttribute('xmlns:at')) {
+			        $this->_dom->documentElement->setAttribute(
+						'xmlns:at', 'http://purl.org/atompub/tombstones/1.0'
+			        );
+			    }
+			    $renderer = new Zend_Feed_Writer_Renderer_Entry_Atom_Deleted($entry);
+			}
+			if ($this->_ignoreExceptions === true) {
+			    $renderer->ignoreExceptions();
+			}
+			$renderer->setType($this->getType());
+			$renderer->setRootElement($this->_dom->documentElement);
+			$renderer->render();
+			$element = $renderer->getElement();
+			$imported = $this->_dom->importNode($element, true);
+			$root->appendChild($imported);
         }
         return $this;
     }

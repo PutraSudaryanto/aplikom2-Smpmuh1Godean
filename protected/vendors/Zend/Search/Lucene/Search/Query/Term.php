@@ -77,20 +77,20 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     public function rewrite(Zend_Search_Lucene_Interface $index)
     {
         if ($this->_term->field != null) {
-            return $this;
+			return $this;
         } else {
-            require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
-            $query = new Zend_Search_Lucene_Search_Query_MultiTerm();
-            $query->setBoost($this->getBoost());
+			require_once 'Zend/Search/Lucene/Search/Query/MultiTerm.php';
+			$query = new Zend_Search_Lucene_Search_Query_MultiTerm();
+			$query->setBoost($this->getBoost());
 
-            require_once 'Zend/Search/Lucene/Index/Term.php';
-            foreach ($index->getFieldNames(true) as $fieldName) {
-                $term = new Zend_Search_Lucene_Index_Term($this->_term->text, $fieldName);
+			require_once 'Zend/Search/Lucene/Index/Term.php';
+			foreach ($index->getFieldNames(true) as $fieldName) {
+			    $term = new Zend_Search_Lucene_Index_Term($this->_term->text, $fieldName);
 
-                $query->addTerm($term);
-            }
+			    $query->addTerm($term);
+			}
 
-            return $query->rewrite($index);
+			return $query->rewrite($index);
         }
     }
 
@@ -104,8 +104,8 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     {
         // Check, that index contains specified term
         if (!$index->hasTerm($this->_term)) {
-            require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
-            return new Zend_Search_Lucene_Search_Query_Empty();
+			require_once 'Zend/Search/Lucene/Search/Query/Empty.php';
+			return new Zend_Search_Lucene_Search_Query_Empty();
         }
 
         return $this;
@@ -163,12 +163,12 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     public function score($docId, Zend_Search_Lucene_Interface $reader)
     {
         if (isset($this->_docVector[$docId])) {
-            return $reader->getSimilarity()->tf($this->_termFreqs[$docId]) *
-                   $this->_weight->getValue() *
-                   $reader->norm($docId, $this->_term->field) *
-                   $this->getBoost();
+			return $reader->getSimilarity()->tf($this->_termFreqs[$docId]) *
+			       $this->_weight->getValue() *
+			       $reader->norm($docId, $this->_term->field) *
+			       $this->getBoost();
         } else {
-            return 0;
+			return 0;
         }
     }
 
@@ -211,15 +211,15 @@ class Zend_Search_Lucene_Search_Query_Term extends Zend_Search_Lucene_Search_Que
     {
         // It's used only for query visualisation, so we don't care about characters escaping
         if ($this->_term->field !== null) {
-            $query = $this->_term->field . ':';
+			$query = $this->_term->field . ':';
         } else {
-            $query = '';
+			$query = '';
         }
 
         $query .= $this->_term->text;
 
         if ($this->getBoost() != 1) {
-            $query = $query . '^' . round($this->getBoost(), 4);
+			$query = $query . '^' . round($this->getBoost(), 4);
         }
 
         return $query;

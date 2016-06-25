@@ -51,13 +51,13 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
     public function render()
     {
         if (strtolower($this->getType()) == 'rss') {
-            return; // Atom 1.0 only
+			return; // Atom 1.0 only
         }
         $this->_setCommentLink($this->_dom, $this->_base);
         $this->_setCommentFeedLinks($this->_dom, $this->_base);
         $this->_setCommentCount($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -69,7 +69,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:thr',
-            'http://purl.org/syndication/thread/1.0');  
+			'http://purl.org/syndication/thread/1.0');  
     }
     
     /**
@@ -83,7 +83,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
     {
         $link = $this->getDataContainer()->getCommentLink();
         if (!$link) {
-            return;
+			return;
         }
         $clink = $this->_dom->createElement('link');
         $clink->setAttribute('rel', 'replies');
@@ -91,7 +91,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
         $clink->setAttribute('href', $link);
         $count = $this->getDataContainer()->getCommentCount();
         if (!is_null($count)) {
-            $clink->setAttribute('thr:count', $count);
+			$clink->setAttribute('thr:count', $count);
         }
         $root->appendChild($clink);
         $this->_called = true;
@@ -108,19 +108,19 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
     {
         $links = $this->getDataContainer()->getCommentFeedLinks();
         if (!$links || empty($links)) {
-            return;
+			return;
         }
         foreach ($links as $link) {
-            $flink = $this->_dom->createElement('link');
-            $flink->setAttribute('rel', 'replies');
-            $flink->setAttribute('type', 'application/'. $link['type'] .'+xml');
-            $flink->setAttribute('href', $link['uri']);
-            $count = $this->getDataContainer()->getCommentCount();
-            if (!is_null($count)) {
-                $flink->setAttribute('thr:count', $count);
-            }
-            $root->appendChild($flink);
-            $this->_called = true;
+			$flink = $this->_dom->createElement('link');
+			$flink->setAttribute('rel', 'replies');
+			$flink->setAttribute('type', 'application/'. $link['type'] .'+xml');
+			$flink->setAttribute('href', $link['uri']);
+			$count = $this->getDataContainer()->getCommentCount();
+			if (!is_null($count)) {
+			    $flink->setAttribute('thr:count', $count);
+			}
+			$root->appendChild($flink);
+			$this->_called = true;
         }
     }
 
@@ -135,7 +135,7 @@ class Zend_Feed_Writer_Extension_Threading_Renderer_Entry
     {
         $count = $this->getDataContainer()->getCommentCount();
         if (is_null($count)) {
-            return;
+			return;
         }
         $tcount = $this->_dom->createElement('thr:total');
         $tcount->nodeValue = $count;

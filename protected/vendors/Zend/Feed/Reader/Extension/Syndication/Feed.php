@@ -45,21 +45,21 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $period = $this->_getData($name);
 
         if ($period === null) {
-            $this->_data[$name] = 'daily';
-            return 'daily'; //Default specified by spec
+			$this->_data[$name] = 'daily';
+			return 'daily'; //Default specified by spec
         }
 
         switch ($period)
         {
-            case 'hourly':
-            case 'daily':
-            case 'weekly':
-            case 'yearly':
-                return $period;
-            default:
-                throw new Zend_Feed_Exception("Feed specified invalid update period: '$period'."
-                    .  " Must be one of hourly, daily, weekly or yearly"
-                );
+			case 'hourly':
+			case 'daily':
+			case 'weekly':
+			case 'yearly':
+			    return $period;
+			default:
+			    throw new Zend_Feed_Exception("Feed specified invalid update period: '$period'."
+			        .  " Must be one of hourly, daily, weekly or yearly"
+			    );
         }
     }
 
@@ -73,8 +73,8 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $freq = $this->_getData($name, 'number');
 
         if (!$freq || $freq < 1) {
-            $this->_data[$name] = 1;
-            return 1;
+			$this->_data[$name] = 1;
+			return 1;
         }
 
         return $freq;
@@ -90,8 +90,8 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $freq = $this->_getData($name, 'number');
 
         if (!$freq || $freq < 1) {
-            $this->_data[$name] = 1;
-            $freq = 1;
+			$this->_data[$name] = 1;
+			$freq = 1;
         }
 
         $period = $this->getUpdatePeriod();
@@ -99,18 +99,18 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
 
         switch ($period)
         {
-            //intentional fall through
-            case 'yearly':
-                $ticks *= 52; //TODO: fix generalisation, how?
-            case 'weekly':
-                $ticks *= 7;
-            case 'daily':
-                $ticks *= 24;
-            case 'hourly':
-                $ticks *= 3600;
-                break;
-            default: //Never arrive here, exception thrown in getPeriod()
-                break;
+			//intentional fall through
+			case 'yearly':
+			    $ticks *= 52; //TODO: fix generalisation, how?
+			case 'weekly':
+			    $ticks *= 7;
+			case 'daily':
+			    $ticks *= 24;
+			case 'hourly':
+			    $ticks *= 3600;
+			    break;
+			default: //Never arrive here, exception thrown in getPeriod()
+			    break;
         }
 
         return $ticks / $freq;
@@ -126,8 +126,8 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
         $updateBase = $this->_getData('updateBase');
         $date = null;
         if ($updateBase) {
-            $date = new Zend_Date;
-            $date->set($updateBase, Zend_Date::W3C);
+			$date = new Zend_Date;
+			$date->set($updateBase, Zend_Date::W3C);
         }
         return $date;
     }
@@ -142,13 +142,13 @@ class Zend_Feed_Reader_Extension_Syndication_Feed
     private function _getData($name, $type = 'string')
     {
         if (array_key_exists($name, $this->_data)) {
-            return $this->_data[$name];
+			return $this->_data[$name];
         }
 
         $data = $this->_xpath->evaluate($type . '(' . $this->getXpathPrefix() . '/syn10:' . $name . ')');
 
         if (!$data) {
-            $data = null;
+			$data = null;
         }
 
         $this->_data[$name] = $data;

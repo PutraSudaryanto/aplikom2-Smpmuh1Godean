@@ -83,9 +83,9 @@ abstract class Zend_Feed_Reader_EntryAbstract
         $this->_entryKey    = $entryKey;
         $this->_domDocument = $entry->ownerDocument;
         if ($type !== null) {
-            $this->_data['type'] = $type;
+			$this->_data['type'] = $type;
         } else {
-            $this->_data['type'] = Zend_Feed_Reader::detectType($feed);
+			$this->_data['type'] = Zend_Feed_Reader::detectType($feed);
         }
         $this->_loadExtensions();
     }
@@ -119,7 +119,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
     {
         $assumed = $this->getDomDocument()->encoding;
         if (empty($assumed)) {
-            $assumed = 'UTF-8';
+			$assumed = 'UTF-8';
         }
         return $assumed;
     }
@@ -155,7 +155,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
     public function getXpath()
     {
         if (!$this->_xpath) {
-            $this->setXpath(new DOMXPath($this->getDomDocument()));
+			$this->setXpath(new DOMXPath($this->getDomDocument()));
         }
         return $this->_xpath;
     }
@@ -191,7 +191,7 @@ abstract class Zend_Feed_Reader_EntryAbstract
     public function getExtension($name)
     {
         if (array_key_exists($name . '_Entry', $this->_extensions)) {
-            return $this->_extensions[$name . '_Entry'];
+			return $this->_extensions[$name . '_Entry'];
         }
         return null;
     }
@@ -207,13 +207,13 @@ abstract class Zend_Feed_Reader_EntryAbstract
     public function __call($method, $args)
     {
         foreach ($this->_extensions as $extension) {
-            if (method_exists($extension, $method)) {
-                return call_user_func_array(array($extension, $method), $args);
-            }
+			if (method_exists($extension, $method)) {
+			    return call_user_func_array(array($extension, $method), $args);
+			}
         }
         require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Method: ' . $method
-            . 'does not exist and could not be located on a registered Extension');
+			. 'does not exist and could not be located on a registered Extension');
     }
 
     /**
@@ -226,13 +226,13 @@ abstract class Zend_Feed_Reader_EntryAbstract
         $all = Zend_Feed_Reader::getExtensions();
         $feed = $all['entry'];
         foreach ($feed as $extension) {
-            if (in_array($extension, $all['core'])) {
-                continue;
-            }
-            $className = Zend_Feed_Reader::getPluginLoader()->getClassName($extension);
-            $this->_extensions[$extension] = new $className(
-                $this->getElement(), $this->_entryKey, $this->_data['type']
-            );
+			if (in_array($extension, $all['core'])) {
+			    continue;
+			}
+			$className = Zend_Feed_Reader::getPluginLoader()->getClassName($extension);
+			$this->_extensions[$extension] = new $className(
+			    $this->getElement(), $this->_entryKey, $this->_data['type']
+			);
         }
     }
 }

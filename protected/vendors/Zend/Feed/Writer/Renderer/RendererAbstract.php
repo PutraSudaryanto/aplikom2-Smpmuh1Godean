@@ -163,8 +163,8 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
     public function ignoreExceptions($bool = true)
     {
         if (!is_bool($bool)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: $bool. Should be TRUE or FALSE (defaults to TRUE if null)');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: $bool. Should be TRUE or FALSE (defaults to TRUE if null)');
         }
         $this->_ignoreExceptions = $bool;
         return $this;
@@ -235,16 +235,16 @@ class Zend_Feed_Writer_Renderer_RendererAbstract
         Zend_Feed_Writer::registerCoreExtensions();
         $all = Zend_Feed_Writer::getExtensions();
         if (stripos(get_class($this), 'entry')) {
-            $exts = $all['entryRenderer'];
+			$exts = $all['entryRenderer'];
         } else {
-            $exts = $all['feedRenderer'];
+			$exts = $all['feedRenderer'];
         }
         foreach ($exts as $extension) {
-            $className = Zend_Feed_Writer::getPluginLoader()->getClassName($extension);
-            $this->_extensions[$extension] = new $className(
-                $this->getDataContainer()
-            );
-            $this->_extensions[$extension]->setEncoding($this->getEncoding());
+			$className = Zend_Feed_Writer::getPluginLoader()->getClassName($extension);
+			$this->_extensions[$extension] = new $className(
+			    $this->getDataContainer()
+			);
+			$this->_extensions[$extension]->setEncoding($this->getEncoding());
         }
     }
 }

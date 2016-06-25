@@ -76,46 +76,46 @@ abstract class Zend_Feed_Entry_Abstract extends Zend_Feed_Element
     public function __construct($uri = null, $element = null)
     {
         if (!($element instanceof DOMElement)) {
-            if ($element) {
-                // Load the feed as an XML DOMDocument object
-                @ini_set('track_errors', 1);
-                $doc = new DOMDocument();
-                $status = @$doc->loadXML($element);
-                @ini_restore('track_errors');
+			if ($element) {
+			    // Load the feed as an XML DOMDocument object
+			    @ini_set('track_errors', 1);
+			    $doc = new DOMDocument();
+			    $status = @$doc->loadXML($element);
+			    @ini_restore('track_errors');
 
-                if (!$status) {
-                    // prevent the class to generate an undefined variable notice (ZF-2590)
-                    if (!isset($php_errormsg)) {
-                        if (function_exists('xdebug_is_enabled')) {
-                            $php_errormsg = '(error message not available, when XDebug is running)';
-                        } else {
-                            $php_errormsg = '(error message not available)';
-                        }
-                    }
+			    if (!$status) {
+			        // prevent the class to generate an undefined variable notice (ZF-2590)
+			        if (!isset($php_errormsg)) {
+						if (function_exists('xdebug_is_enabled')) {
+						    $php_errormsg = '(error message not available, when XDebug is running)';
+						} else {
+						    $php_errormsg = '(error message not available)';
+						}
+			        }
 
-                    /**
-                     * @see Zend_Feed_Exception
-                     */
-                    require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception("DOMDocument cannot parse XML: $php_errormsg");
-                }
+			        /**
+			         * @see Zend_Feed_Exception
+			         */
+			        require_once 'Zend/Feed/Exception.php';
+			        throw new Zend_Feed_Exception("DOMDocument cannot parse XML: $php_errormsg");
+			    }
 
-                $element = $doc->getElementsByTagName($this->_rootElement)->item(0);
-                if (!$element) {
-                    /**
-                     * @see Zend_Feed_Exception
-                     */
-                    require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception('No root <' . $this->_rootElement . '> element found, cannot parse feed.');
-                }
-            } else {
-                $doc = new DOMDocument('1.0', 'utf-8');
-                if ($this->_rootNamespace !== null) {
-                    $element = $doc->createElementNS(Zend_Feed::lookupNamespace($this->_rootNamespace), $this->_rootElement);
-                } else {
-                    $element = $doc->createElement($this->_rootElement);
-                }
-            }
+			    $element = $doc->getElementsByTagName($this->_rootElement)->item(0);
+			    if (!$element) {
+			        /**
+			         * @see Zend_Feed_Exception
+			         */
+			        require_once 'Zend/Feed/Exception.php';
+			        throw new Zend_Feed_Exception('No root <' . $this->_rootElement . '> element found, cannot parse feed.');
+			    }
+			} else {
+			    $doc = new DOMDocument('1.0', 'utf-8');
+			    if ($this->_rootNamespace !== null) {
+			        $element = $doc->createElementNS(Zend_Feed::lookupNamespace($this->_rootNamespace), $this->_rootElement);
+			    } else {
+			        $element = $doc->createElement($this->_rootElement);
+			    }
+			}
         }
 
         parent::__construct($element);

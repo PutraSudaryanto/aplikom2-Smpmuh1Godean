@@ -39,7 +39,7 @@ class Zend_Feed_Writer
     /**
 	 * Feed type constants
 	 */
-	const TYPE_ANY              = 'any';
+	const TYPE_ANY			  = 'any';
 	const TYPE_ATOM_03          = 'atom-03';
     const TYPE_ATOM_10          = 'atom-10';
     const TYPE_ATOM_ANY         = 'atom';
@@ -100,10 +100,10 @@ class Zend_Feed_Writer
     public static function getPluginLoader()
     {
         if (!isset(self::$_pluginLoader)) {
-            require_once 'Zend/Loader/PluginLoader.php';
-            self::$_pluginLoader = new Zend_Loader_PluginLoader(array(
-                'Zend_Feed_Writer_Extension_' => 'Zend/Feed/Writer/Extension/',
-            ));
+			require_once 'Zend/Loader/PluginLoader.php';
+			self::$_pluginLoader = new Zend_Loader_PluginLoader(array(
+			    'Zend_Feed_Writer_Extension_' => 'Zend/Feed/Writer/Extension/',
+			));
         }
         return self::$_pluginLoader;
     }
@@ -131,12 +131,12 @@ class Zend_Feed_Writer
     public static function addPrefixPaths(array $spec)
     {
         if (isset($spec['prefix']) && isset($spec['path'])) {
-            self::addPrefixPath($spec['prefix'], $spec['path']);
+			self::addPrefixPath($spec['prefix'], $spec['path']);
         }
         foreach ($spec as $prefixPath) {
-            if (isset($prefixPath['prefix']) && isset($prefixPath['path'])) {
-                self::addPrefixPath($prefixPath['prefix'], $prefixPath['path']);
-            }
+			if (isset($prefixPath['prefix']) && isset($prefixPath['path'])) {
+			    self::addPrefixPath($prefixPath['prefix'], $prefixPath['path']);
+			}
         }
     }
 
@@ -154,42 +154,42 @@ class Zend_Feed_Writer
         $feedRendererName  = $name . '_Renderer_Feed';
         $entryRendererName = $name . '_Renderer_Entry';
         if (self::isRegistered($name)) {
-            if (self::getPluginLoader()->isLoaded($feedName)
-                || self::getPluginLoader()->isLoaded($entryName)
-                || self::getPluginLoader()->isLoaded($feedRendererName)
-                || self::getPluginLoader()->isLoaded($entryRendererName)
-            ) {
-                return;
-            }
+			if (self::getPluginLoader()->isLoaded($feedName)
+			    || self::getPluginLoader()->isLoaded($entryName)
+			    || self::getPluginLoader()->isLoaded($feedRendererName)
+			    || self::getPluginLoader()->isLoaded($entryRendererName)
+			) {
+			    return;
+			}
         }
         try {
-            self::getPluginLoader()->load($feedName);
-            self::$_extensions['feed'][] = $feedName;
+			self::getPluginLoader()->load($feedName);
+			self::$_extensions['feed'][] = $feedName;
         } catch (Zend_Loader_PluginLoader_Exception $e) {
         }
         try {
-            self::getPluginLoader()->load($entryName);
-            self::$_extensions['entry'][] = $entryName;
+			self::getPluginLoader()->load($entryName);
+			self::$_extensions['entry'][] = $entryName;
         } catch (Zend_Loader_PluginLoader_Exception $e) {
         }
         try {
-            self::getPluginLoader()->load($feedRendererName);
-            self::$_extensions['feedRenderer'][] = $feedRendererName;
+			self::getPluginLoader()->load($feedRendererName);
+			self::$_extensions['feedRenderer'][] = $feedRendererName;
         } catch (Zend_Loader_PluginLoader_Exception $e) {
         }
         try {
-            self::getPluginLoader()->load($entryRendererName);
-            self::$_extensions['entryRenderer'][] = $entryRendererName;
+			self::getPluginLoader()->load($entryRendererName);
+			self::$_extensions['entryRenderer'][] = $entryRendererName;
         } catch (Zend_Loader_PluginLoader_Exception $e) {
         }
         if (!self::getPluginLoader()->isLoaded($feedName)
-            && !self::getPluginLoader()->isLoaded($entryName)
-            && !self::getPluginLoader()->isLoaded($feedRendererName)
-            && !self::getPluginLoader()->isLoaded($entryRendererName)
+			&& !self::getPluginLoader()->isLoaded($entryName)
+			&& !self::getPluginLoader()->isLoaded($feedRendererName)
+			&& !self::getPluginLoader()->isLoaded($entryRendererName)
         ) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Could not load extension: ' . $name
-                . 'using Plugin Loader. Check prefix paths are configured and extension exists.');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Could not load extension: ' . $name
+			    . 'using Plugin Loader. Check prefix paths are configured and extension exists.');
         }
     }
 
@@ -206,11 +206,11 @@ class Zend_Feed_Writer
         $feedRendererName  = $extensionName . '_Renderer_Feed';
         $entryRendererName = $extensionName . '_Renderer_Entry';
         if (in_array($feedName, self::$_extensions['feed'])
-            || in_array($entryName, self::$_extensions['entry'])
-            || in_array($feedRendererName, self::$_extensions['feedRenderer'])
-            || in_array($entryRendererName, self::$_extensions['entryRenderer'])
+			|| in_array($entryName, self::$_extensions['entry'])
+			|| in_array($feedRendererName, self::$_extensions['feedRenderer'])
+			|| in_array($entryRendererName, self::$_extensions['entryRenderer'])
         ) {
-            return true;
+			return true;
         }
         return false;
     }
@@ -235,10 +235,10 @@ class Zend_Feed_Writer
         self::$_pluginLoader = null;
         self::$_prefixPaths  = array();
         self::$_extensions   = array(
-            'entry'         => array(),
-            'feed'          => array(),
-            'entryRenderer' => array(),
-            'feedRenderer'  => array(),
+			'entry'         => array(),
+			'feed'          => array(),
+			'entryRenderer' => array(),
+			'feedRenderer'  => array(),
         );
     }
 

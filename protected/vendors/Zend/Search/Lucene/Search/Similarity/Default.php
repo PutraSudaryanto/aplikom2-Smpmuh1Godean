@@ -45,7 +45,7 @@ class Zend_Search_Lucene_Search_Similarity_Default extends Zend_Search_Lucene_Se
     public function lengthNorm($fieldName, $numTerms)
     {
         if ($numTerms == 0) {
-            return 1E10;
+			return 1E10;
         }
 
         return 1.0/sqrt($numTerms);

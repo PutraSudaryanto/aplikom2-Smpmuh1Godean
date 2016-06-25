@@ -59,9 +59,9 @@ class Zend_Search_Lucene_Index_SegmentWriter_StreamWriter extends Zend_Search_Lu
     public function addNorm($fieldName, $normVector)
     {
         if (isset($this->_norms[$fieldName])) {
-            $this->_norms[$fieldName] .= $normVector;
+			$this->_norms[$fieldName] .= $normVector;
         } else {
-            $this->_norms[$fieldName] = $normVector;
+			$this->_norms[$fieldName] = $normVector;
         }
     }
 
@@ -73,7 +73,7 @@ class Zend_Search_Lucene_Index_SegmentWriter_StreamWriter extends Zend_Search_Lu
     public function close()
     {
         if ($this->_docCount == 0) {
-            return null;
+			return null;
         }
 
         $this->_dumpFNM();
@@ -83,12 +83,12 @@ class Zend_Search_Lucene_Index_SegmentWriter_StreamWriter extends Zend_Search_Lu
         require_once 'Zend/Search/Lucene/Index/SegmentInfo.php';
 
         return new Zend_Search_Lucene_Index_SegmentInfo($this->_directory,
-                                                        $this->_name,
-                                                        $this->_docCount,
-                                                        -1,
-                                                        null,
-                                                        true,
-                                                        true);
+												        $this->_name,
+												        $this->_docCount,
+												        -1,
+												        null,
+												        true,
+												        true);
     }
 }
 

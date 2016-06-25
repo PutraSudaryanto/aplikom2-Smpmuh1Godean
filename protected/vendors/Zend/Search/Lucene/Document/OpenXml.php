@@ -87,22 +87,22 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
         // Read relations and search for core properties
         $relations = Zend_Xml_Security::scan($package->getFromName("_rels/.rels"));
         foreach ($relations->Relationship as $rel) {
-            if ($rel["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) {
-                // Found core properties! Read in contents...
-                $contents = Zend_Xml_Security::scan(
-                    $package->getFromName(dirname($rel["Target"]) . "/" . basename($rel["Target"]))
-                );
+			if ($rel["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) {
+			    // Found core properties! Read in contents...
+			    $contents = Zend_Xml_Security::scan(
+			        $package->getFromName(dirname($rel["Target"]) . "/" . basename($rel["Target"]))
+			    );
 
-                foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORE) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
-                }
-                foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
-                }
-                foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORETERMS) as $child) {
-                    $coreProperties[$child->getName()] = (string)$child;
-                }
-            }
+			    foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORE) as $child) {
+			        $coreProperties[$child->getName()] = (string)$child;
+			    }
+			    foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_COREPROPERTIES) as $child) {
+			        $coreProperties[$child->getName()] = (string)$child;
+			    }
+			    foreach ($contents->children(Zend_Search_Lucene_Document_OpenXml::SCHEMA_DUBLINCORETERMS) as $child) {
+			        $coreProperties[$child->getName()] = (string)$child;
+			    }
+			}
         }
 
         return $coreProperties;
@@ -119,12 +119,12 @@ abstract class Zend_Search_Lucene_Document_OpenXml extends Zend_Search_Lucene_Do
         $parts = array_filter(explode(DIRECTORY_SEPARATOR, $path), 'strlen');
         $absolutes = array();
         foreach ($parts as $part) {
-            if ('.' == $part) continue;
-            if ('..' == $part) {
-                array_pop($absolutes);
-            } else {
-                $absolutes[] = $part;
-            }
+			if ('.' == $part) continue;
+			if ('..' == $part) {
+			    array_pop($absolutes);
+			} else {
+			    $absolutes[] = $part;
+			}
         }
         return implode('/', $absolutes);
     }

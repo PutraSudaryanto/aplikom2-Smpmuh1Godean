@@ -83,16 +83,16 @@ class Zend_Feed_Pubsubhubbub
     public static function detectHubs($source)
     {
         if (is_string($source)) {
-            $feed = Zend_Feed_Reader::import($source);
+			$feed = Zend_Feed_Reader::import($source);
         } elseif (is_object($source) && $source instanceof Zend_Feed_Reader_FeedAbstract) {
-            $feed = $source;
+			$feed = $source;
         } elseif (is_object($source) && $source instanceof Zend_Feed_Abstract) {
-            $feed = Zend_Feed_Reader::importFeed($source);
+			$feed = Zend_Feed_Reader::importFeed($source);
         } else {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('The source parameter was'
-            . ' invalid, i.e. not a URL string or an instance of type'
-            . ' Zend_Feed_Reader_FeedAbstract or Zend_Feed_Abstract');
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('The source parameter was'
+			. ' invalid, i.e. not a URL string or an instance of type'
+			. ' Zend_Feed_Reader_FeedAbstract or Zend_Feed_Abstract');
         }
         return $feed->getHubs();
     }
@@ -119,9 +119,9 @@ class Zend_Feed_Pubsubhubbub
     public static function getHttpClient()
     {
         if (!isset(self::$httpClient)):
-            self::$httpClient = new Zend_Http_Client;
+			self::$httpClient = new Zend_Http_Client;
         else:
-            self::$httpClient->resetParameters();
+			self::$httpClient->resetParameters();
         endif;
         return self::$httpClient;
     }

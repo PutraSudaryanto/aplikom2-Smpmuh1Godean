@@ -51,11 +51,11 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
     public function render()
     {
         if (strtolower($this->getType()) == 'atom') {
-            return; // RSS 2.0 only
+			return; // RSS 2.0 only
         }
         $this->_setCommentFeedLinks($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -67,7 +67,7 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:wfw',
-            'http://wellformedweb.org/CommentAPI/');  
+			'http://wellformedweb.org/CommentAPI/');  
     }
     
     /**
@@ -81,15 +81,15 @@ class Zend_Feed_Writer_Extension_WellFormedWeb_Renderer_Entry
     {
         $links = $this->getDataContainer()->getCommentFeedLinks();
         if (!$links || empty($links)) {
-            return;
+			return;
         }
         foreach ($links as $link) {
-            if ($link['type'] == 'rss') {
-                $flink = $this->_dom->createElement('wfw:commentRss');
-                $text = $dom->createTextNode($link['uri']);
-                $flink->appendChild($text);
-                $root->appendChild($flink);
-            }
+			if ($link['type'] == 'rss') {
+			    $flink = $this->_dom->createElement('wfw:commentRss');
+			    $text = $dom->createTextNode($link['uri']);
+			    $flink->appendChild($text);
+			    $root->appendChild($flink);
+			}
         }
         $this->_called = true;
     }

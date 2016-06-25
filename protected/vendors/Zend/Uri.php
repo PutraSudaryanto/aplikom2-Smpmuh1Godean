@@ -67,9 +67,9 @@ abstract class Zend_Uri
     public static function check($uri)
     {
         try {
-            $uri = self::factory($uri);
+			$uri = self::factory($uri);
         } catch (Exception $e) {
-            return false;
+			return false;
         }
 
         return $uri->valid();
@@ -91,57 +91,57 @@ abstract class Zend_Uri
     public static function factory($uri = 'http', $className = null)
     {
         // Separate the scheme from the scheme-specific parts
-        $uri            = explode(':', $uri, 2);
+        $uri			= explode(':', $uri, 2);
         $scheme         = strtolower($uri[0]);
         $schemeSpecific = isset($uri[1]) === true ? $uri[1] : '';
 
         if (strlen($scheme) === 0) {
-            require_once 'Zend/Uri/Exception.php';
-            throw new Zend_Uri_Exception('An empty string was supplied for the scheme');
+			require_once 'Zend/Uri/Exception.php';
+			throw new Zend_Uri_Exception('An empty string was supplied for the scheme');
         }
 
         // Security check: $scheme is used to load a class file, so only alphanumerics are allowed.
         if (ctype_alnum($scheme) === false) {
-            require_once 'Zend/Uri/Exception.php';
-            throw new Zend_Uri_Exception('Illegal scheme supplied, only alphanumeric characters are permitted');
+			require_once 'Zend/Uri/Exception.php';
+			throw new Zend_Uri_Exception('Illegal scheme supplied, only alphanumeric characters are permitted');
         }
 
         if ($className === null) {
-            /**
-             * Create a new Zend_Uri object for the $uri. If a subclass of Zend_Uri exists for the
-             * scheme, return an instance of that class. Otherwise, a Zend_Uri_Exception is thrown.
-             */
-            switch ($scheme) {
-                case 'http':
-                    // Break intentionally omitted
-                case 'https':
-                    $className = 'Zend_Uri_Http';
-                    break;
+			/**
+			 * Create a new Zend_Uri object for the $uri. If a subclass of Zend_Uri exists for the
+			 * scheme, return an instance of that class. Otherwise, a Zend_Uri_Exception is thrown.
+			 */
+			switch ($scheme) {
+			    case 'http':
+			        // Break intentionally omitted
+			    case 'https':
+			        $className = 'Zend_Uri_Http';
+			        break;
 
-                case 'mailto':
-                    // TODO
-                default:
-                    require_once 'Zend/Uri/Exception.php';
-                    throw new Zend_Uri_Exception("Scheme \"$scheme\" is not supported");
-                    break;
-            }
+			    case 'mailto':
+			        // TODO
+			    default:
+			        require_once 'Zend/Uri/Exception.php';
+			        throw new Zend_Uri_Exception("Scheme \"$scheme\" is not supported");
+			        break;
+			}
         }
 
         if (!class_exists($className)) {
-            require_once 'Zend/Loader.php';
-            try {
-                Zend_Loader::loadClass($className);
-            } catch (Exception $e) {
-                require_once 'Zend/Uri/Exception.php';
-                throw new Zend_Uri_Exception("\"$className\" not found");
-            }
+			require_once 'Zend/Loader.php';
+			try {
+			    Zend_Loader::loadClass($className);
+			} catch (Exception $e) {
+			    require_once 'Zend/Uri/Exception.php';
+			    throw new Zend_Uri_Exception("\"$className\" not found");
+			}
         }
 
         $schemeHandler = new $className($scheme, $schemeSpecific);
 
         if (! $schemeHandler instanceof Zend_Uri) {
-            require_once 'Zend/Uri/Exception.php';
-            throw new Zend_Uri_Exception("\"$className\" is not an instance of Zend_Uri");
+			require_once 'Zend/Uri/Exception.php';
+			throw new Zend_Uri_Exception("\"$className\" is not an instance of Zend_Uri");
         }
 
         return $schemeHandler;
@@ -155,9 +155,9 @@ abstract class Zend_Uri
     public function getScheme()
     {
         if (empty($this->_scheme) === false) {
-            return $this->_scheme;
+			return $this->_scheme;
         } else {
-            return false;
+			return false;
         }
     }
 
@@ -169,13 +169,13 @@ abstract class Zend_Uri
     static public function setConfig($config)
     {
         if ($config instanceof Zend_Config) {
-            $config = $config->toArray();
+			$config = $config->toArray();
         } elseif (!is_array($config)) {
-            throw new Zend_Uri_Exception("Config must be an array or an instance of Zend_Config.");
+			throw new Zend_Uri_Exception("Config must be an array or an instance of Zend_Config.");
         }
 
         foreach ($config as $k => $v) {
-            self::$_config[$k] = $v;
+			self::$_config[$k] = $v;
         }
     }
 

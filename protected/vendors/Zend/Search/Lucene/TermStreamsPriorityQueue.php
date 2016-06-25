@@ -78,12 +78,12 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
         $this->_termsStreamQueue = new Zend_Search_Lucene_Index_TermsPriorityQueue();
 
         foreach ($this->_termStreams as $termStream) {
-            $termStream->resetTermsStream();
+			$termStream->resetTermsStream();
 
-            // Skip "empty" containers
-            if ($termStream->currentTerm() !== null) {
-                $this->_termsStreamQueue->put($termStream);
-            }
+			// Skip "empty" containers
+			if ($termStream->currentTerm() !== null) {
+			    $this->_termsStreamQueue->put($termStream);
+			}
         }
 
         $this->nextTerm();
@@ -101,11 +101,11 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
         $this->_termsStreamQueue = new Zend_Search_Lucene_Index_TermsPriorityQueue();
 
         foreach ($this->_termStreams as $termStream) {
-            $termStream->skipTo($prefix);
+			$termStream->skipTo($prefix);
 
-            if ($termStream->currentTerm() !== null) {
-                $this->_termsStreamQueue->put($termStream);
-            }
+			if ($termStream->currentTerm() !== null) {
+			    $this->_termsStreamQueue->put($termStream);
+			}
         }
 
         return $this->nextTerm();
@@ -119,24 +119,24 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
     public function nextTerm()
     {
         while (($termStream = $this->_termsStreamQueue->pop()) !== null) {
-            if ($this->_termsStreamQueue->top() === null ||
-                $this->_termsStreamQueue->top()->currentTerm()->key() !=
-                            $termStream->currentTerm()->key()) {
-                // We got new term
-                $this->_lastTerm = $termStream->currentTerm();
+			if ($this->_termsStreamQueue->top() === null ||
+			    $this->_termsStreamQueue->top()->currentTerm()->key() !=
+						    $termStream->currentTerm()->key()) {
+			    // We got new term
+			    $this->_lastTerm = $termStream->currentTerm();
 
-                if ($termStream->nextTerm() !== null) {
-                    // Put segment back into the priority queue
-                    $this->_termsStreamQueue->put($termStream);
-                }
+			    if ($termStream->nextTerm() !== null) {
+			        // Put segment back into the priority queue
+			        $this->_termsStreamQueue->put($termStream);
+			    }
 
-                return $this->_lastTerm;
-            }
+			    return $this->_lastTerm;
+			}
 
-            if ($termStream->nextTerm() !== null) {
-                // Put segment back into the priority queue
-                $this->_termsStreamQueue->put($termStream);
-            }
+			if ($termStream->nextTerm() !== null) {
+			    // Put segment back into the priority queue
+			    $this->_termsStreamQueue->put($termStream);
+			}
         }
 
         // End of stream
@@ -163,7 +163,7 @@ class Zend_Search_Lucene_TermStreamsPriorityQueue implements Zend_Search_Lucene_
     public function closeTermsStream()
     {
         while (($termStream = $this->_termsStreamQueue->pop()) !== null) {
-            $termStream->closeTermsStream();
+			$termStream->closeTermsStream();
         }
 
         $this->_termsStreamQueue = null;

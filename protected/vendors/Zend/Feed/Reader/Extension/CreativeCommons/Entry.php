@@ -47,7 +47,7 @@ class Zend_Feed_Reader_Extension_CreativeCommons_Entry extends Zend_Feed_Reader_
         $licenses = $this->getLicenses();
 
         if (isset($licenses[$index])) {
-            return $licenses[$index];
+			return $licenses[$index];
         }
 
         return null;
@@ -62,23 +62,23 @@ class Zend_Feed_Reader_Extension_CreativeCommons_Entry extends Zend_Feed_Reader_
     {
         $name = 'licenses';
         if (array_key_exists($name, $this->_data)) {
-            return $this->_data[$name];
+			return $this->_data[$name];
         }
 
         $licenses = array();
         $list = $this->_xpath->evaluate($this->getXpathPrefix() . '//cc:license');
 
         if ($list->length) {
-            foreach ($list as $license) {
-                    $licenses[] = $license->nodeValue;
-            }
+			foreach ($list as $license) {
+			        $licenses[] = $license->nodeValue;
+			}
 
-            $licenses = array_unique($licenses);
+			$licenses = array_unique($licenses);
         } else {
-            $cc = new Zend_Feed_Reader_Extension_CreativeCommons_Feed(
-                $this->_domDocument, $this->_data['type'], $this->_xpath
-            );
-            $licenses = $cc->getLicenses();
+			$cc = new Zend_Feed_Reader_Extension_CreativeCommons_Feed(
+			    $this->_domDocument, $this->_data['type'], $this->_xpath
+			);
+			$licenses = $cc->getLicenses();
         }
 
         $this->_data[$name] = $licenses;

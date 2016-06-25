@@ -51,7 +51,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
     public function render()
     {
         if (!$this->_container->getEncoding()) {
-            $this->_container->setEncoding('UTF-8');
+			$this->_container->setEncoding('UTF-8');
         }
         $this->_dom = new DOMDocument('1.0', $this->_container->getEncoding());
         $this->_dom->formatOutput = true;
@@ -73,10 +73,10 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
         $this->_setCategories($this->_dom, $root);
         
         foreach ($this->_extensions as $ext) {
-            $ext->setType($this->getType());
-            $ext->setRootElement($this->getRootElement());
-            $ext->setDomDocument($this->getDomDocument(), $root);
-            $ext->render();
+			$ext->setType($this->getType());
+			$ext->setRootElement($this->getRootElement());
+			$ext->setDomDocument($this->getDomDocument(), $root);
+			$ext->render();
         }
         return $this;
     }
@@ -91,7 +91,7 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
     protected function _setGenerator(DOMDocument $dom, DOMElement $root)
     {
         if(!$this->getDataContainer()->getGenerator()) {
-            return;
+			return;
         }
 
         $gdata = $this->getDataContainer()->getGenerator();
@@ -100,10 +100,10 @@ class Zend_Feed_Writer_Renderer_Feed_Atom_Source
         $text = $dom->createTextNode($gdata['name']);
         $generator->appendChild($text);
         if (array_key_exists('uri', $gdata)) {
-            $generator->setAttribute('uri', $gdata['uri']);
+			$generator->setAttribute('uri', $gdata['uri']);
         }
         if (array_key_exists('version', $gdata)) {
-            $generator->setAttribute('version', $gdata['version']);
+			$generator->setAttribute('version', $gdata['version']);
         }
     }
 

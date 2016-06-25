@@ -22,7 +22,7 @@
 
 
 /** User land classes and interfaces turned on by Zend/Search/Analyzer.php file inclusion. */
-/** @todo Section should be removed with ZF 2.0 release as obsolete                      */
+/** @todo Section should be removed with ZF 2.0 release as obsolete			          */
 if (!defined('ZEND_SEARCH_LUCENE_COMMON_ANALYZER_PROCESSED')) {
     /** Zend_Search_Lucene_Analysis_Analyzer_Common_Utf8 */
     require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common/Utf8.php';
@@ -105,7 +105,7 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
 
         $tokenList = array();
         while (($nextToken = $this->nextToken()) !== null) {
-            $tokenList[] = $nextToken;
+			$tokenList[] = $nextToken;
         }
 
         return $tokenList;
@@ -166,7 +166,7 @@ abstract class Zend_Search_Lucene_Analysis_Analyzer
         require_once 'Zend/Search/Lucene/Analysis/Analyzer/Common/Text/CaseInsensitive.php';
 
         if (!self::$_defaultImpl instanceof Zend_Search_Lucene_Analysis_Analyzer) {
-            self::$_defaultImpl = new Zend_Search_Lucene_Analysis_Analyzer_Common_Text_CaseInsensitive();
+			self::$_defaultImpl = new Zend_Search_Lucene_Analysis_Analyzer_Common_Text_CaseInsensitive();
         }
 
         return self::$_defaultImpl;

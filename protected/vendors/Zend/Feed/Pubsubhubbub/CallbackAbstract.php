@@ -74,7 +74,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     public function __construct($config = null)
     {
         if (!is_null($config)) {
-            $this->setConfig($config);
+			$this->setConfig($config);
         }
     }
 
@@ -87,14 +87,14 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     public function setConfig($config)
     {
         if ($config instanceof Zend_Config) {
-            $config = $config->toArray();
+			$config = $config->toArray();
         } elseif (!is_array($config)) {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('Array or Zend_Config object'
-            . 'expected, got ' . gettype($config));
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('Array or Zend_Config object'
+			. 'expected, got ' . gettype($config));
         }
         if (array_key_exists('storage', $config)) {
-            $this->setStorage($config['storage']);
+			$this->setStorage($config['storage']);
         }
         return $this;
     }
@@ -136,9 +136,9 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     public function getStorage()
     {
         if ($this->_storage === null) {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('No storage object has been'
-                . ' set that subclasses Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface');
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('No storage object has been'
+			    . ' set that subclasses Zend_Feed_Pubsubhubbub_Model_SubscriptionInterface');
         }
         return $this->_storage;
     }
@@ -154,13 +154,13 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     public function setHttpResponse($httpResponse)
     {
         if (!is_object($httpResponse)
-            || (!$httpResponse instanceof Zend_Feed_Pubsubhubbub_HttpResponse
-                && !$httpResponse instanceof Zend_Controller_Response_Http)
+			|| (!$httpResponse instanceof Zend_Feed_Pubsubhubbub_HttpResponse
+			    && !$httpResponse instanceof Zend_Controller_Response_Http)
         ) {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('HTTP Response object must'
-                . ' implement one of Zend_Feed_Pubsubhubbub_HttpResponse or'
-                . ' Zend_Controller_Response_Http');
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('HTTP Response object must'
+			    . ' implement one of Zend_Feed_Pubsubhubbub_HttpResponse or'
+			    . ' Zend_Controller_Response_Http');
         }
         $this->_httpResponse = $httpResponse;
         return $this;
@@ -176,7 +176,7 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     public function getHttpResponse()
     {
         if ($this->_httpResponse === null) {
-            $this->_httpResponse = new Zend_Feed_Pubsubhubbub_HttpResponse;
+			$this->_httpResponse = new Zend_Feed_Pubsubhubbub_HttpResponse;
         }
         return $this->_httpResponse;
     }
@@ -193,9 +193,9 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     {
         $count = intval($count);
         if ($count <= 0) {
-            require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
-            throw new Zend_Feed_Pubsubhubbub_Exception('Subscriber count must be'
-                . ' greater than zero');
+			require_once 'Zend/Feed/Pubsubhubbub/Exception.php';
+			throw new Zend_Feed_Pubsubhubbub_Exception('Subscriber count must be'
+			    . ' greater than zero');
         }
         $this->_subscriberCount = $count;
         return $this;
@@ -219,22 +219,22 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     {
         $callbackUrl = '';
         if (isset($_SERVER['HTTP_X_REWRITE_URL'])) {
-            $callbackUrl = $_SERVER['HTTP_X_REWRITE_URL'];
+			$callbackUrl = $_SERVER['HTTP_X_REWRITE_URL'];
         } elseif (isset($_SERVER['REQUEST_URI'])) {
-            $callbackUrl = $_SERVER['REQUEST_URI'];
-            $scheme = 'http';
-            if ($_SERVER['HTTPS'] == 'on') {
-                $scheme = 'https';
-            }
-            $schemeAndHttpHost = $scheme . '://' . $this->_getHttpHost();
-            if (strpos($callbackUrl, $schemeAndHttpHost) === 0) {
-                $callbackUrl = substr($callbackUrl, strlen($schemeAndHttpHost));
-            }
+			$callbackUrl = $_SERVER['REQUEST_URI'];
+			$scheme = 'http';
+			if ($_SERVER['HTTPS'] == 'on') {
+			    $scheme = 'https';
+			}
+			$schemeAndHttpHost = $scheme . '://' . $this->_getHttpHost();
+			if (strpos($callbackUrl, $schemeAndHttpHost) === 0) {
+			    $callbackUrl = substr($callbackUrl, strlen($schemeAndHttpHost));
+			}
         } elseif (isset($_SERVER['ORIG_PATH_INFO'])) {
-            $callbackUrl= $_SERVER['ORIG_PATH_INFO'];
-            if (!empty($_SERVER['QUERY_STRING'])) {
-                $callbackUrl .= '?' . $_SERVER['QUERY_STRING'];
-            }
+			$callbackUrl= $_SERVER['ORIG_PATH_INFO'];
+			if (!empty($_SERVER['QUERY_STRING'])) {
+			    $callbackUrl .= '?' . $_SERVER['QUERY_STRING'];
+			}
         }
         return $callbackUrl;
     }
@@ -247,20 +247,20 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     protected function _getHttpHost()
     {
         if (!empty($_SERVER['HTTP_HOST'])) {
-            return $_SERVER['HTTP_HOST'];
+			return $_SERVER['HTTP_HOST'];
         }
         $scheme = 'http';
         if ($_SERVER['HTTPS'] == 'on') {
-            $scheme = 'https';
+			$scheme = 'https';
         }
         $name = $_SERVER['SERVER_NAME'];
         $port = $_SERVER['SERVER_PORT'];
         if (($scheme == 'http' && $port == 80)
-            || ($scheme == 'https' && $port == 443)
+			|| ($scheme == 'https' && $port == 443)
         ) {
-            return $name;
+			return $name;
         } else {
-            return $name . ':' . $port;
+			return $name . ':' . $port;
         }
     }
 
@@ -273,17 +273,17 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     {
         $temp = strtoupper(str_replace('-', '_', $header));
         if (!empty($_SERVER[$temp])) {
-            return $_SERVER[$temp];
+			return $_SERVER[$temp];
         }
         $temp = 'HTTP_' . strtoupper(str_replace('-', '_', $header));
         if (!empty($_SERVER[$temp])) {
-            return $_SERVER[$temp];
+			return $_SERVER[$temp];
         }
         if (function_exists('apache_request_headers')) {
-            $headers = apache_request_headers();
-            if (!empty($headers[$header])) {
-                return $headers[$header];
-            }
+			$headers = apache_request_headers();
+			if (!empty($headers[$header])) {
+			    return $headers[$header];
+			}
         }
         return false;
     }
@@ -297,10 +297,10 @@ abstract class Zend_Feed_Pubsubhubbub_CallbackAbstract
     {
         $body = file_get_contents('php://input');
         if (strlen(trim($body)) == 0 && isset($GLOBALS['HTTP_RAW_POST_DATA'])) {
-            $body = $GLOBALS['HTTP_RAW_POST_DATA'];
+			$body = $GLOBALS['HTTP_RAW_POST_DATA'];
         }
         if (strlen(trim($body)) > 0) {
-            return $body;
+			return $body;
         }
         return false;
     }

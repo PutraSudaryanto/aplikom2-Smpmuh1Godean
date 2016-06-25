@@ -59,7 +59,7 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function __get($name)
     {
         if (!$this->offsetExists($name)) {
-            return NULL;
+			return NULL;
         }
 
         return $this->offsetGet($name);
@@ -97,7 +97,7 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function __unset($key)
     {
         if ($this->offsetExists($key)) {
-            $this->offsetUnset($key);
+			$this->offsetUnset($key);
         }
     }
 
@@ -183,7 +183,7 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function setSource($title, $url)
     {
         $this->offsetSet('source', array('title' => $title,
-                                         'url' => $url));
+									     'url' => $url));
         return $this;
     }
 
@@ -206,7 +206,7 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function setCategories(array $categories)
     {
         foreach ($categories as $category) {
-            $this->addCategory($category);
+			$this->addCategory($category);
         }
         return $this;
     }
@@ -221,18 +221,18 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function addCategory(array $category)
     {
         if (empty($category['term'])) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception("you have to define the name of the category");
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception("you have to define the name of the category");
         }
 
         if (!$this->offsetExists('category')) {
-            $categories = array($category);
+			$categories = array($category);
         } else {
-            $categories = $this->offsetGet('category');
-            $categories[] = $category;
+			$categories = $this->offsetGet('category');
+			$categories[] = $category;
         }
         $this->offsetSet('category', $categories);
         return $this;
@@ -259,16 +259,16 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function setEnclosures(array $enclosures)
     {
         foreach ($enclosures as $enclosure) {
-            if (empty($enclosure['url'])) {
-                /**
-                 * @see Zend_Feed_Builder_Exception
-                 */
-                require_once 'Zend/Feed/Builder/Exception.php';
-                throw new Zend_Feed_Builder_Exception("you have to supply an url for your enclosure");
-            }
-            $type = isset($enclosure['type']) ? $enclosure['type'] : '';
-            $length = isset($enclosure['length']) ? $enclosure['length'] : '';
-            $this->addEnclosure($enclosure['url'], $type, $length);
+			if (empty($enclosure['url'])) {
+			    /**
+			     * @see Zend_Feed_Builder_Exception
+			     */
+			    require_once 'Zend/Feed/Builder/Exception.php';
+			    throw new Zend_Feed_Builder_Exception("you have to supply an url for your enclosure");
+			}
+			$type = isset($enclosure['type']) ? $enclosure['type'] : '';
+			$length = isset($enclosure['length']) ? $enclosure['length'] : '';
+			$this->addEnclosure($enclosure['url'], $type, $length);
         }
         return $this;
     }
@@ -284,13 +284,13 @@ class Zend_Feed_Builder_Entry extends ArrayObject
     public function addEnclosure($url, $type = '', $length = '')
     {
         if (!$this->offsetExists('enclosure')) {
-            $enclosure = array();
+			$enclosure = array();
         } else {
-            $enclosure = $this->offsetGet('enclosure');
+			$enclosure = $this->offsetGet('enclosure');
         }
         $enclosure[] = array('url' => $url,
-                             'type' => $type,
-                             'length' => $length);
+						     'type' => $type,
+						     'length' => $length);
         $this->offsetSet('enclosure', $enclosure);
         return $this;
     }

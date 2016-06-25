@@ -58,7 +58,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
         $this->offsetSet('link', $link);
         $this->offsetSet('charset', $charset);
         $this->setLastUpdate(time())
-             ->setGenerator('Zend_Feed');
+			 ->setGenerator('Zend_Feed');
     }
 
     /**
@@ -70,7 +70,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function __get($name)
     {
         if (!$this->offsetExists($name)) {
-            return NULL;
+			return NULL;
         }
 
         return $this->offsetGet($name);
@@ -108,7 +108,7 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function __unset($key)
     {
         if ($this->offsetExists($key)) {
-            $this->offsetUnset($key);
+			$this->offsetUnset($key);
         }
     }
 
@@ -175,11 +175,11 @@ class Zend_Feed_Builder_Header extends ArrayObject
         require_once 'Zend/Validate/EmailAddress.php';
         $validate = new Zend_Validate_EmailAddress();
         if (!$validate->isValid($email)) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the email property");
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the email property");
         }
         $this->offsetSet('email', $email);
         return $this;
@@ -249,11 +249,11 @@ class Zend_Feed_Builder_Header extends ArrayObject
         require_once 'Zend/Validate/EmailAddress.php';
         $validate = new Zend_Validate_EmailAddress();
         if (!$validate->isValid($webmaster)) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the webmaster property");
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception("you have to set a valid email address into the webmaster property");
         }
         $this->offsetSet('webmaster', $webmaster);
         return $this;
@@ -275,11 +275,11 @@ class Zend_Feed_Builder_Header extends ArrayObject
         require_once 'Zend/Validate/Int.php';
         $validate = new Zend_Validate_Int();
         if (!$validate->isValid($ttl)) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception("you have to set an integer value to the ttl property");
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception("you have to set an integer value to the ttl property");
         }
         $this->offsetSet('ttl', $ttl);
         return $this;
@@ -303,29 +303,29 @@ class Zend_Feed_Builder_Header extends ArrayObject
      * Ignored if atom is used
      *
      * @param  string|Zend_Uri_Http $uri
-     * @param  string               $procedure procedure to call, e.g. myCloud.rssPleaseNotify
-     * @param  string               $protocol  protocol to use, e.g. soap or xml-rpc
+     * @param  string			   $procedure procedure to call, e.g. myCloud.rssPleaseNotify
+     * @param  string			   $protocol  protocol to use, e.g. soap or xml-rpc
      * @return Zend_Feed_Builder_Header
      * @throws Zend_Feed_Builder_Exception
      */
     public function setCloud($uri, $procedure, $protocol)
     {
         if (is_string($uri) && Zend_Uri_Http::check($uri)) {
-            $uri = Zend_Uri::factory($uri);
+			$uri = Zend_Uri::factory($uri);
         }
         if (!$uri instanceof Zend_Uri_Http) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception('Passed parameter is not a valid HTTP URI');
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception('Passed parameter is not a valid HTTP URI');
         }
         if (!$uri->getPort()) {
-            $uri->setPort(80);
+			$uri->setPort(80);
         }
         $this->offsetSet('cloud', array('uri' => $uri,
-                                        'procedure' => $procedure,
-                                        'protocol' => $protocol));
+									    'procedure' => $procedure,
+									    'protocol' => $protocol));
         return $this;
     }
 
@@ -342,9 +342,9 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function setTextInput($title, $description, $name, $link)
     {
         $this->offsetSet('textInput', array('title' => $title,
-                                            'description' => $description,
-                                            'name' => $name,
-                                            'link' => $link));
+									        'description' => $description,
+									        'name' => $name,
+									        'link' => $link));
         return $this;
     }
 
@@ -359,20 +359,20 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function setSkipHours(array $hours)
     {
         if (count($hours) > 24) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception("you can not have more than 24 rows in the skipHours property");
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception("you can not have more than 24 rows in the skipHours property");
         }
         foreach ($hours as $hour) {
-            if ($hour < 0 || $hour > 23) {
-                /**
-                 * @see Zend_Feed_Builder_Exception
-                 */
-                require_once 'Zend/Feed/Builder/Exception.php';
-                throw new Zend_Feed_Builder_Exception("$hour has te be between 0 and 23");
-            }
+			if ($hour < 0 || $hour > 23) {
+			    /**
+			     * @see Zend_Feed_Builder_Exception
+			     */
+			    require_once 'Zend/Feed/Builder/Exception.php';
+			    throw new Zend_Feed_Builder_Exception("$hour has te be between 0 and 23");
+			}
         }
         $this->offsetSet('skipHours', $hours);
         return $this;
@@ -389,21 +389,21 @@ class Zend_Feed_Builder_Header extends ArrayObject
     public function setSkipDays(array $days)
     {
         if (count($days) > 7) {
-            /**
-             * @see Zend_Feed_Builder_Exception
-             */
-            require_once 'Zend/Feed/Builder/Exception.php';
-            throw new Zend_Feed_Builder_Exception("you can not have more than 7 days in the skipDays property");
+			/**
+			 * @see Zend_Feed_Builder_Exception
+			 */
+			require_once 'Zend/Feed/Builder/Exception.php';
+			throw new Zend_Feed_Builder_Exception("you can not have more than 7 days in the skipDays property");
         }
         $valid = array('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday');
         foreach ($days as $day) {
-            if (!in_array(strtolower($day), $valid)) {
-                /**
-                 * @see Zend_Feed_Builder_Exception
-                 */
-                require_once 'Zend/Feed/Builder/Exception.php';
-                throw new Zend_Feed_Builder_Exception("$day is not a valid day");
-            }
+			if (!in_array(strtolower($day), $valid)) {
+			    /**
+			     * @see Zend_Feed_Builder_Exception
+			     */
+			    require_once 'Zend/Feed/Builder/Exception.php';
+			    throw new Zend_Feed_Builder_Exception("$day is not a valid day");
+			}
         }
         $this->offsetSet('skipDays', $days);
         return $this;

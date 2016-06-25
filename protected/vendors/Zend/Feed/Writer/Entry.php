@@ -84,55 +84,55 @@ class Zend_Feed_Writer_Entry
     {
         $author = array();
         if (is_array($name)) {
-            if (!array_key_exists('name', $name) 
-                || empty($name['name']) 
-                || !is_string($name['name'])
-            ) {
-                require_once 'Zend/Feed/Exception.php';
-                throw new Zend_Feed_Exception('Invalid parameter: author array must include a "name" key with a non-empty string value');
-            }
-            $author['name'] = $name['name'];
-            if (isset($name['email'])) {
-                if (empty($name['email']) || !is_string($name['email'])) {
-                    require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception('Invalid parameter: "email" array value must be a non-empty string');
-                }
-                $author['email'] = $name['email'];
-            }
-            if (isset($name['uri'])) {
-                if (empty($name['uri']) 
-                    || !is_string($name['uri']) 
-                    || !Zend_Uri::check($name['uri'])
-                ) {
-                    require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception('Invalid parameter: "uri" array value must be a non-empty string and valid URI/IRI');
-                }
-                $author['uri'] = $name['uri'];
-            }
+			if (!array_key_exists('name', $name) 
+			    || empty($name['name']) 
+			    || !is_string($name['name'])
+			) {
+			    require_once 'Zend/Feed/Exception.php';
+			    throw new Zend_Feed_Exception('Invalid parameter: author array must include a "name" key with a non-empty string value');
+			}
+			$author['name'] = $name['name'];
+			if (isset($name['email'])) {
+			    if (empty($name['email']) || !is_string($name['email'])) {
+			        require_once 'Zend/Feed/Exception.php';
+			        throw new Zend_Feed_Exception('Invalid parameter: "email" array value must be a non-empty string');
+			    }
+			    $author['email'] = $name['email'];
+			}
+			if (isset($name['uri'])) {
+			    if (empty($name['uri']) 
+			        || !is_string($name['uri']) 
+			        || !Zend_Uri::check($name['uri'])
+			    ) {
+			        require_once 'Zend/Feed/Exception.php';
+			        throw new Zend_Feed_Exception('Invalid parameter: "uri" array value must be a non-empty string and valid URI/IRI');
+			    }
+			    $author['uri'] = $name['uri'];
+			}
         /**
          * @deprecated
          * Array notation (above) is preferred and will be the sole supported input from ZF 2.0
          */
         } else {
-            if (empty($name['name']) || !is_string($name['name'])) {
-                require_once 'Zend/Feed/Exception.php';
-                throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string value');
-            }
-            $author['name'] = $name;
-            if (isset($email)) {
-                if (empty($email) || !is_string($email)) {
-                    require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception('Invalid parameter: "email" value must be a non-empty string');
-                }
-                $author['email'] = $email;
-            }
-            if (isset($uri)) {
-                if (empty($uri) || !is_string($uri) || !Zend_Uri::check($uri)) {
-                    require_once 'Zend/Feed/Exception.php';
-                    throw new Zend_Feed_Exception('Invalid parameter: "uri" value must be a non-empty string and valid URI/IRI');
-                }
-                $author['uri'] = $uri;
-            }
+			if (empty($name['name']) || !is_string($name['name'])) {
+			    require_once 'Zend/Feed/Exception.php';
+			    throw new Zend_Feed_Exception('Invalid parameter: "name" must be a non-empty string value');
+			}
+			$author['name'] = $name;
+			if (isset($email)) {
+			    if (empty($email) || !is_string($email)) {
+			        require_once 'Zend/Feed/Exception.php';
+			        throw new Zend_Feed_Exception('Invalid parameter: "email" value must be a non-empty string');
+			    }
+			    $author['email'] = $email;
+			}
+			if (isset($uri)) {
+			    if (empty($uri) || !is_string($uri) || !Zend_Uri::check($uri)) {
+			        require_once 'Zend/Feed/Exception.php';
+			        throw new Zend_Feed_Exception('Invalid parameter: "uri" value must be a non-empty string and valid URI/IRI');
+			    }
+			    $author['uri'] = $uri;
+			}
         }
         $this->_data['authors'][] = $author;
     }
@@ -145,7 +145,7 @@ class Zend_Feed_Writer_Entry
     public function addAuthors(array $authors)
     {
         foreach($authors as $author) {
-            $this->addAuthor($author);
+			$this->addAuthor($author);
         }
     }
     
@@ -157,8 +157,8 @@ class Zend_Feed_Writer_Entry
     public function setEncoding($encoding)
     {
         if (empty($encoding) || !is_string($encoding)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['encoding'] = $encoding;
     }
@@ -171,7 +171,7 @@ class Zend_Feed_Writer_Entry
     public function getEncoding()
     {
         if (!array_key_exists('encoding', $this->_data)) {
-            return 'UTF-8';
+			return 'UTF-8';
         }
         return $this->_data['encoding'];
     }
@@ -184,8 +184,8 @@ class Zend_Feed_Writer_Entry
     public function setCopyright($copyright)
     {
         if (empty($copyright) || !is_string($copyright)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['copyright'] = $copyright;
     }
@@ -198,8 +198,8 @@ class Zend_Feed_Writer_Entry
     public function setContent($content)
     {
         if (empty($content) || !is_string($content)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['content'] = $content;
     }
@@ -213,14 +213,14 @@ class Zend_Feed_Writer_Entry
     {
         $zdate = null;
         if (is_null($date)) {
-            $zdate = new Zend_Date;
+			$zdate = new Zend_Date;
         } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+			$zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
-            $zdate = $date;
+			$zdate = $date;
         } else {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
         }
         $this->_data['dateCreated'] = $zdate;
     }
@@ -234,14 +234,14 @@ class Zend_Feed_Writer_Entry
     {
         $zdate = null;
         if (is_null($date)) {
-            $zdate = new Zend_Date;
+			$zdate = new Zend_Date;
         } elseif (ctype_digit($date) && strlen($date) == 10) {
-            $zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
+			$zdate = new Zend_Date($date, Zend_Date::TIMESTAMP);
         } elseif ($date instanceof Zend_Date) {
-            $zdate = $date;
+			$zdate = $date;
         } else {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid Zend_Date object or UNIX Timestamp passed as parameter');
         }
         $this->_data['dateModified'] = $zdate;
     }
@@ -254,8 +254,8 @@ class Zend_Feed_Writer_Entry
     public function setDescription($description)
     {
         if (empty($description) || !is_string($description)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['description'] = $description;
     }
@@ -268,8 +268,8 @@ class Zend_Feed_Writer_Entry
     public function setId($id)
     {
         if (empty($id) || !is_string($id)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['id'] = $id;
     }
@@ -282,8 +282,8 @@ class Zend_Feed_Writer_Entry
     public function setLink($link)
     {
         if (empty($link) || !is_string($link) || !Zend_Uri::check($link)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string and valid URI/IRI');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string and valid URI/IRI');
         }
         $this->_data['link'] = $link;
     }
@@ -296,8 +296,8 @@ class Zend_Feed_Writer_Entry
     public function setCommentCount($count)
     {
         if (empty($count) || !is_numeric($count) || (int) $count < 0) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: "count" must be a non-empty integer number');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: "count" must be a non-empty integer number');
         }
         $this->_data['commentCount'] = (int) $count;
     }
@@ -310,8 +310,8 @@ class Zend_Feed_Writer_Entry
     public function setCommentLink($link)
     {
         if (empty($link) || !is_string($link) || !Zend_Uri::check($link)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
         }
         $this->_data['commentLink'] = $link;
     }
@@ -324,16 +324,16 @@ class Zend_Feed_Writer_Entry
     public function setCommentFeedLink(array $link)
     {
         if (!isset($link['uri']) || !is_string($link['uri']) || !Zend_Uri::check($link['uri'])) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: "link" must be a non-empty string and valid URI/IRI');
         }
         if (!isset($link['type']) || !in_array($link['type'], array('atom', 'rss', 'rdf'))) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: "type" must be one'
-            . ' of "atom", "rss" or "rdf"');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: "type" must be one'
+			. ' of "atom", "rss" or "rdf"');
         }
         if (!isset($this->_data['commentFeedLinks'])) {
-            $this->_data['commentFeedLinks'] = array();
+			$this->_data['commentFeedLinks'] = array();
         }
         $this->_data['commentFeedLinks'][] = $link;
     }
@@ -348,7 +348,7 @@ class Zend_Feed_Writer_Entry
     public function setCommentFeedLinks(array $links)
     {
         foreach ($links as $link) {
-            $this->setCommentFeedLink($link);
+			$this->setCommentFeedLink($link);
         }
     }
 
@@ -360,8 +360,8 @@ class Zend_Feed_Writer_Entry
     public function setTitle($title)
     {
         if (empty($title) || !is_string($title)) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid parameter: parameter must be a non-empty string');
         }
         $this->_data['title'] = $title;
     }
@@ -374,7 +374,7 @@ class Zend_Feed_Writer_Entry
     public function getAuthors()
     {
         if (!array_key_exists('authors', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['authors'];
     }
@@ -387,7 +387,7 @@ class Zend_Feed_Writer_Entry
     public function getContent()
     {
         if (!array_key_exists('content', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['content'];
     }
@@ -400,7 +400,7 @@ class Zend_Feed_Writer_Entry
     public function getCopyright()
     {
         if (!array_key_exists('copyright', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['copyright'];
     }
@@ -413,7 +413,7 @@ class Zend_Feed_Writer_Entry
     public function getDateCreated()
     {
         if (!array_key_exists('dateCreated', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['dateCreated'];
     }
@@ -426,7 +426,7 @@ class Zend_Feed_Writer_Entry
     public function getDateModified()
     {
         if (!array_key_exists('dateModified', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['dateModified'];
     }
@@ -439,7 +439,7 @@ class Zend_Feed_Writer_Entry
     public function getDescription()
     {
         if (!array_key_exists('description', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['description'];
     }
@@ -452,7 +452,7 @@ class Zend_Feed_Writer_Entry
     public function getId()
     {
         if (!array_key_exists('id', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['id'];
     }
@@ -465,7 +465,7 @@ class Zend_Feed_Writer_Entry
     public function getLink()
     {
         if (!array_key_exists('link', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['link'];
     }
@@ -479,7 +479,7 @@ class Zend_Feed_Writer_Entry
     public function getLinks()
     {
         if (!array_key_exists('links', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['links'];
     }
@@ -492,7 +492,7 @@ class Zend_Feed_Writer_Entry
     public function getTitle()
     {
         if (!array_key_exists('title', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['title'];
     }
@@ -505,7 +505,7 @@ class Zend_Feed_Writer_Entry
     public function getCommentCount()
     {
         if (!array_key_exists('commentCount', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['commentCount'];
     }
@@ -518,7 +518,7 @@ class Zend_Feed_Writer_Entry
     public function getCommentLink()
     {
         if (!array_key_exists('commentLink', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['commentLink'];
     }
@@ -532,7 +532,7 @@ class Zend_Feed_Writer_Entry
     public function getCommentFeedLinks()
     {
         if (!array_key_exists('commentFeedLinks', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['commentFeedLinks'];
     }
@@ -545,23 +545,23 @@ class Zend_Feed_Writer_Entry
     public function addCategory(array $category)
     {
         if (!isset($category['term'])) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Each category must be an array and '
-            . 'contain at least a "term" element containing the machine '
-            . ' readable category name');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Each category must be an array and '
+			. 'contain at least a "term" element containing the machine '
+			. ' readable category name');
         }
         if (isset($category['scheme'])) {
-            if (empty($category['scheme']) 
-                || !is_string($category['scheme'])
-                || !Zend_Uri::check($category['scheme'])
-            ) {
-                require_once 'Zend/Feed/Exception.php';
-                throw new Zend_Feed_Exception('The Atom scheme or RSS domain of'
-                . ' a category must be a valid URI');
-            }
+			if (empty($category['scheme']) 
+			    || !is_string($category['scheme'])
+			    || !Zend_Uri::check($category['scheme'])
+			) {
+			    require_once 'Zend/Feed/Exception.php';
+			    throw new Zend_Feed_Exception('The Atom scheme or RSS domain of'
+			    . ' a category must be a valid URI');
+			}
         }
         if (!isset($this->_data['categories'])) {
-            $this->_data['categories'] = array();
+			$this->_data['categories'] = array();
         }
         $this->_data['categories'][] = $category;
     }
@@ -574,7 +574,7 @@ class Zend_Feed_Writer_Entry
     public function addCategories(array $categories)
     {
         foreach ($categories as $category) {
-            $this->addCategory($category);
+			$this->addCategory($category);
         }
     }
     
@@ -586,7 +586,7 @@ class Zend_Feed_Writer_Entry
     public function getCategories()
     {
         if (!array_key_exists('categories', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['categories'];
     }
@@ -602,12 +602,12 @@ class Zend_Feed_Writer_Entry
     public function setEnclosure(array $enclosure)
     {
         if (!isset($enclosure['uri'])) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Enclosure "uri" is not set');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Enclosure "uri" is not set');
         }
         if (!Zend_Uri::check($enclosure['uri'])) {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Enclosure "uri" is not a valid URI/IRI');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Enclosure "uri" is not a valid URI/IRI');
         }
         $this->_data['enclosure'] = $enclosure;
     }
@@ -620,7 +620,7 @@ class Zend_Feed_Writer_Entry
     public function getEnclosure()
     {
         if (!array_key_exists('enclosure', $this->_data)) {
-            return null;
+			return null;
         }
         return $this->_data['enclosure'];
     }
@@ -633,7 +633,7 @@ class Zend_Feed_Writer_Entry
     public function remove($name)
     {
         if (isset($this->_data[$name])) {
-            unset($this->_data[$name]);
+			unset($this->_data[$name]);
         }
     }
     
@@ -656,7 +656,7 @@ class Zend_Feed_Writer_Entry
     public function getExtension($name)
     {
         if (array_key_exists($name . '_Entry', $this->_extensions)) {
-            return $this->_extensions[$name . '_Entry'];
+			return $this->_extensions[$name . '_Entry'];
         }
         return null;
     }
@@ -694,14 +694,14 @@ class Zend_Feed_Writer_Entry
     public function __call($method, $args)
     {
         foreach ($this->_extensions as $extension) {
-            try {
-                return call_user_func_array(array($extension, $method), $args);
-            } catch (Zend_Feed_Writer_Exception_InvalidMethodException $e) {
-            }
+			try {
+			    return call_user_func_array(array($extension, $method), $args);
+			} catch (Zend_Feed_Writer_Exception_InvalidMethodException $e) {
+			}
         }
         require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Method: ' . $method
-            . ' does not exist and could not be located on a registered Extension');
+			. ' does not exist and could not be located on a registered Extension');
     }
     
     /**
@@ -715,7 +715,7 @@ class Zend_Feed_Writer_Entry
     {
         $source = new Zend_Feed_Writer_Source;
         if ($this->getEncoding()) {
-            $source->setEncoding($this->getEncoding());
+			$source->setEncoding($this->getEncoding());
         }
         $source->setType($this->getType());
         return $source;
@@ -738,7 +738,7 @@ class Zend_Feed_Writer_Entry
     public function getSource()
     {
         if (isset($this->_data['source'])) {
-            return $this->_data['source'];
+			return $this->_data['source'];
         }
         return null;
     }
@@ -753,9 +753,9 @@ class Zend_Feed_Writer_Entry
         $all = Zend_Feed_Writer::getExtensions();
         $exts = $all['entry'];
         foreach ($exts as $ext) {
-            $className = Zend_Feed_Writer::getPluginLoader()->getClassName($ext);
-            $this->_extensions[$ext] = new $className();
-            $this->_extensions[$ext]->setEncoding($this->getEncoding());
+			$className = Zend_Feed_Writer::getPluginLoader()->getClassName($ext);
+			$this->_extensions[$ext] = new $className();
+			$this->_extensions[$ext]->setEncoding($this->getEncoding());
         }
     }
 }

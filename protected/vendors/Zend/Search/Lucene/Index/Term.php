@@ -84,24 +84,24 @@ class Zend_Search_Lucene_Index_Term
         $prefixBytes = 0;
         $prefixChars = 0;
         while ($prefixBytes < strlen($str)  &&  $prefixChars < $length) {
-            $charBytes = 1;
-            if ((ord($str[$prefixBytes]) & 0xC0) == 0xC0) {
-                $charBytes++;
-                if (ord($str[$prefixBytes]) & 0x20 ) {
-                    $charBytes++;
-                    if (ord($str[$prefixBytes]) & 0x10 ) {
-                        $charBytes++;
-                    }
-                }
-            }
+			$charBytes = 1;
+			if ((ord($str[$prefixBytes]) & 0xC0) == 0xC0) {
+			    $charBytes++;
+			    if (ord($str[$prefixBytes]) & 0x20 ) {
+			        $charBytes++;
+			        if (ord($str[$prefixBytes]) & 0x10 ) {
+						$charBytes++;
+			        }
+			    }
+			}
 
-            if ($prefixBytes + $charBytes > strlen($str)) {
-                // wrong character
-                break;
-            }
+			if ($prefixBytes + $charBytes > strlen($str)) {
+			    // wrong character
+			    break;
+			}
 
-            $prefixChars++;
-            $prefixBytes += $charBytes;
+			$prefixChars++;
+			$prefixBytes += $charBytes;
         }
 
         return substr($str, 0, $prefixBytes);
@@ -118,24 +118,24 @@ class Zend_Search_Lucene_Index_Term
         $bytes = 0;
         $chars = 0;
         while ($bytes < strlen($str)) {
-            $charBytes = 1;
-            if ((ord($str[$bytes]) & 0xC0) == 0xC0) {
-                $charBytes++;
-                if (ord($str[$bytes]) & 0x20 ) {
-                    $charBytes++;
-                    if (ord($str[$bytes]) & 0x10 ) {
-                        $charBytes++;
-                    }
-                }
-            }
+			$charBytes = 1;
+			if ((ord($str[$bytes]) & 0xC0) == 0xC0) {
+			    $charBytes++;
+			    if (ord($str[$bytes]) & 0x20 ) {
+			        $charBytes++;
+			        if (ord($str[$bytes]) & 0x10 ) {
+						$charBytes++;
+			        }
+			    }
+			}
 
-            if ($bytes + $charBytes > strlen($str)) {
-                // wrong character
-                break;
-            }
+			if ($bytes + $charBytes > strlen($str)) {
+			    // wrong character
+			    break;
+			}
 
-            $chars++;
-            $bytes += $charBytes;
+			$chars++;
+			$bytes += $charBytes;
         }
 
         return $chars;

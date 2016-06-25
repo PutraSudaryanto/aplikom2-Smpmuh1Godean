@@ -91,7 +91,7 @@ implements Iterator, Countable
     {
         $entry = new Zend_Feed_Writer_Entry;
         if ($this->getEncoding()) {
-            $entry->setEncoding($this->getEncoding());
+			$entry->setEncoding($this->getEncoding());
         }
         $entry->setType($this->getType());
         return $entry;
@@ -119,7 +119,7 @@ implements Iterator, Countable
     {
         $deleted = new Zend_Feed_Writer_Deleted;
         if ($this->getEncoding()) {
-            $deleted->setEncoding($this->getEncoding());
+			$deleted->setEncoding($this->getEncoding());
         }
         $deleted->setType($this->getType());
         return $deleted;
@@ -145,7 +145,7 @@ implements Iterator, Countable
     public function removeEntry($index)
     {
         if (isset($this->_entries[$index])) {
-            unset($this->_entries[$index]);
+			unset($this->_entries[$index]);
         }
         require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Undefined index: ' . $index . '. Entry does not exist.');
@@ -160,7 +160,7 @@ implements Iterator, Countable
     public function getEntry($index = 0)
     {
         if (isset($this->_entries[$index])) {
-            return $this->_entries[$index];
+			return $this->_entries[$index];
         }
         require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Undefined index: ' . $index . '. Entry does not exist.');
@@ -183,12 +183,12 @@ implements Iterator, Countable
         $timestamp = time();
         $entries = array();
         foreach ($this->_entries as $entry) {
-            if ($entry->getDateModified()) {
-                $timestamp = (int) $entry->getDateModified()->get(Zend_Date::TIMESTAMP);
-            } elseif ($entry->getDateCreated()) {
-                $timestamp = (int) $entry->getDateCreated()->get(Zend_Date::TIMESTAMP);
-            }
-            $entries[$timestamp] = $entry;
+			if ($entry->getDateModified()) {
+			    $timestamp = (int) $entry->getDateModified()->get(Zend_Date::TIMESTAMP);
+			} elseif ($entry->getDateCreated()) {
+			    $timestamp = (int) $entry->getDateCreated()->get(Zend_Date::TIMESTAMP);
+			}
+			$entries[$timestamp] = $entry;
         }
         krsort($entries, SORT_NUMERIC);
         $this->_entries = array_values($entries);
@@ -266,14 +266,14 @@ implements Iterator, Countable
         $this->setType(strtolower($type));
         $type = ucfirst($this->getType());
         if ($type !== 'Rss' && $type !== 'Atom') {
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception('Invalid feed type specified: ' . $type . '.'
-            . ' Should be one of "rss" or "atom".');
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception('Invalid feed type specified: ' . $type . '.'
+			. ' Should be one of "rss" or "atom".');
         }
         $renderClass = 'Zend_Feed_Writer_Renderer_Feed_' . $type;
         $renderer = new $renderClass($this);
         if ($ignoreExceptions) {
-            $renderer->ignoreExceptions();
+			$renderer->ignoreExceptions();
         }
         return $renderer->render()->saveXml();
     }

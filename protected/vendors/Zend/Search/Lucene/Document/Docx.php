@@ -52,8 +52,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
      */
     private function __construct($fileName, $storeContent) {
         if (!class_exists('ZipArchive', false)) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('MS Office documents processing functionality requires Zip extension to be loaded');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('MS Office documents processing functionality requires Zip extension to be loaded');
         }
 
         // Document data holders
@@ -67,45 +67,45 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
         // Read relations and search for officeDocument
         $relationsXml = $package->getFromName('_rels/.rels');
         if ($relationsXml === false) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Invalid archive or corrupted .docx file.');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('Invalid archive or corrupted .docx file.');
         }
         $relations = Zend_Xml_Security::scan($relationsXml);
         foreach($relations->Relationship as $rel) {
-            if ($rel ["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_OFFICEDOCUMENT) {
-                // Found office document! Read in contents...
-                $contents = Zend_Xml_Security::scan($package->getFromName(
-                                                                $this->absoluteZipPath(dirname($rel['Target'])
-                                                              . '/'
-                                                              . basename($rel['Target']))
-                                                                       ));
+			if ($rel ["Type"] == Zend_Search_Lucene_Document_OpenXml::SCHEMA_OFFICEDOCUMENT) {
+			    // Found office document! Read in contents...
+			    $contents = Zend_Xml_Security::scan($package->getFromName(
+															    $this->absoluteZipPath(dirname($rel['Target'])
+															  . '/'
+															  . basename($rel['Target']))
+															           ));
 
-                $contents->registerXPathNamespace('w', Zend_Search_Lucene_Document_Docx::SCHEMA_WORDPROCESSINGML);
-                $paragraphs = $contents->xpath('//w:body/w:p');
+			    $contents->registerXPathNamespace('w', Zend_Search_Lucene_Document_Docx::SCHEMA_WORDPROCESSINGML);
+			    $paragraphs = $contents->xpath('//w:body/w:p');
 
-                foreach ($paragraphs as $paragraph) {
-                    $runs = $paragraph->xpath('.//w:r/*[name() = "w:t" or name() = "w:br"]');
+			    foreach ($paragraphs as $paragraph) {
+			        $runs = $paragraph->xpath('.//w:r/*[name() = "w:t" or name() = "w:br"]');
 
-                    if ($runs === false) {
-                        // Paragraph doesn't contain any text or breaks
-                        continue;
-                    }
+			        if ($runs === false) {
+						// Paragraph doesn't contain any text or breaks
+						continue;
+			        }
 
-                    foreach ($runs as $run) {
-                     if ($run->getName() == 'br') {
-                         // Break element
-                         $documentBody[] = ' ';
-                     } else {
-                         $documentBody[] = (string)$run;
-                     }
-                    }
+			        foreach ($runs as $run) {
+			         if ($run->getName() == 'br') {
+						 // Break element
+						 $documentBody[] = ' ';
+			         } else {
+						 $documentBody[] = (string)$run;
+			         }
+			        }
 
-                    // Add space after each paragraph. So they are not bound together.
-                    $documentBody[] = ' ';
-                }
+			        // Add space after each paragraph. So they are not bound together.
+			        $documentBody[] = ' ';
+			    }
 
-                break;
-            }
+			    break;
+			}
         }
 
         // Read core properties
@@ -119,19 +119,19 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
 
         // Store contents
         if ($storeContent) {
-            $this->addField(Zend_Search_Lucene_Field::Text('body', implode('', $documentBody), 'UTF-8'));
+			$this->addField(Zend_Search_Lucene_Field::Text('body', implode('', $documentBody), 'UTF-8'));
         } else {
-            $this->addField(Zend_Search_Lucene_Field::UnStored('body', implode('', $documentBody), 'UTF-8'));
+			$this->addField(Zend_Search_Lucene_Field::UnStored('body', implode('', $documentBody), 'UTF-8'));
         }
 
         // Store meta data properties
         foreach ($coreProperties as $key => $value) {
-            $this->addField(Zend_Search_Lucene_Field::Text($key, $value, 'UTF-8'));
+			$this->addField(Zend_Search_Lucene_Field::Text($key, $value, 'UTF-8'));
         }
 
         // Store title (if not present in meta data)
         if (! isset($coreProperties['title'])) {
-            $this->addField(Zend_Search_Lucene_Field::Text('title', $fileName, 'UTF-8'));
+			$this->addField(Zend_Search_Lucene_Field::Text('title', $fileName, 'UTF-8'));
         }
     }
 
@@ -145,8 +145,8 @@ class Zend_Search_Lucene_Document_Docx extends Zend_Search_Lucene_Document_OpenX
      */
     public static function loadDocxFile($fileName, $storeContent = false) {
         if (!is_readable($fileName)) {
-            require_once 'Zend/Search/Lucene/Document/Exception.php';
-            throw new Zend_Search_Lucene_Document_Exception('Provided file \'' . $fileName . '\' is not readable.');
+			require_once 'Zend/Search/Lucene/Document/Exception.php';
+			throw new Zend_Search_Lucene_Document_Exception('Provided file \'' . $fileName . '\' is not readable.');
         }
 
         return new Zend_Search_Lucene_Document_Docx($fileName, $storeContent);

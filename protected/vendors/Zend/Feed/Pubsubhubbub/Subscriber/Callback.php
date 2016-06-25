@@ -91,7 +91,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
     public function handle(array $httpGetData = null, $sendResponseNow = false)
     {
         if ($httpGetData === null) {
-            $httpGetData = $_GET;
+			$httpGetData = $_GET;
         }
 
         /**
@@ -102,35 +102,35 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          * to avoid holding up responses to the Hub.
          */
         if (strtolower($_SERVER['REQUEST_METHOD']) == 'post'
-            && $this->_hasValidVerifyToken(null, false)
-            && ($this->_getHeader('Content-Type') == 'application/atom+xml'
-                || $this->_getHeader('Content-Type') == 'application/rss+xml'
-                || $this->_getHeader('Content-Type') == 'application/xml'
-                || $this->_getHeader('Content-Type') == 'text/xml'
-                || $this->_getHeader('Content-Type') == 'application/rdf+xml')
+			&& $this->_hasValidVerifyToken(null, false)
+			&& ($this->_getHeader('Content-Type') == 'application/atom+xml'
+			    || $this->_getHeader('Content-Type') == 'application/rss+xml'
+			    || $this->_getHeader('Content-Type') == 'application/xml'
+			    || $this->_getHeader('Content-Type') == 'text/xml'
+			    || $this->_getHeader('Content-Type') == 'application/rdf+xml')
         ) {
-            $this->setFeedUpdate($this->_getRawBody());
-            $this->getHttpResponse()
-                 ->setHeader('X-Hub-On-Behalf-Of', $this->getSubscriberCount());
+			$this->setFeedUpdate($this->_getRawBody());
+			$this->getHttpResponse()
+			     ->setHeader('X-Hub-On-Behalf-Of', $this->getSubscriberCount());
         /**
          * Handle any (un)subscribe confirmation requests
          */
         } elseif ($this->isValidHubVerification($httpGetData)) {
-            $data = $this->_currentSubscriptionData;
-            $this->getHttpResponse()->setBody($httpGetData['hub_challenge']);
-            $data['subscription_state'] = Zend_Feed_Pubsubhubbub::SUBSCRIPTION_VERIFIED;
-            if (isset($httpGetData['hub_lease_seconds'])) {
-                $data['lease_seconds'] = $httpGetData['hub_lease_seconds'];
-            }
-            $this->getStorage()->setSubscription($data);
+			$data = $this->_currentSubscriptionData;
+			$this->getHttpResponse()->setBody($httpGetData['hub_challenge']);
+			$data['subscription_state'] = Zend_Feed_Pubsubhubbub::SUBSCRIPTION_VERIFIED;
+			if (isset($httpGetData['hub_lease_seconds'])) {
+			    $data['lease_seconds'] = $httpGetData['hub_lease_seconds'];
+			}
+			$this->getStorage()->setSubscription($data);
         /**
          * Hey, C'mon! We tried everything else!
          */
         } else {
-            $this->getHttpResponse()->setHttpResponseCode(404);
+			$this->getHttpResponse()->setHttpResponseCode(404);
         }
         if ($sendResponseNow) {
-            $this->sendResponse();
+			$this->sendResponse();
         }
     }
 
@@ -150,31 +150,31 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          * by the Hub Server. Therefore, its absence is considered invalid.
          */
         if (strtolower($_SERVER['REQUEST_METHOD']) !== 'get') {
-            return false;
+			return false;
         }
         $required = array(
-            'hub_mode', 
-            'hub_topic',
-            'hub_challenge', 
-            'hub_verify_token',
+			'hub_mode', 
+			'hub_topic',
+			'hub_challenge', 
+			'hub_verify_token',
         );
         foreach ($required as $key) {
-            if (!array_key_exists($key, $httpGetData)) {
-                return false;
-            }
+			if (!array_key_exists($key, $httpGetData)) {
+			    return false;
+			}
         }
         if ($httpGetData['hub_mode'] !== 'subscribe'
-            && $httpGetData['hub_mode'] !== 'unsubscribe'
+			&& $httpGetData['hub_mode'] !== 'unsubscribe'
         ) {
-            return false;
+			return false;
         }
         if ($httpGetData['hub_mode'] == 'subscribe'
-            && !array_key_exists('hub_lease_seconds', $httpGetData)
+			&& !array_key_exists('hub_lease_seconds', $httpGetData)
         ) {
-            return false;
+			return false;
         }
         if (!Zend_Uri::check($httpGetData['hub_topic'])) {
-            return false;
+			return false;
         }
 
         /**
@@ -182,7 +182,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          * URL's path by our Subscriber implementation
          */
         if (!$this->_hasValidVerifyToken($httpGetData)) {
-            return false;
+			return false;
         }
         return true;
     }
@@ -208,7 +208,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
     public function hasFeedUpdate()
     {
         if (is_null($this->_feedUpdate)) {
-            return false;
+			return false;
         }
         return true;
     }
@@ -236,20 +236,20 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
     {
         $verifyTokenKey = $this->_detectVerifyTokenKey($httpGetData);
         if (empty($verifyTokenKey)) {
-            return false;
+			return false;
         }
         $verifyTokenExists = $this->getStorage()->hasSubscription($verifyTokenKey);
         if (!$verifyTokenExists) {
-            return false;
+			return false;
         }
         if ($checkValue) {
-            $data = $this->getStorage()->getSubscription($verifyTokenKey);
-            $verifyToken = $data['verify_token'];
-            if ($verifyToken !== hash('sha256', $httpGetData['hub_verify_token'])) {
-                return false;
-            }
-            $this->_currentSubscriptionData = $data;
-            return true;
+			$data = $this->getStorage()->getSubscription($verifyTokenKey);
+			$verifyToken = $data['verify_token'];
+			if ($verifyToken !== hash('sha256', $httpGetData['hub_verify_token'])) {
+			    return false;
+			}
+			$this->_currentSubscriptionData = $data;
+			return true;
         }
         return true;
     }
@@ -268,16 +268,16 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          * Available when sub keys encoding in Callback URL path
          */
         if (isset($this->_subscriptionKey)) {
-            return $this->_subscriptionKey;
+			return $this->_subscriptionKey;
         }
 
         /**
          * Available only if allowed by PuSH 0.2 Hubs
          */
         if (is_array($httpGetData)
-            && isset($httpGetData['xhub_subscription'])
+			&& isset($httpGetData['xhub_subscription'])
         ) {
-            return $httpGetData['xhub_subscription'];
+			return $httpGetData['xhub_subscription'];
         }
 
         /**
@@ -285,7 +285,7 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
          */
         $params = $this->_parseQueryString();
         if (isset($params['xhub.subscription'])) {
-            return rawurldecode($params['xhub.subscription']);
+			return rawurldecode($params['xhub.subscription']);
         }
 
         return false;
@@ -303,25 +303,25 @@ class Zend_Feed_Pubsubhubbub_Subscriber_Callback
         $params      = array();
         $queryString = '';
         if (isset($_SERVER['QUERY_STRING'])) {
-            $queryString = $_SERVER['QUERY_STRING'];
+			$queryString = $_SERVER['QUERY_STRING'];
         }
         if (empty($queryString)) {
-            return array();
+			return array();
         }
         $parts = explode('&', $queryString);
         foreach ($parts as $kvpair) {
-            $pair  = explode('=', $kvpair);
-            $key   = rawurldecode($pair[0]);
-            $value = rawurldecode($pair[1]);
-            if (isset($params[$key])) {
-                if (is_array($params[$key])) {
-                    $params[$key][] = $value;
-                } else {
-                    $params[$key] = array($params[$key], $value);
-                }
-            } else {
-                $params[$key] = $value;
-            }
+			$pair  = explode('=', $kvpair);
+			$key   = rawurldecode($pair[0]);
+			$value = rawurldecode($pair[1]);
+			if (isset($params[$key])) {
+			    if (is_array($params[$key])) {
+			        $params[$key][] = $value;
+			    } else {
+			        $params[$key] = array($params[$key], $value);
+			    }
+			} else {
+			    $params[$key] = $value;
+			}
         }
         return $params;
     }

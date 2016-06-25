@@ -154,9 +154,9 @@ abstract class Zend_Search_Lucene_Storage_File
         $str = $this->_fread(4);
 
         return  ord($str[0]) << 24 |
-                ord($str[1]) << 16 |
-                ord($str[2]) << 8  |
-                ord($str[3]);
+			    ord($str[1]) << 16 |
+			    ord($str[2]) << 8  |
+			    ord($str[3]);
     }
 
 
@@ -169,9 +169,9 @@ abstract class Zend_Search_Lucene_Storage_File
     {
         settype($value, 'integer');
         $this->_fwrite( chr($value>>24 & 0xFF) .
-                        chr($value>>16 & 0xFF) .
-                        chr($value>>8  & 0xFF) .
-                        chr($value     & 0xFF),   4  );
+						chr($value>>16 & 0xFF) .
+						chr($value>>8  & 0xFF) .
+						chr($value     & 0xFF),   4  );
     }
 
 
@@ -189,18 +189,18 @@ abstract class Zend_Search_Lucene_Storage_File
          * fseek() uses long for offset. Thus, largest index segment file size in 32bit mode is 2Gb
          */
         if (PHP_INT_SIZE > 4) {
-            $str = $this->_fread(8);
+			$str = $this->_fread(8);
 
-            return  ord($str[0]) << 56  |
-                    ord($str[1]) << 48  |
-                    ord($str[2]) << 40  |
-                    ord($str[3]) << 32  |
-                    ord($str[4]) << 24  |
-                    ord($str[5]) << 16  |
-                    ord($str[6]) << 8   |
-                    ord($str[7]);
+			return  ord($str[0]) << 56  |
+			        ord($str[1]) << 48  |
+			        ord($str[2]) << 40  |
+			        ord($str[3]) << 32  |
+			        ord($str[4]) << 24  |
+			        ord($str[5]) << 16  |
+			        ord($str[6]) << 8   |
+			        ord($str[7]);
         } else {
-            return $this->readLong32Bit();
+			return $this->readLong32Bit();
         }
     }
 
@@ -217,17 +217,17 @@ abstract class Zend_Search_Lucene_Storage_File
          * fseek() and ftell() use long for offset. Thus, largest index segment file size in 32bit mode is 2Gb
          */
         if (PHP_INT_SIZE > 4) {
-            settype($value, 'integer');
-            $this->_fwrite( chr($value>>56 & 0xFF) .
-                            chr($value>>48 & 0xFF) .
-                            chr($value>>40 & 0xFF) .
-                            chr($value>>32 & 0xFF) .
-                            chr($value>>24 & 0xFF) .
-                            chr($value>>16 & 0xFF) .
-                            chr($value>>8  & 0xFF) .
-                            chr($value     & 0xFF),   8  );
+			settype($value, 'integer');
+			$this->_fwrite( chr($value>>56 & 0xFF) .
+						    chr($value>>48 & 0xFF) .
+						    chr($value>>40 & 0xFF) .
+						    chr($value>>32 & 0xFF) .
+						    chr($value>>24 & 0xFF) .
+						    chr($value>>16 & 0xFF) .
+						    chr($value>>8  & 0xFF) .
+						    chr($value     & 0xFF),   8  );
         } else {
-            $this->writeLong32Bit($value);
+			$this->writeLong32Bit($value);
         }
     }
 
@@ -245,25 +245,25 @@ abstract class Zend_Search_Lucene_Storage_File
         $wordLow  = $this->readInt();
 
         if ($wordHigh & (int)0x80000000) {
-            // It's a negative value since the highest bit is set
-            if ($wordHigh == (int)0xFFFFFFFF  &&  ($wordLow & (int)0x80000000)) {
-                return $wordLow;
-            } else {
-                require_once 'Zend/Search/Lucene/Exception.php';
-                throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
-            }
+			// It's a negative value since the highest bit is set
+			if ($wordHigh == (int)0xFFFFFFFF  &&  ($wordLow & (int)0x80000000)) {
+			    return $wordLow;
+			} else {
+			    require_once 'Zend/Search/Lucene/Exception.php';
+			    throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
+			}
 
         }
 
         if ($wordLow < 0) {
-            // Value is large than 0x7FFF FFFF. Represent low word as float.
-            $wordLow &= 0x7FFFFFFF;
-            $wordLow += (float)0x80000000;
+			// Value is large than 0x7FFF FFFF. Represent low word as float.
+			$wordLow &= 0x7FFFFFFF;
+			$wordLow += (float)0x80000000;
         }
 
         if ($wordHigh == 0) {
-            // Return value as integer if possible
-            return $wordLow;
+			// Return value as integer if possible
+			return $wordLow;
         }
 
         return $wordHigh*(float)0x100000000/* 0x00000001 00000000 */ + $wordLow;
@@ -279,22 +279,22 @@ abstract class Zend_Search_Lucene_Storage_File
     public function writeLong32Bit($value)
     {
         if ($value < (int)0x80000000) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('Long integers lower than -2147483648 (0x80000000) are not supported on 32-bit platforms.');
         }
 
         if ($value < 0) {
-            $wordHigh = (int)0xFFFFFFFF;
-            $wordLow  = (int)$value;
+			$wordHigh = (int)0xFFFFFFFF;
+			$wordLow  = (int)$value;
         } else {
-            $wordHigh = (int)($value/(float)0x100000000/* 0x00000001 00000000 */);
-            $wordLow  = $value - $wordHigh*(float)0x100000000/* 0x00000001 00000000 */;
+			$wordHigh = (int)($value/(float)0x100000000/* 0x00000001 00000000 */);
+			$wordLow  = $value - $wordHigh*(float)0x100000000/* 0x00000001 00000000 */;
 
-            if ($wordLow > 0x7FFFFFFF) {
-                // Highest bit of low word is set. Translate it to the corresponding negative integer value
-                $wordLow -= 0x80000000;
-                $wordLow |= 0x80000000;
-            }
+			if ($wordLow > 0x7FFFFFFF) {
+			    // Highest bit of low word is set. Translate it to the corresponding negative integer value
+			    $wordLow -= 0x80000000;
+			    $wordLow |= 0x80000000;
+			}
         }
 
         $this->writeInt($wordHigh);
@@ -314,8 +314,8 @@ abstract class Zend_Search_Lucene_Storage_File
         $val = $nextByte & 0x7F;
 
         for ($shift=7; ($nextByte & 0x80) != 0; $shift += 7) {
-            $nextByte = ord($this->_fread(1));
-            $val |= ($nextByte & 0x7F) << $shift;
+			$nextByte = ord($this->_fread(1));
+			$val |= ($nextByte & 0x7F) << $shift;
         }
         return $val;
     }
@@ -329,8 +329,8 @@ abstract class Zend_Search_Lucene_Storage_File
     {
         settype($value, 'integer');
         while ($value > 0x7F) {
-            $this->_fwrite(chr( ($value & 0x7F)|0x80 ));
-            $value >>= 7;
+			$this->_fwrite(chr( ($value & 0x7F)|0x80 ));
+			$value >>= 7;
         }
         $this->_fwrite(chr($value));
     }
@@ -346,50 +346,50 @@ abstract class Zend_Search_Lucene_Storage_File
     {
         $strlen = $this->readVInt();
         if ($strlen == 0) {
-            return '';
+			return '';
         } else {
-            /**
-             * This implementation supports only Basic Multilingual Plane
-             * (BMP) characters (from 0x0000 to 0xFFFF) and doesn't support
-             * "supplementary characters" (characters whose code points are
-             * greater than 0xFFFF)
-             * Java 2 represents these characters as a pair of char (16-bit)
-             * values, the first from the high-surrogates range (0xD800-0xDBFF),
-             * the second from the low-surrogates range (0xDC00-0xDFFF). Then
-             * they are encoded as usual UTF-8 characters in six bytes.
-             * Standard UTF-8 representation uses four bytes for supplementary
-             * characters.
-             */
+			/**
+			 * This implementation supports only Basic Multilingual Plane
+			 * (BMP) characters (from 0x0000 to 0xFFFF) and doesn't support
+			 * "supplementary characters" (characters whose code points are
+			 * greater than 0xFFFF)
+			 * Java 2 represents these characters as a pair of char (16-bit)
+			 * values, the first from the high-surrogates range (0xD800-0xDBFF),
+			 * the second from the low-surrogates range (0xDC00-0xDFFF). Then
+			 * they are encoded as usual UTF-8 characters in six bytes.
+			 * Standard UTF-8 representation uses four bytes for supplementary
+			 * characters.
+			 */
 
-            $str_val = $this->_fread($strlen);
+			$str_val = $this->_fread($strlen);
 
-            for ($count = 0; $count < $strlen; $count++ ) {
-                if (( ord($str_val[$count]) & 0xC0 ) == 0xC0) {
-                    $addBytes = 1;
-                    if (ord($str_val[$count]) & 0x20 ) {
-                        $addBytes++;
+			for ($count = 0; $count < $strlen; $count++ ) {
+			    if (( ord($str_val[$count]) & 0xC0 ) == 0xC0) {
+			        $addBytes = 1;
+			        if (ord($str_val[$count]) & 0x20 ) {
+						$addBytes++;
 
-                        // Never used. Java2 doesn't encode strings in four bytes
-                        if (ord($str_val[$count]) & 0x10 ) {
-                            $addBytes++;
-                        }
-                    }
-                    $str_val .= $this->_fread($addBytes);
-                    $strlen += $addBytes;
+						// Never used. Java2 doesn't encode strings in four bytes
+						if (ord($str_val[$count]) & 0x10 ) {
+						    $addBytes++;
+						}
+			        }
+			        $str_val .= $this->_fread($addBytes);
+			        $strlen += $addBytes;
 
-                    // Check for null character. Java2 encodes null character
-                    // in two bytes.
-                    if (ord($str_val[$count])   == 0xC0 &&
-                        ord($str_val[$count+1]) == 0x80   ) {
-                        $str_val[$count] = 0;
-                        $str_val = substr($str_val,0,$count+1)
-                                 . substr($str_val,$count+2);
-                    }
-                    $count += $addBytes;
-                }
-            }
+			        // Check for null character. Java2 encodes null character
+			        // in two bytes.
+			        if (ord($str_val[$count])   == 0xC0 &&
+						ord($str_val[$count+1]) == 0x80   ) {
+						$str_val[$count] = 0;
+						$str_val = substr($str_val,0,$count+1)
+						         . substr($str_val,$count+2);
+			        }
+			        $count += $addBytes;
+			    }
+			}
 
-            return $str_val;
+			return $str_val;
         }
     }
 
@@ -421,41 +421,41 @@ abstract class Zend_Search_Lucene_Storage_File
         $containNullChars = false;
 
         for ($count = 0; $count < $strlen; $count++ ) {
-            /**
-             * String is already in Java 2 representation.
-             * We should only calculate actual string length and replace
-             * \x00 by \xC0\x80
-             */
-            if ((ord($str[$count]) & 0xC0) == 0xC0) {
-                $addBytes = 1;
-                if (ord($str[$count]) & 0x20 ) {
-                    $addBytes++;
+			/**
+			 * String is already in Java 2 representation.
+			 * We should only calculate actual string length and replace
+			 * \x00 by \xC0\x80
+			 */
+			if ((ord($str[$count]) & 0xC0) == 0xC0) {
+			    $addBytes = 1;
+			    if (ord($str[$count]) & 0x20 ) {
+			        $addBytes++;
 
-                    // Never used. Java2 doesn't encode strings in four bytes
-                    // and we dont't support non-BMP characters
-                    if (ord($str[$count]) & 0x10 ) {
-                        $addBytes++;
-                    }
-                }
-                $chars -= $addBytes;
+			        // Never used. Java2 doesn't encode strings in four bytes
+			        // and we dont't support non-BMP characters
+			        if (ord($str[$count]) & 0x10 ) {
+						$addBytes++;
+			        }
+			    }
+			    $chars -= $addBytes;
 
-                if (ord($str[$count]) == 0 ) {
-                    $containNullChars = true;
-                }
-                $count += $addBytes;
-            }
+			    if (ord($str[$count]) == 0 ) {
+			        $containNullChars = true;
+			    }
+			    $count += $addBytes;
+			}
         }
 
         if ($chars < 0) {
-            require_once 'Zend/Search/Lucene/Exception.php';
-            throw new Zend_Search_Lucene_Exception('Invalid UTF-8 string');
+			require_once 'Zend/Search/Lucene/Exception.php';
+			throw new Zend_Search_Lucene_Exception('Invalid UTF-8 string');
         }
 
         $this->writeVInt($chars);
         if ($containNullChars) {
-            $this->_fwrite(str_replace($str, "\x00", "\xC0\x80"));
+			$this->_fwrite(str_replace($str, "\x00", "\xC0\x80"));
         } else {
-            $this->_fwrite($str);
+			$this->_fwrite($str);
         }
     }
 

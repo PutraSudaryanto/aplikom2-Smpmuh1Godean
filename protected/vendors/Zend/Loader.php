@@ -45,19 +45,19 @@ class Zend_Loader
      *
      * @param string $class      - The full class name of a Zend component.
      * @param string|array $dirs - OPTIONAL Either a path or an array of paths
-     *                             to search.
+     *						     to search.
      * @return void
      * @throws Zend_Exception
      */
     public static function loadClass($class, $dirs = null)
     {
         if (class_exists($class, false) || interface_exists($class, false)) {
-            return;
+			return;
         }
 
         if ((null !== $dirs) && !is_string($dirs) && !is_array($dirs)) {
-            require_once 'Zend/Exception.php';
-            throw new Zend_Exception('Directory argument must be a string or an array');
+			require_once 'Zend/Exception.php';
+			throw new Zend_Exception('Directory argument must be a string or an array');
         }
 
         // Autodiscover the path from the class name
@@ -68,35 +68,35 @@ class Zend_Loader
         $file      = '';
         $namespace = '';
         if ($lastNsPos = strripos($className, '\\')) {
-            $namespace = substr($className, 0, $lastNsPos);
-            $className = substr($className, $lastNsPos + 1);
-            $file      = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
+			$namespace = substr($className, 0, $lastNsPos);
+			$className = substr($className, $lastNsPos + 1);
+			$file      = str_replace('\\', DIRECTORY_SEPARATOR, $namespace) . DIRECTORY_SEPARATOR;
         }
         $file .= str_replace('_', DIRECTORY_SEPARATOR, $className) . '.php';
 
         if (!empty($dirs)) {
-            // use the autodiscovered path
-            $dirPath = dirname($file);
-            if (is_string($dirs)) {
-                $dirs = explode(PATH_SEPARATOR, $dirs);
-            }
-            foreach ($dirs as $key => $dir) {
-                if ($dir == '.') {
-                    $dirs[$key] = $dirPath;
-                } else {
-                    $dir = rtrim($dir, '\\/');
-                    $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
-                }
-            }
-            $file = basename($file);
-            self::loadFile($file, $dirs, true);
+			// use the autodiscovered path
+			$dirPath = dirname($file);
+			if (is_string($dirs)) {
+			    $dirs = explode(PATH_SEPARATOR, $dirs);
+			}
+			foreach ($dirs as $key => $dir) {
+			    if ($dir == '.') {
+			        $dirs[$key] = $dirPath;
+			    } else {
+			        $dir = rtrim($dir, '\\/');
+			        $dirs[$key] = $dir . DIRECTORY_SEPARATOR . $dirPath;
+			    }
+			}
+			$file = basename($file);
+			self::loadFile($file, $dirs, true);
         } else {
-            self::loadFile($file, null, true);
+			self::loadFile($file, null, true);
         }
 
         if (!class_exists($class, false) && !interface_exists($class, false)) {
-            require_once 'Zend/Exception.php';
-            throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
+			require_once 'Zend/Exception.php';
+			throw new Zend_Exception("File \"$file\" does not exist or class \"$class\" was not found in the file");
         }
     }
 
@@ -118,7 +118,7 @@ class Zend_Loader
      *
      * @param  string        $filename
      * @param  string|array  $dirs - OPTIONAL either a path or array of paths
-     *                       to search.
+     *			           to search.
      * @param  boolean       $once
      * @return boolean
      * @throws Zend_Exception
@@ -132,27 +132,27 @@ class Zend_Loader
          */
         $incPath = false;
         if (!empty($dirs) && (is_array($dirs) || is_string($dirs))) {
-            if (is_array($dirs)) {
-                $dirs = implode(PATH_SEPARATOR, $dirs);
-            }
-            $incPath = get_include_path();
-            set_include_path($dirs . PATH_SEPARATOR . $incPath);
+			if (is_array($dirs)) {
+			    $dirs = implode(PATH_SEPARATOR, $dirs);
+			}
+			$incPath = get_include_path();
+			set_include_path($dirs . PATH_SEPARATOR . $incPath);
         }
 
         /**
          * Try finding for the plain filename in the include_path.
          */
         if ($once) {
-            include_once $filename;
+			include_once $filename;
         } else {
-            include $filename;
+			include $filename;
         }
 
         /**
          * If searching in directories, reset include_path
          */
         if ($incPath) {
-            set_include_path($incPath);
+			set_include_path($incPath);
         }
 
         return true;
@@ -174,30 +174,30 @@ class Zend_Loader
     public static function isReadable($filename)
     {
         if (is_readable($filename)) {
-            // Return early if the filename is readable without needing the 
-            // include_path
-            return true;
+			// Return early if the filename is readable without needing the 
+			// include_path
+			return true;
         }
 
         if (strtoupper(substr(PHP_OS, 0, 3)) == 'WIN'
-            && preg_match('/^[a-z]:/i', $filename)
+			&& preg_match('/^[a-z]:/i', $filename)
         ) {
-            // If on windows, and path provided is clearly an absolute path, 
-            // return false immediately
-            return false;
+			// If on windows, and path provided is clearly an absolute path, 
+			// return false immediately
+			return false;
         }
 
         foreach (self::explodeIncludePath() as $path) {
-            if ($path == '.') {
-                if (is_readable($filename)) {
-                    return true;
-                }
-                continue;
-            }
-            $file = $path . '/' . $filename;
-            if (is_readable($file)) {
-                return true;
-            }
+			if ($path == '.') {
+			    if (is_readable($filename)) {
+			        return true;
+			    }
+			    continue;
+			}
+			$file = $path . '/' . $filename;
+			if (is_readable($file)) {
+			    return true;
+			}
         }
         return false;
     }
@@ -214,16 +214,16 @@ class Zend_Loader
     public static function explodeIncludePath($path = null)
     {
         if (null === $path) {
-            $path = get_include_path();
+			$path = get_include_path();
         }
 
         if (PATH_SEPARATOR == ':') {
-            // On *nix systems, include_paths which include paths with a stream 
-            // schema cannot be safely explode'd, so we have to be a bit more
-            // intelligent in the approach.
-            $paths = preg_split('#:(?!//)#', $path);
+			// On *nix systems, include_paths which include paths with a stream 
+			// schema cannot be safely explode'd, so we have to be a bit more
+			// intelligent in the approach.
+			$paths = preg_split('#:(?!//)#', $path);
         } else {
-            $paths = explode(PATH_SEPARATOR, $path);
+			$paths = explode(PATH_SEPARATOR, $path);
         }
         return $paths;
     }
@@ -244,10 +244,10 @@ class Zend_Loader
     {
         trigger_error(__CLASS__ . '::' . __METHOD__ . ' is deprecated as of 1.8.0 and will be removed with 2.0.0; use Zend_Loader_Autoloader instead', E_USER_NOTICE);
         try {
-            @self::loadClass($class);
-            return $class;
+			@self::loadClass($class);
+			return $class;
         } catch (Exception $e) {
-            return false;
+			return false;
         }
     }
 
@@ -269,20 +269,20 @@ class Zend_Loader
         $autoloader->setFallbackAutoloader(true);
 
         if ('Zend_Loader' != $class) {
-            self::loadClass($class);
-            $methods = get_class_methods($class);
-            if (!in_array('autoload', (array) $methods)) {
-                require_once 'Zend/Exception.php';
-                throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
-            }
+			self::loadClass($class);
+			$methods = get_class_methods($class);
+			if (!in_array('autoload', (array) $methods)) {
+			    require_once 'Zend/Exception.php';
+			    throw new Zend_Exception("The class \"$class\" does not have an autoload() method");
+			}
 
-            $callback = array($class, 'autoload');
+			$callback = array($class, 'autoload');
 
-            if ($enabled) {
-                $autoloader->pushAutoloader($callback);
-            } else {
-                $autoloader->removeAutoloader($callback);
-            }
+			if ($enabled) {
+			    $autoloader->pushAutoloader($callback);
+			} else {
+			    $autoloader->removeAutoloader($callback);
+			}
         }
     }
 
@@ -299,8 +299,8 @@ class Zend_Loader
          * Security check
          */
         if (preg_match('/[^a-z0-9\\/\\\\_.:-]/i', $filename)) {
-            require_once 'Zend/Exception.php';
-            throw new Zend_Exception('Security check: Illegal character in filename');
+			require_once 'Zend/Exception.php';
+			throw new Zend_Exception('Security check: Illegal character in filename');
         }
     }
 
@@ -321,9 +321,9 @@ class Zend_Loader
     protected static function _includeFile($filespec, $once = false)
     {
         if ($once) {
-            return include_once $filespec;
+			return include_once $filespec;
         } else {
-            return include $filespec ;
+			return include $filespec ;
         }
     }
 }

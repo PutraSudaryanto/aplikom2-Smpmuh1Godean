@@ -47,13 +47,13 @@ class Zend_Feed_Reader_Extension_WellFormedWeb_Entry
     {
         $name = 'commentRss';
         if (array_key_exists($name, $this->_data)) {
-            return $this->_data[$name];
+			return $this->_data[$name];
         }
 
         $data = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/wfw:' . $name . ')');
 
         if (!$data) {
-            $data = null;
+			$data = null;
         }
 
         $this->_data[$name] = $data;

@@ -55,12 +55,12 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
          * Pubsubhubbub Hub endpoint URIs under the Atom namespace
          */
         if (strtolower($this->getType()) == 'atom') {
-            return;
+			return;
         }
         $this->_setFeedLinks($this->_dom, $this->_base);
         $this->_setHubs($this->_dom, $this->_base);
         if ($this->_called) {
-            $this->_appendNamespaces();
+			$this->_appendNamespaces();
         }
     }
     
@@ -72,7 +72,7 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
     protected function _appendNamespaces()
     {
         $this->getRootElement()->setAttribute('xmlns:atom',
-            'http://www.w3.org/2005/Atom');  
+			'http://www.w3.org/2005/Atom');  
     }
 
     /**
@@ -86,15 +86,15 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
     {
         $flinks = $this->getDataContainer()->getFeedLinks();
         if(!$flinks || empty($flinks)) {
-            return;
+			return;
         }
         foreach ($flinks as $type => $href) {
-            $mime  = 'application/' . strtolower($type) . '+xml';
-            $flink = $dom->createElement('atom:link');
-            $root->appendChild($flink);
-            $flink->setAttribute('rel', 'self');
-            $flink->setAttribute('type', $mime);
-            $flink->setAttribute('href', $href);
+			$mime  = 'application/' . strtolower($type) . '+xml';
+			$flink = $dom->createElement('atom:link');
+			$root->appendChild($flink);
+			$flink->setAttribute('rel', 'self');
+			$flink->setAttribute('type', $mime);
+			$flink->setAttribute('href', $href);
         }
         $this->_called = true;
     }
@@ -110,13 +110,13 @@ class Zend_Feed_Writer_Extension_Atom_Renderer_Feed
     {
         $hubs = $this->getDataContainer()->getHubs();
         if (!$hubs || empty($hubs)) {
-            return;
+			return;
         }
         foreach ($hubs as $hubUrl) {
-            $hub = $dom->createElement('atom:link');
-            $hub->setAttribute('rel', 'hub');
-            $hub->setAttribute('href', $hubUrl);
-            $root->appendChild($hub);
+			$hub = $dom->createElement('atom:link');
+			$hub->setAttribute('rel', 'hub');
+			$hub->setAttribute('href', $hubUrl);
+			$root->appendChild($hub);
         }
         $this->_called = true;
     }

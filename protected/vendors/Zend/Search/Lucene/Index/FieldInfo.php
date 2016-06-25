@@ -39,7 +39,7 @@ class Zend_Search_Lucene_Index_FieldInfo
 
     public function __construct($name, $isIndexed, $number, $storeTermVector, $normsOmitted = false, $payloadsStored = false)
     {
-        $this->name            = $name;
+        $this->name			= $name;
         $this->isIndexed       = $isIndexed;
         $this->number          = $number;
         $this->storeTermVector = $storeTermVector;

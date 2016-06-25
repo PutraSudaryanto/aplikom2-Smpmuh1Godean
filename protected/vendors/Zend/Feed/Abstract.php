@@ -72,31 +72,31 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     public function __construct($uri = null, $string = null, Zend_Feed_Builder_Interface $builder = null)
     {
         if ($uri !== null) {
-            // Retrieve the feed via HTTP
-            $client = Zend_Feed::getHttpClient();
-            $client->setUri($uri);
-            $response = $client->request('GET');
-            if ($response->getStatus() !== 200) {
-                /**
-                 * @see Zend_Feed_Exception
-                 */
-                require_once 'Zend/Feed/Exception.php';
-                throw new Zend_Feed_Exception('Feed failed to load, got response code ' . $response->getStatus());
-            }
-            $this->_element = $response->getBody();
-            $this->__wakeup();
+			// Retrieve the feed via HTTP
+			$client = Zend_Feed::getHttpClient();
+			$client->setUri($uri);
+			$response = $client->request('GET');
+			if ($response->getStatus() !== 200) {
+			    /**
+			     * @see Zend_Feed_Exception
+			     */
+			    require_once 'Zend/Feed/Exception.php';
+			    throw new Zend_Feed_Exception('Feed failed to load, got response code ' . $response->getStatus());
+			}
+			$this->_element = $response->getBody();
+			$this->__wakeup();
         } elseif ($string !== null) {
-            // Retrieve the feed from $string
-            $this->_element = $string;
-            $this->__wakeup();
+			// Retrieve the feed from $string
+			$this->_element = $string;
+			$this->__wakeup();
         } else {
-            // Generate the feed from the array
-            $header = $builder->getHeader();
-            $this->_element = new DOMDocument('1.0', $header['charset']);
-            $root = $this->_mapFeedHeaders($header);
-            $this->_mapFeedEntries($root, $builder->getEntries());
-            $this->_element = $root;
-            $this->_buildEntryCache();
+			// Generate the feed from the array
+			$header = $builder->getHeader();
+			$this->_element = new DOMDocument('1.0', $header['charset']);
+			$root = $this->_mapFeedHeaders($header);
+			$this->_mapFeedEntries($root, $builder->getEntries());
+			$this->_element = $root;
+			$this->_buildEntryCache();
         }
     }
 
@@ -115,20 +115,20 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
         @ini_restore('track_errors');
 
         if (!$status) {
-            // prevent the class to generate an undefined variable notice (ZF-2590)
-            if (!isset($php_errormsg)) {
-                if (function_exists('xdebug_is_enabled')) {
-                    $php_errormsg = '(error message not available, when XDebug is running)';
-                } else {
-                    $php_errormsg = '(error message not available)';
-                }
-            }
+			// prevent the class to generate an undefined variable notice (ZF-2590)
+			if (!isset($php_errormsg)) {
+			    if (function_exists('xdebug_is_enabled')) {
+			        $php_errormsg = '(error message not available, when XDebug is running)';
+			    } else {
+			        $php_errormsg = '(error message not available)';
+			    }
+			}
 
-            /**
-             * @see Zend_Feed_Exception
-             */
-            require_once 'Zend/Feed/Exception.php';
-            throw new Zend_Feed_Exception("DOMDocument cannot parse XML: $php_errormsg");
+			/**
+			 * @see Zend_Feed_Exception
+			 */
+			require_once 'Zend/Feed/Exception.php';
+			throw new Zend_Feed_Exception("DOMDocument cannot parse XML: $php_errormsg");
         }
 
         $this->_element = $doc;
@@ -158,9 +158,9 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     {
         $this->_entries = array();
         foreach ($this->_element->childNodes as $child) {
-            if ($child->localName == $this->_entryElementName) {
-                $this->_entries[] = $child;
-            }
+			if ($child->localName == $this->_entryElementName) {
+			    $this->_entries[] = $child;
+			}
         }
     }
 
@@ -195,8 +195,8 @@ abstract class Zend_Feed_Abstract extends Zend_Feed_Element implements Iterator,
     public function current()
     {
         return new $this->_entryClassName(
-            null,
-            $this->_entries[$this->_entryIndex]);
+			null,
+			$this->_entries[$this->_entryIndex]);
     }
 
 

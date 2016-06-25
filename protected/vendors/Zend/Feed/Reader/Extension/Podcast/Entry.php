@@ -45,13 +45,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getCastAuthor()
     {
         if (isset($this->_data['author'])) {
-            return $this->_data['author'];
+			return $this->_data['author'];
         }
 
         $author = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:author)');
 
         if (!$author) {
-            $author = null;
+			$author = null;
         }
 
         $this->_data['author'] = $author;
@@ -67,13 +67,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getBlock()
     {
         if (isset($this->_data['block'])) {
-            return $this->_data['block'];
+			return $this->_data['block'];
         }
 
         $block = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:block)');
 
         if (!$block) {
-            $block = null;
+			$block = null;
         }
 
         $this->_data['block'] = $block;
@@ -89,13 +89,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getDuration()
     {
         if (isset($this->_data['duration'])) {
-            return $this->_data['duration'];
+			return $this->_data['duration'];
         }
 
         $duration = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:duration)');
 
         if (!$duration) {
-            $duration = null;
+			$duration = null;
         }
 
         $this->_data['duration'] = $duration;
@@ -111,13 +111,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getExplicit()
     {
         if (isset($this->_data['explicit'])) {
-            return $this->_data['explicit'];
+			return $this->_data['explicit'];
         }
 
         $explicit = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:explicit)');
 
         if (!$explicit) {
-            $explicit = null;
+			$explicit = null;
         }
 
         $this->_data['explicit'] = $explicit;
@@ -133,13 +133,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getKeywords()
     {
         if (isset($this->_data['keywords'])) {
-            return $this->_data['keywords'];
+			return $this->_data['keywords'];
         }
 
         $keywords = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:keywords)');
 
         if (!$keywords) {
-            $keywords = null;
+			$keywords = null;
         }
 
         $this->_data['keywords'] = $keywords;
@@ -155,13 +155,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getSubtitle()
     {
         if (isset($this->_data['subtitle'])) {
-            return $this->_data['subtitle'];
+			return $this->_data['subtitle'];
         }
 
         $subtitle = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:subtitle)');
 
         if (!$subtitle) {
-            $subtitle = null;
+			$subtitle = null;
         }
 
         $this->_data['subtitle'] = $subtitle;
@@ -177,13 +177,13 @@ class Zend_Feed_Reader_Extension_Podcast_Entry extends Zend_Feed_Reader_Extensio
     public function getSummary()
     {
         if (isset($this->_data['summary'])) {
-            return $this->_data['summary'];
+			return $this->_data['summary'];
         }
 
         $summary = $this->_xpath->evaluate('string(' . $this->getXpathPrefix() . '/itunes:summary)');
 
         if (!$summary) {
-            $summary = null;
+			$summary = null;
         }
 
         $this->_data['summary'] = $summary;

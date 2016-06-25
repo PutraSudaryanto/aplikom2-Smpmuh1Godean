@@ -98,9 +98,9 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
         $this->_xpath = new DOMXPath($this->_domDocument);
 
         if ($type !== null) {
-            $this->_data['type'] = $type;
+			$this->_data['type'] = $type;
         } else {
-            $this->_data['type'] = Zend_Feed_Reader::detectType($this->_domDocument);
+			$this->_data['type'] = Zend_Feed_Reader::detectType($this->_domDocument);
         }
         $this->_registerNamespaces();
         $this->_indexEntries();
@@ -149,9 +149,9 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
     public function current()
     {
         if (substr($this->getType(), 0, 3) == 'rss') {
-            $reader = new Zend_Feed_Reader_Entry_Rss($this->_entries[$this->key()], $this->key(), $this->getType());
+			$reader = new Zend_Feed_Reader_Entry_Rss($this->_entries[$this->key()], $this->key(), $this->getType());
         } else {
-            $reader = new Zend_Feed_Reader_Entry_Atom($this->_entries[$this->key()], $this->key(), $this->getType());
+			$reader = new Zend_Feed_Reader_Entry_Atom($this->_entries[$this->key()], $this->key(), $this->getType());
         }
 
         $reader->setXpath($this->_xpath);
@@ -178,7 +178,7 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
     {
         $assumed = $this->getDomDocument()->encoding;
         if (empty($assumed)) {
-            $assumed = 'UTF-8';
+			$assumed = 'UTF-8';
         }
         return $assumed;
     }
@@ -269,9 +269,9 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
     public function __call($method, $args)
     {
         foreach ($this->_extensions as $extension) {
-            if (method_exists($extension, $method)) {
-                return call_user_func_array(array($extension, $method), $args);
-            }
+			if (method_exists($extension, $method)) {
+			    return call_user_func_array(array($extension, $method), $args);
+			}
         }
         require_once 'Zend/Feed/Exception.php';
         throw new Zend_Feed_Exception('Method: ' . $method
@@ -287,7 +287,7 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
     public function getExtension($name)
     {
         if (array_key_exists($name . '_Feed', $this->_extensions)) {
-            return $this->_extensions[$name . '_Feed'];
+			return $this->_extensions[$name . '_Feed'];
         }
         return null;
     }
@@ -297,13 +297,13 @@ abstract class Zend_Feed_Reader_FeedAbstract implements Zend_Feed_Reader_FeedInt
         $all = Zend_Feed_Reader::getExtensions();
         $feed = $all['feed'];
         foreach ($feed as $extension) {
-            if (in_array($extension, $all['core'])) {
-                continue;
-            }
-            $className = Zend_Feed_Reader::getPluginLoader()->getClassName($extension);
-            $this->_extensions[$extension] = new $className(
-                $this->getDomDocument(), $this->_data['type'], $this->_xpath
-            );
+			if (in_array($extension, $all['core'])) {
+			    continue;
+			}
+			$className = Zend_Feed_Reader::getPluginLoader()->getClassName($extension);
+			$this->_extensions[$extension] = new $className(
+			    $this->getDomDocument(), $this->_data['type'], $this->_xpath
+			);
         }
     }
 
