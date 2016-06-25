@@ -108,18 +108,18 @@ class OmmuMenuCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'cat_id' => Yii::t('attribute', 'cat_id'),
-			'publish' => Yii::t('attribute', 'publish'),
-			'name' => Yii::t('attribute', 'name'),
-			'desc' => Yii::t('attribute', 'desc'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'creation_id' => Yii::t('attribute', 'creation_id'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'title' => Yii::t('attribute', 'title'),
-			'description' => Yii::t('attribute', 'description'),
-			'creation_search' => Yii::t('attribute', 'creation_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'cat_id' => Yii::t('attribute', 'Cat'),
+			'publish' => Yii::t('attribute', 'Publish'),
+			'name' => Yii::t('attribute', 'Name'),
+			'desc' => Yii::t('attribute', 'Desc'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'title' => Yii::t('attribute', 'Title'),
+			'description' => Yii::t('attribute', 'Description'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 

@@ -90,9 +90,9 @@ class ViewPages extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-            'page_id' => Yii::t('attribute', 'page_id'),
-            'title' => Yii::t('attribute', 'title'),
-            'description' => Yii::t('attribute', 'description'),
+			'page_id' => Yii::t('attribute', 'Page'),
+			'title' => Yii::t('attribute', 'Title'),
+			'description' => Yii::t('attribute', 'Description'),
 		);
 	}
 

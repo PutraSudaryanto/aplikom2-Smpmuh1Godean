@@ -90,14 +90,14 @@ class OmmuLocale extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'locale_id' => Yii::t('attribute', 'locale_id'),
-			'defaults' => Yii::t('attribute', 'defaults'),
-			'locale' => Yii::t('attribute', 'locale'),
-			'title' => Yii::t('attribute', 'description'),
-			'default_locale' => Yii::t('attribute', 'default_locale'),
-			'timezone' => Yii::t('attribute', 'timezone'),
-			'dateformat' => Yii::t('attribute', 'dateformat'),
-			'timeformat' => Yii::t('attribute', 'timeformat'),
+			'locale_id' => Yii::t('attribute', 'Locale'),
+			'defaults' => Yii::t('attribute', 'Defaults'),
+			'locale' => Yii::t('attribute', 'Locale'),
+			'title' => Yii::t('attribute', 'Title'),
+			'default_locale' => Yii::t('attribute', 'Default Locale'),
+			'timezone' => Yii::t('attribute', 'Timezone'),
+			'dateformat' => Yii::t('attribute', 'Date Format'),
+			'timeformat' => Yii::t('attribute', 'Time Format'),
 		);
 	}
 	

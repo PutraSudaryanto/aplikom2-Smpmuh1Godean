@@ -97,18 +97,18 @@ class OmmuLanguages extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'language_id' => Yii::t('attribute', 'language_id'),
-			'actived' => Yii::t('attribute', 'actived'),
-			'defaults' => Yii::t('attribute', 'defaults'),
-			'code' => Yii::t('attribute', 'language_code'),
-			'orders' => Yii::t('attribute', 'orders'),
-			'name' => Yii::t('attribute', 'language_name'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'creation_id' => Yii::t('attribute', 'creation_id'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'creation_search' => Yii::t('attribute', 'creation_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'language_id' => Yii::t('attribute', 'Language'),
+			'actived' => Yii::t('attribute', 'Actived'),
+			'defaults' => Yii::t('attribute', 'Defaults'),
+			'code' => Yii::t('attribute', 'Language Code'),
+			'orders' => Yii::t('attribute', 'Orders'),
+			'name' => Yii::t('attribute', 'Language Name'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 	

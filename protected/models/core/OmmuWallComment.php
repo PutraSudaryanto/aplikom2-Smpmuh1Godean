@@ -101,16 +101,16 @@ class OmmuWallComment extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'comment_id' => Yii::t('attribute', 'comment_id'),
-			'publish' => Yii::t('attribute', 'publish'),
-			'parent_id' => Yii::t('attribute', 'parent_id'),
-			'wall_id' => Yii::t('attribute', 'wall_id'),
-			'user_id' => Yii::t('attribute', 'user_id'),
-			'comment' => Yii::t('attribute', 'comment'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'wall_search' => Yii::t('attribute', 'wall_id'),
-			'user_search' => Yii::t('attribute', 'user_id'),
+			'comment_id' => Yii::t('attribute', 'Comment'),
+			'publish' => Yii::t('attribute', 'Publish'),
+			'parent_id' => Yii::t('attribute', 'Parent'),
+			'wall_id' => Yii::t('attribute', 'Wall'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'comment' => Yii::t('attribute', 'Comment'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'wall_search' => Yii::t('attribute', 'Wall'),
+			'user_search' => Yii::t('attribute', 'User'),
 		);
 	}
 

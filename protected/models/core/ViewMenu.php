@@ -89,8 +89,8 @@ class ViewMenu extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-            'menu_id' => Yii::t('attribute', 'menu_id'),
-            'title' => Yii::t('attribute', 'title'),
+			'menu_id' => Yii::t('attribute', 'Menu'),
+			'title' => Yii::t('attribute', 'Title'),
 		);
 	}
 

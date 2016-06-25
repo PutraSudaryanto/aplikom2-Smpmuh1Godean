@@ -84,10 +84,10 @@ class OmmuTimezone extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'timezone_id' => Yii::t('attribute', 'timezone_id'),
-			'defaults' => Yii::t('attribute', 'defaults'),
-			'timezone' => Yii::t('attribute', 'timezone'),
-			'title' => Yii::t('attribute', 'title'),
+			'timezone_id' => Yii::t('attribute', 'Timezone'),
+			'defaults' => Yii::t('attribute', 'Defaults'),
+			'timezone' => Yii::t('attribute', 'Timezone'),
+			'title' => Yii::t('attribute', 'Title'),
 		);
 	}
 	

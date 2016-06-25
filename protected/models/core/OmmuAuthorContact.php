@@ -99,15 +99,15 @@ class OmmuAuthorContact extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => Yii::t('attribute', 'id'),
-			'author_id' => Yii::t('attribute', 'author_id'),
-			'type' => Yii::t('attribute', 'type'),
-			'contact' => Yii::t('attribute', 'contact'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'author_search' => Yii::t('attribute', 'author_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'id' => Yii::t('attribute', 'ID'),
+			'author_id' => Yii::t('attribute', 'Author'),
+			'type' => Yii::t('attribute', 'Type'),
+			'contact' => Yii::t('attribute', 'Contact'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'author_search' => Yii::t('attribute', 'Author'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 

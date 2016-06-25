@@ -107,21 +107,21 @@ class OmmuPlugins extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'plugin_id' => Yii::t('attribute', 'plugin_id'),
-			'defaults' => Yii::t('attribute', 'defaults'),
-			'install' => Yii::t('attribute', 'install'),
-			'actived' => Yii::t('attribute', 'actived'),
-			'search' => Yii::t('attribute', 'search'),
-			'orders' => Yii::t('attribute', 'orders'),
-			'folder' => Yii::t('attribute', 'folder'),
-			'name' => Yii::t('attribute', 'module_name'),
-			'desc' => Yii::t('attribute', 'module_desc'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'creation_id' => Yii::t('attribute', 'creation_id'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'creation_search' => Yii::t('attribute', 'creation_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'plugin_id' => Yii::t('attribute', 'Plugin'),
+			'defaults' => Yii::t('attribute', 'Defaults'),
+			'install' => Yii::t('attribute', 'Install'),
+			'actived' => Yii::t('attribute', 'Actived'),
+			'search' => Yii::t('attribute', 'Search'),
+			'orders' => Yii::t('attribute', 'Orders'),
+			'folder' => Yii::t('attribute', 'Folder'),
+			'name' => Yii::t('attribute', 'Name'),
+			'desc' => Yii::t('attribute', 'Desc'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 	

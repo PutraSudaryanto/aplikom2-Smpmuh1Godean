@@ -106,19 +106,19 @@ class OmmuZoneCity extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'city_id' => Yii::t('attribute', 'city_id'),
-			'publish' => Yii::t('attribute', 'publish'),
-			'province_id' => Yii::t('attribute', 'province_id'),
-			'city' => Yii::t('attribute', 'city'),
-			'mfdonline' => Yii::t('attribute', 'mfdonline'),
-			'checked' => Yii::t('attribute', 'checked'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'creation_id' => Yii::t('attribute', 'creation_id'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'province_search' => Yii::t('attribute', 'city'),
-			'creation_search' => Yii::t('attribute', 'creation_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'city_id' => Yii::t('attribute', 'City'),
+			'publish' => Yii::t('attribute', 'Publish'),
+			'province_id' => Yii::t('attribute', 'Province'),
+			'city' => Yii::t('attribute', 'City'),
+			'mfdonline' => Yii::t('attribute', 'Mfdonline'),
+			'checked' => Yii::t('attribute', 'Checked'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'province_search' => Yii::t('attribute', 'Province'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 

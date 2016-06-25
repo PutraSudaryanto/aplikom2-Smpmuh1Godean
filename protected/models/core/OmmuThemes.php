@@ -98,19 +98,19 @@ class OmmuThemes extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'theme_id' => Yii::t('attribute', 'theme_id'),
-			'group_page' => Yii::t('attribute', 'group_page'),
-			'default_theme' => Yii::t('attribute', 'default_theme'),
-			'folder' => Yii::t('attribute', 'folder'),
-			'layout' => Yii::t('attribute', 'layout'),
-			'name' => Yii::t('attribute', 'theme_name'),
-			'thumbnail' => Yii::t('attribute', 'thumbnail'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'creation_id' => Yii::t('attribute', 'creation_id'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'creation_search' => Yii::t('attribute', 'creation_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'theme_id' => Yii::t('attribute', 'Theme'),
+			'group_page' => Yii::t('attribute', 'Group Page'),
+			'default_theme' => Yii::t('attribute', 'Default Theme'),
+			'folder' => Yii::t('attribute', 'Folder'),
+			'layout' => Yii::t('attribute', 'Layout'),
+			'name' => Yii::t('attribute', 'Name'),
+			'thumbnail' => Yii::t('attribute', 'Thumbnail'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 	

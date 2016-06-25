@@ -106,19 +106,19 @@ class OmmuZoneVillage extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'village_id' => Yii::t('attribute', 'village_id'),
-			'publish' => Yii::t('attribute', 'publish'),
-			'district_id' => Yii::t('attribute', 'district_id'),
-			'village_name' => Yii::t('attribute', 'village_name'),
-			'zipcode' => Yii::t('attribute', 'zipcode'),
-			'mfdonline' => Yii::t('attribute', 'mfdonline'),
-			'creation_date' => Yii::t('attribute', 'creation_date'),
-			'creation_id' => Yii::t('attribute', 'creation_id'),
-			'modified_date' => Yii::t('attribute', 'modified_date'),
-			'modified_id' => Yii::t('attribute', 'modified_id'),
-			'district_search' => Yii::t('attribute', 'district_id'),
-			'creation_search' => Yii::t('attribute', 'creation_id'),
-			'modified_search' => Yii::t('attribute', 'modified_id'),
+			'village_id' => Yii::t('attribute', 'Village'),
+			'publish' => Yii::t('attribute', 'Publish'),
+			'district_id' => Yii::t('attribute', 'District'),
+			'village_name' => Yii::t('attribute', 'Village Name'),
+			'zipcode' => Yii::t('attribute', 'Zipcode'),
+			'mfdonline' => Yii::t('attribute', 'Mfdonline'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'district_search' => Yii::t('attribute', 'District'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 

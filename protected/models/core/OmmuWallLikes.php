@@ -96,13 +96,13 @@ class OmmuWallLikes extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'like_id' => Yii::t('attribute', 'like_id'),
-			'wall_id' => Yii::t('attribute', 'wall_id'),
-			'user_id' => Yii::t('attribute', 'user_id'),
-			'likes_date' => Yii::t('attribute', 'likes_date'),
-			'likes_ip' => Yii::t('attribute', 'likes_ip'),
-			'wall_search' => Yii::t('attribute', 'wall_id'),
-			'user_search' => Yii::t('attribute', 'user_id'),
+			'like_id' => Yii::t('attribute', 'Like'),
+			'wall_id' => Yii::t('attribute', 'Wall'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'likes_date' => Yii::t('attribute', 'Likes Date'),
+			'likes_ip' => Yii::t('attribute', 'Likes Ip'),
+			'wall_search' => Yii::t('attribute', 'Wall'),
+			'user_search' => Yii::t('attribute', 'User'),
 		);
 	}
 

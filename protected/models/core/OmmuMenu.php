@@ -115,10 +115,10 @@ class OmmuMenu extends CActiveRecord
 		return array(
 			'id' => Yii::t('attribute', 'ID'),
 			'publish' => Yii::t('attribute', 'Publish'),
-			'cat_id' => Yii::t('attribute', 'Category'),
-			'dependency' => Yii::t('attribute', 'Parent Menu'),
+			'cat_id' => Yii::t('attribute', 'Cat'),
+			'dependency' => Yii::t('attribute', 'Dependency'),
 			'orders' => Yii::t('attribute', 'Orders'),
-			'name' => Yii::t('attribute', 'Title Menu'),
+			'name' => Yii::t('attribute', 'Name'),
 			'url' => Yii::t('attribute', 'Url'),
 			'attr' => Yii::t('attribute', 'Attr'),
 			'sitetype_access' => Yii::t('attribute', 'Sitetype Access'),
@@ -127,9 +127,6 @@ class OmmuMenu extends CActiveRecord
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
-			'title' => Yii::t('attribute', 'Title Menu'),
-			'creation_search' => Yii::t('attribute', 'Creation'),
-			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 
