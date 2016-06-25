@@ -126,7 +126,7 @@
  *     {
  *         $model->attributes=$_POST['User'];
  *         if($model->save())
- *             $this->redirect('index');
+ *			 $this->redirect('index');
  *     }
  *     $this->render('create',array('model'=>$model));
  * }

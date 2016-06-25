@@ -193,27 +193,27 @@ class NewsletterController extends Controller
         $this->performAjaxValidation($model);
 
         if(isset($_POST['UserNewsletter'])) {
-            $model->attributes=$_POST['UserNewsletter'];
+			$model->attributes=$_POST['UserNewsletter'];
 			
-            $jsonError = CActiveForm::validate($model);
-            if(strlen($jsonError) > 2) {
-                echo $jsonError;
+			$jsonError = CActiveForm::validate($model);
+			if(strlen($jsonError) > 2) {
+			    echo $jsonError;
 
-            } else {
-                if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
-                    if($model->save()) {
+			} else {
+			    if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+			        if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-support-newsletter',
 							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23099,1).'</strong></div>',
 						));
-                    } else {
-                        print_r($model->getErrors());
-                    }
-                }
-            }
-            Yii::app()->end();
+			        } else {
+						print_r($model->getErrors());
+			        }
+			    }
+			}
+			Yii::app()->end();
 			
         } else {
 			$this->dialogDetail = true;

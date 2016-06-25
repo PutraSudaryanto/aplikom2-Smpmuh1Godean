@@ -26,8 +26,8 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'email'); ?>
 			<div class="desc">
-                <?php echo $form->textField($model,'email',array('maxlength'=>32, 'class'=>'span-9')); ?>
-                <?php echo $form->error($model,'email'); ?>
+			    <?php echo $form->textField($model,'email',array('maxlength'=>32, 'class'=>'span-9')); ?>
+			    <?php echo $form->error($model,'email'); ?>
 			</div>
 		</div>
 

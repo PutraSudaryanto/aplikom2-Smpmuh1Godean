@@ -592,12 +592,12 @@ class Spyc {
     }
 
     if (in_array($value,
-                 array('true', 'on', '+', 'yes', 'y', 'True', 'TRUE', 'On', 'ON', 'YES', 'Yes', 'Y'))) {
+			     array('true', 'on', '+', 'yes', 'y', 'True', 'TRUE', 'On', 'ON', 'YES', 'Yes', 'Y'))) {
       return true;
     }
 
     if (in_array(strtolower($value),
-                 array('false', 'off', '-', 'no', 'n'))) {
+			     array('false', 'off', '-', 'no', 'n'))) {
       return false;
     }
 
@@ -663,8 +663,8 @@ class Spyc {
       foreach ($explode as $key => $value) {
         if (strpos($value,'YAMLSeq') !== false) {
           foreach ($seqs as $seqk => $seq) {
-            $explode[$key] = str_replace(('YAMLSeq'.$seqk.'s'),$seq,$value);
-            $value = $explode[$key];
+			$explode[$key] = str_replace(('YAMLSeq'.$seqk.'s'),$seq,$value);
+			$value = $explode[$key];
           }
         }
       }
@@ -675,8 +675,8 @@ class Spyc {
       foreach ($explode as $key => $value) {
         if (strpos($value,'YAMLMap') !== false) {
           foreach ($maps as $mapk => $map) {
-            $explode[$key] = str_replace(('YAMLMap'.$mapk.'s'), $map, $value);
-            $value = $explode[$key];
+			$explode[$key] = str_replace(('YAMLMap'.$mapk.'s'), $map, $value);
+			$value = $explode[$key];
           }
         }
       }

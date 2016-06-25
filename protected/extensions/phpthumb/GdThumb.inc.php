@@ -305,16 +305,16 @@ class GdThumb extends ThumbBase
 		
 		imagecopyresampled
 		(
-            $this->workingImage,
-            $this->oldImage,
-            0,
-            0,
-            $cropX,
-            $cropY,
-            $cropWidth,
-            $cropHeight,
-            $cropWidth,
-            $cropHeight
+			$this->workingImage,
+			$this->oldImage,
+			0,
+			0,
+			$cropX,
+			$cropY,
+			$cropWidth,
+			$cropHeight,
+			$cropWidth,
+			$cropHeight
 		);
 		
 		// update all the variables and resources to be correct

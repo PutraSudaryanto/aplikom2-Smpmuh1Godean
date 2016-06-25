@@ -351,7 +351,7 @@ class EFeed extends CComponent{
 		}
 		else if($this->type == self::ATOM)
 		{
-			echo CHtml::closeTag('feed');                
+			echo CHtml::closeTag('feed');			    
 		}
 	  
 	}

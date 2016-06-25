@@ -203,10 +203,10 @@
 			['b', 'strong']
 		],
 		replaceStyles: [
-            ['font-weight:\\s?bold', "strong"],
-            ['font-style:\\s?italic', "em"],
-            ['text-decoration:\\s?underline', "u"],
-            ['text-decoration:\\s?line-through', 'del']
+			['font-weight:\\s?bold', "strong"],
+			['font-style:\\s?italic', "em"],
+			['text-decoration:\\s?underline', "u"],
+			['text-decoration:\\s?line-through', 'del']
         ],
         removeDataAttr: false,
 
@@ -3831,8 +3831,8 @@
 
 					var height = this.image.resizeHandle.h;
 
-		            if (e.targetTouches) height += (e.targetTouches[0].pageY -  this.image.resizeHandle.y);
-		            else height += (e.pageY -  this.image.resizeHandle.y);
+					if (e.targetTouches) height += (e.targetTouches[0].pageY -  this.image.resizeHandle.y);
+					else height += (e.pageY -  this.image.resizeHandle.y);
 
 					var width = Math.round(height * this.image.resizeHandle.ratio);
 
@@ -3841,10 +3841,10 @@
 					var height = Math.round(this.image.resizeHandle.el.width() / this.image.resizeHandle.ratio);
 
 					this.image.resizeHandle.el.attr({width: width, height: height});
-		            this.image.resizeHandle.el.width(width);
-		            this.image.resizeHandle.el.height(height);
+					this.image.resizeHandle.el.width(width);
+					this.image.resizeHandle.el.height(height);
 
-		            this.code.sync();
+					this.code.sync();
 				},
 				stopResize: function()
 				{
@@ -7486,21 +7486,21 @@
 					        var sel = window.getSelection();
 					        if (sel.rangeCount > 0) {
 
-					            var range = sel.getRangeAt(0);
-					            var startPointNode = range.startContainer, startOffset = range.startOffset;
+								var range = sel.getRangeAt(0);
+								var startPointNode = range.startContainer, startOffset = range.startOffset;
 
-					            var boundaryRange = range.cloneRange();
-					            boundaryRange.collapse(false);
-					            boundaryRange.insertNode(endNode);
-					            boundaryRange.setStart(startPointNode, startOffset);
-					            boundaryRange.collapse(true);
-					            boundaryRange.insertNode(startNode);
+								var boundaryRange = range.cloneRange();
+								boundaryRange.collapse(false);
+								boundaryRange.insertNode(endNode);
+								boundaryRange.setStart(startPointNode, startOffset);
+								boundaryRange.collapse(true);
+								boundaryRange.insertNode(startNode);
 
-					            // Reselect the original text
-					            range.setStartAfter(startNode);
-					            range.setEndBefore(endNode);
-					            sel.removeAllRanges();
-					            sel.addRange(range);
+								// Reselect the original text
+								range.setStartAfter(startNode);
+								range.setEndBefore(endNode);
+								sel.removeAllRanges();
+								sel.addRange(range);
 					        }
 					    }
 					}
@@ -9378,14 +9378,14 @@
 				{
 					var ua = navigator.userAgent.toLowerCase();
 					var match = /(opr)[\/]([\w.]+)/.exec( ua ) ||
-		            /(chrome)[ \/]([\w.]+)/.exec( ua ) ||
-		            /(webkit)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec(ua) ||
-		            /(webkit)[ \/]([\w.]+)/.exec( ua ) ||
-		            /(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
-		            /(msie) ([\w.]+)/.exec( ua ) ||
-		            ua.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
-		            ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
-		            [];
+					/(chrome)[ \/]([\w.]+)/.exec( ua ) ||
+					/(webkit)[ \/]([\w.]+).*(safari)[ \/]([\w.]+)/.exec(ua) ||
+					/(webkit)[ \/]([\w.]+)/.exec( ua ) ||
+					/(opera)(?:.*version|)[ \/]([\w.]+)/.exec( ua ) ||
+					/(msie) ([\w.]+)/.exec( ua ) ||
+					ua.indexOf("trident") >= 0 && /(rv)(?::| )([\w.]+)/.exec( ua ) ||
+					ua.indexOf("compatible") < 0 && /(mozilla)(?:.*? rv:([\w.]+)|)/.exec( ua ) ||
+					[];
 
 					if (browser == 'safari') return (typeof match[3] != 'undefined') ? match[3] == 'safari' : false;
 					if (browser == 'version') return match[2];

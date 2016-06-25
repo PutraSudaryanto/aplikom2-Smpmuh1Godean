@@ -1,24 +1,24 @@
 <?php
 /*~ class.phpmailer.php
 .---------------------------------------------------------------------------.
-|  Software: PHPMailer - PHP email class                                    |
-|   Version: 5.2.2                                                          |
+|  Software: PHPMailer - PHP email class									|
+|   Version: 5.2.2												          |
 |      Site: https://code.google.com/a/apache-extras.org/p/phpmailer/       |
 | ------------------------------------------------------------------------- |
-|     Admin: Jim Jagielski (project admininistrator)                        |
+|     Admin: Jim Jagielski (project admininistrator)						|
 |   Authors: Andy Prevost (codeworxtech) codeworxtech@users.sourceforge.net |
 |          : Marcus Bointon (coolbru) coolbru@users.sourceforge.net         |
-|          : Jim Jagielski (jimjag) jimjag@gmail.com                        |
-|   Founder: Brent R. Matzelle (original founder)                           |
-| Copyright (c) 2010-2012, Jim Jagielski. All Rights Reserved.              |
-| Copyright (c) 2004-2009, Andy Prevost. All Rights Reserved.               |
-| Copyright (c) 2001-2003, Brent R. Matzelle                                |
+|          : Jim Jagielski (jimjag) jimjag@gmail.com						|
+|   Founder: Brent R. Matzelle (original founder)						   |
+| Copyright (c) 2010-2012, Jim Jagielski. All Rights Reserved.			  |
+| Copyright (c) 2004-2009, Andy Prevost. All Rights Reserved.			   |
+| Copyright (c) 2001-2003, Brent R. Matzelle						        |
 | ------------------------------------------------------------------------- |
 |   License: Distributed under the Lesser General Public License (LGPL)     |
-|            http://www.gnu.org/copyleft/lesser.html                        |
+|			http://www.gnu.org/copyleft/lesser.html						|
 | This program is distributed in the hope that it will be useful - WITHOUT  |
 | ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or     |
-| FITNESS FOR A PARTICULAR PURPOSE.                                         |
+| FITNESS FOR A PARTICULAR PURPOSE.									     |
 '---------------------------------------------------------------------------'
 */
 
@@ -81,7 +81,7 @@ class PHPMailer {
    * Sets the From email address for the message.
    * @var string
    */
-  public $From              = 'root@localhost';
+  public $From			  = 'root@localhost';
 
   /**
    * Sets the From name of the message.
@@ -94,7 +94,7 @@ class PHPMailer {
    * will be sent via -f to sendmail or as 'MAIL FROM' in smtp mode.
    * @var string
    */
-  public $Sender            = '';
+  public $Sender			= '';
 
   /**
    * Sets the Return-Path of the message.  If empty, it will
@@ -114,7 +114,7 @@ class PHPMailer {
    * If HTML then run IsHTML(true).
    * @var string
    */
-  public $Body              = '';
+  public $Body			  = '';
 
   /**
    * Sets the text-only body of the message.  This automatically sets the
@@ -157,7 +157,7 @@ class PHPMailer {
    * Method to send mail: ("mail", "sendmail", or "smtp").
    * @var string
    */
-  public $Mailer            = 'mail';
+  public $Mailer			= 'mail';
 
   /**
    * Sets the path of the sendmail program.
@@ -324,7 +324,7 @@ class PHPMailer {
    *        it must be used via self::CRLF
    * @var string
    */
-  public $LE              = "\n";
+  public $LE			  = "\n";
 
    /**
    * Used with DKIM Signing
@@ -376,8 +376,8 @@ class PHPMailer {
    *
    * Parameters:
    *   bool    $result        result of the send action
-   *   string  $to            email address of the recipient
-   *   string  $cc            cc email addresses
+   *   string  $to			email address of the recipient
+   *   string  $cc			cc email addresses
    *   string  $bcc           bcc email addresses
    *   string  $subject       the subject
    *   string  $body          the email body
@@ -411,17 +411,17 @@ class PHPMailer {
    * @var array An array of 'to' addresses
    * @access protected
    */
-  protected   $to             = array();
+  protected   $to			 = array();
   /**
    * @var array An array of 'cc' addresses
    * @access protected
    */
-  protected   $cc             = array();
+  protected   $cc			 = array();
   /**
    * @var array An array of 'bcc' addresses
    * @access protected
    */
-  protected   $bcc            = array();
+  protected   $bcc			= array();
   /**
    * @var array An array of reply-to name and address
    * @access protected
@@ -800,7 +800,7 @@ class PHPMailer {
         }
         $this->mailHeader .= $this->HeaderLine('Subject', $this->EncodeHeader($this->SecureHeader(trim($this->Subject))));
         // if(count($this->cc) > 0) {
-            // $this->mailHeader .= $this->AddrAppend("Cc", $this->cc);
+			// $this->mailHeader .= $this->AddrAppend("Cc", $this->cc);
         // }
       }
 
@@ -1063,20 +1063,20 @@ class PHPMailer {
           $this->smtp->Hello($hello);
 
           if ($tls) {
-            if (!$this->smtp->StartTLS()) {
-              throw new phpmailerException($this->Lang('tls'));
-            }
+			if (!$this->smtp->StartTLS()) {
+			  throw new phpmailerException($this->Lang('tls'));
+			}
 
-            //We must resend HELO after tls negotiation
-            $this->smtp->Hello($hello);
+			//We must resend HELO after tls negotiation
+			$this->smtp->Hello($hello);
           }
 
           $connection = true;
           if ($this->SMTPAuth) {
-            if (!$this->smtp->Authenticate($this->Username, $this->Password, $this->AuthType,
-                                           $this->Realm, $this->Workstation)) {
-              throw new phpmailerException($this->Lang('authenticate'));
-            }
+			if (!$this->smtp->Authenticate($this->Username, $this->Password, $this->AuthType,
+									       $this->Realm, $this->Workstation)) {
+			  throw new phpmailerException($this->Lang('authenticate'));
+			}
           }
         }
         $index++;
@@ -1121,17 +1121,17 @@ class PHPMailer {
       'connect_host'         => 'SMTP Error: Could not connect to SMTP host.',
       'data_not_accepted'    => 'SMTP Error: Data not accepted.',
       'empty_message'        => 'Message body empty',
-      'encoding'             => 'Unknown encoding: ',
-      'execute'              => 'Could not execute: ',
+      'encoding'			 => 'Unknown encoding: ',
+      'execute'			  => 'Could not execute: ',
       'file_access'          => 'Could not access file: ',
-      'file_open'            => 'File Error: Could not open file: ',
+      'file_open'			=> 'File Error: Could not open file: ',
       'from_failed'          => 'The following From address failed: ',
       'instantiate'          => 'Could not instantiate mail function.',
       'invalid_address'      => 'Invalid address',
       'mailer_not_supported' => ' mailer is not supported.',
       'provide_address'      => 'You must provide at least one recipient email address.',
       'recipients_failed'    => 'SMTP Error: The following recipients failed: ',
-      'signing'              => 'Signing Error: ',
+      'signing'			  => 'Signing Error: ',
       'smtp_connect_failed'  => 'SMTP Connect() failed.',
       'smtp_error'           => 'SMTP server error: ',
       'variable_set'         => 'Cannot set or reset variable: '
@@ -1223,49 +1223,49 @@ class PHPMailer {
         if ($qp_mode and (strlen($word) > $length)) {
           $space_left = $length - strlen($buf) - $crlflen;
           if ($e != 0) {
-            if ($space_left > 20) {
-              $len = $space_left;
-              if ($is_utf8) {
-                $len = $this->UTF8CharBoundary($word, $len);
-              } elseif (substr($word, $len - 1, 1) == "=") {
-                $len--;
-              } elseif (substr($word, $len - 2, 1) == "=") {
-                $len -= 2;
-              }
-              $part = substr($word, 0, $len);
-              $word = substr($word, $len);
-              $buf .= ' ' . $part;
-              $message .= $buf . sprintf("=%s", self::CRLF);
-            } else {
-              $message .= $buf . $soft_break;
-            }
-            $buf = '';
+			if ($space_left > 20) {
+			  $len = $space_left;
+			  if ($is_utf8) {
+			    $len = $this->UTF8CharBoundary($word, $len);
+			  } elseif (substr($word, $len - 1, 1) == "=") {
+			    $len--;
+			  } elseif (substr($word, $len - 2, 1) == "=") {
+			    $len -= 2;
+			  }
+			  $part = substr($word, 0, $len);
+			  $word = substr($word, $len);
+			  $buf .= ' ' . $part;
+			  $message .= $buf . sprintf("=%s", self::CRLF);
+			} else {
+			  $message .= $buf . $soft_break;
+			}
+			$buf = '';
           }
           while (strlen($word) > 0) {
-            $len = $length;
-            if ($is_utf8) {
-              $len = $this->UTF8CharBoundary($word, $len);
-            } elseif (substr($word, $len - 1, 1) == "=") {
-              $len--;
-            } elseif (substr($word, $len - 2, 1) == "=") {
-              $len -= 2;
-            }
-            $part = substr($word, 0, $len);
-            $word = substr($word, $len);
+			$len = $length;
+			if ($is_utf8) {
+			  $len = $this->UTF8CharBoundary($word, $len);
+			} elseif (substr($word, $len - 1, 1) == "=") {
+			  $len--;
+			} elseif (substr($word, $len - 2, 1) == "=") {
+			  $len -= 2;
+			}
+			$part = substr($word, 0, $len);
+			$word = substr($word, $len);
 
-            if (strlen($word) > 0) {
-              $message .= $part . sprintf("=%s", self::CRLF);
-            } else {
-              $buf = $part;
-            }
+			if (strlen($word) > 0) {
+			  $message .= $part . sprintf("=%s", self::CRLF);
+			} else {
+			  $buf = $part;
+			}
           }
         } else {
           $buf_o = $buf;
           $buf .= ($e == 0) ? $word : (' ' . $word);
 
           if (strlen($buf) > $length and $buf_o != '') {
-            $message .= $buf_o . $soft_break;
-            $buf = $word;
+			$message .= $buf_o . $soft_break;
+			$buf = $word;
           }
         }
       }
@@ -1806,13 +1806,13 @@ class PHPMailer {
         if($bString) {
           $mime[] = $this->EncodeString($string, $encoding);
           if($this->IsError()) {
-            return '';
+			return '';
           }
           $mime[] = $this->LE.$this->LE;
         } else {
           $mime[] = $this->EncodeFile($path, $encoding);
           if($this->IsError()) {
-            return '';
+			return '';
           }
           $mime[] = $this->LE.$this->LE;
         }
@@ -1918,9 +1918,9 @@ class PHPMailer {
           // Can't use addslashes as we don't know what value has magic_quotes_sybase
           $encoded = addcslashes($str, "\0..\37\177\\\"");
           if (($str == $encoded) && !preg_match('/[^A-Za-z0-9!#$%&\'*+\/=?^_`{|}~ -]/', $str)) {
-            return ($encoded);
+			return ($encoded);
           } else {
-            return ("\"$encoded\"");
+			return ("\"$encoded\"");
           }
         }
         $x = preg_match_all('/[^\040\041\043-\133\135-\176]/', $str, $matches);
@@ -2049,9 +2049,9 @@ class PHPMailer {
         }
         if ( $dec == 32 ) {
           if ( $i == ( $linlen - 1 ) ) { // convert space at eol only
-            $c = '=20';
+			$c = '=20';
           } else if ( $space_conv ) {
-            $c = '=20';
+			$c = '=20';
           }
         } elseif ( ($dec == 61) || ($dec < 32 ) || ($dec > 126) ) { // always encode "\t", which is *not* required
           $h2 = (integer)floor($dec/16);
@@ -2063,7 +2063,7 @@ class PHPMailer {
           $newline = '';
           // check if newline first character will be point or not
           if ( $dec == 46 ) {
-            $c = '=2E';
+			$c = '=2E';
           }
         }
         $newline .= $c;
@@ -2477,7 +2477,7 @@ class PHPMailer {
           $filename = basename($url);
           $directory = dirname($url);
           if ($directory == '.') {
-            $directory = '';
+			$directory = '';
           }
           $cid = 'cid:' . md5($filename);
           $ext = pathinfo($filename, PATHINFO_EXTENSION);
@@ -2485,7 +2485,7 @@ class PHPMailer {
           if ( strlen($basedir) > 1 && substr($basedir, -1) != '/') { $basedir .= '/'; }
           if ( strlen($directory) > 1 && substr($directory, -1) != '/') { $directory .= '/'; }
           if ( $this->AddEmbeddedImage($basedir.$directory.$filename, md5($filename), $filename, 'base64', $mimeType) ) {
-            $message = preg_replace("/".$images[1][$i]."=[\"']".preg_quote($url, '/')."[\"']/Ui", $images[1][$i]."=\"".$cid."\"", $message);
+			$message = preg_replace("/".$images[1][$i]."=[\"']".preg_quote($url, '/')."[\"']/Ui", $images[1][$i]."=\"".$cid."\"", $message);
           }
         }
       }
@@ -2495,7 +2495,7 @@ class PHPMailer {
     if (empty($this->AltBody)) {
         $textMsg = trim(strip_tags(preg_replace('/<(head|title|style|script)[^>]*>.*?<\/\\1>/s', '', $message)));
         if (!empty($textMsg)) {
-            $this->AltBody = html_entity_decode($textMsg, ENT_QUOTES, $this->CharSet);
+			$this->AltBody = html_entity_decode($textMsg, ENT_QUOTES, $this->CharSet);
         }
     }
     if (empty($this->AltBody)) {
@@ -2748,12 +2748,12 @@ class PHPMailer {
   public function DKIM_Add($headers_line, $subject, $body) {
     $DKIMsignatureType    = 'rsa-sha1'; // Signature & hash algorithms
     $DKIMcanonicalization = 'relaxed/simple'; // Canonicalization of header/body
-    $DKIMquery            = 'dns/txt'; // Query method
-    $DKIMtime             = time() ; // Signature Timestamp = seconds since 00:00:00 - Jan 1, 1970 (UTC time zone)
+    $DKIMquery			= 'dns/txt'; // Query method
+    $DKIMtime			 = time() ; // Signature Timestamp = seconds since 00:00:00 - Jan 1, 1970 (UTC time zone)
     $subject_header       = "Subject: $subject";
-    $headers              = explode($this->LE, $headers_line);
+    $headers			  = explode($this->LE, $headers_line);
 	$from_header          = "";
-	$to_header            = "";
+	$to_header			= "";
     foreach($headers as $header) {
       if (strpos($header, 'From:') === 0) {
         $from_header = $header;
@@ -2769,14 +2769,14 @@ class PHPMailer {
     $DKIMb64  = base64_encode(pack("H*", sha1($body))) ; // Base64 of packed binary SHA-1 hash of body
     $ident    = ($this->DKIM_identity == '')? '' : " i=" . $this->DKIM_identity . ";";
     $dkimhdrs = "DKIM-Signature: v=1; a=" . $DKIMsignatureType . "; q=" . $DKIMquery . "; l=" . $DKIMlen . "; s=" . $this->DKIM_selector . ";\r\n".
-                "\tt=" . $DKIMtime . "; c=" . $DKIMcanonicalization . ";\r\n".
-                "\th=From:To:Subject;\r\n".
-                "\td=" . $this->DKIM_domain . ";" . $ident . "\r\n".
-                "\tz=$from\r\n".
-                "\t|$to\r\n".
-                "\t|$subject;\r\n".
-                "\tbh=" . $DKIMb64 . ";\r\n".
-                "\tb=";
+			    "\tt=" . $DKIMtime . "; c=" . $DKIMcanonicalization . ";\r\n".
+			    "\th=From:To:Subject;\r\n".
+			    "\td=" . $this->DKIM_domain . ";" . $ident . "\r\n".
+			    "\tz=$from\r\n".
+			    "\t|$to\r\n".
+			    "\t|$subject;\r\n".
+			    "\tbh=" . $DKIMb64 . ";\r\n".
+			    "\tb=";
     $toSign   = $this->DKIM_HeaderC($from_header . "\r\n" . $to_header . "\r\n" . $subject_header . "\r\n" . $dkimhdrs);
     $signed   = $this->DKIM_Sign($toSign);
     return "X-PHPMAILER-DKIM: code.google.com/a/apache-extras.org/p/phpmailer/\r\n".$dkimhdrs.$signed."\r\n";

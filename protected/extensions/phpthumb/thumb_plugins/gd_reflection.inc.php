@@ -67,16 +67,16 @@ class GdReflectionLib
 		
 		imagecopyresampled
 		(
-            $this->workingImage,
-            $this->newImage,
-            0,
-            0,
-            0,
-            $reflectedPart,
-            $width,
-            $reflectionHeight,
-            $width,
-            ($height - $reflectedPart)
+			$this->workingImage,
+			$this->newImage,
+			0,
+			0,
+			0,
+			$reflectedPart,
+			$width,
+			$reflectionHeight,
+			$width,
+			($height - $reflectedPart)
 		);
 		
 		$this->imageFlipVertical();
@@ -87,20 +87,20 @@ class GdReflectionLib
 		
 		for ($i = 0; $i < $reflectionHeight; $i++) 
 		{
-            $colorToPaint = imagecolorallocatealpha($this->workingImage, 255, 255, 255, ($i/$reflectionHeight*-1+1)*$white);
+			$colorToPaint = imagecolorallocatealpha($this->workingImage, 255, 255, 255, ($i/$reflectionHeight*-1+1)*$white);
 			
-            imagefilledrectangle($this->workingImage, 0, $height + $i, $width, $height + $i, $colorToPaint);
+			imagefilledrectangle($this->workingImage, 0, $height + $i, $width, $height + $i, $colorToPaint);
         }
 		
 		if($border == true) 
 		{
-            $rgb 			= $this->hex2rgb($borderColor, false);
-            $colorToPaint 	= imagecolorallocate($this->workingImage, $rgb[0], $rgb[1], $rgb[2]);
+			$rgb 			= $this->hex2rgb($borderColor, false);
+			$colorToPaint 	= imagecolorallocate($this->workingImage, $rgb[0], $rgb[1], $rgb[2]);
 			
-            imageline($this->workingImage, 0, 0, $width, 0, $colorToPaint); //top line
-            imageline($this->workingImage, 0, $height, $width, $height, $colorToPaint); //bottom line
-            imageline($this->workingImage, 0, 0, 0, $height, $colorToPaint); //left line
-            imageline($this->workingImage, $width-1, 0, $width-1, $height, $colorToPaint); //right line
+			imageline($this->workingImage, 0, 0, $width, 0, $colorToPaint); //top line
+			imageline($this->workingImage, 0, $height, $width, $height, $colorToPaint); //bottom line
+			imageline($this->workingImage, 0, 0, 0, $height, $colorToPaint); //left line
+			imageline($this->workingImage, $width-1, 0, $width-1, $height, $colorToPaint); //right line
         }
 		
 		if ($this->parentInstance->getFormat() == 'PNG')
@@ -139,7 +139,7 @@ class GdReflectionLib
 		{
 	        for ($y = 0; $y < $y_i; $y++) 
 			{
-	            imagecopy($this->workingImage, $this->workingImage, $x, $y_i - $y - 1, $x, $y, 1, 1);
+				imagecopy($this->workingImage, $this->workingImage, $x, $y_i - $y - 1, $x, $y, 1, 1);
 	        }
 	    }
 	}

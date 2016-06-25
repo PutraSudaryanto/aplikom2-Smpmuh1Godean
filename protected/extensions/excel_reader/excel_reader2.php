@@ -558,7 +558,7 @@ class Spreadsheet_Excel_Reader {
 			return $formatColor;
 		}
 		$ci = $this->fontProperty($row,$col,$sheet,'color');
-                return $this->rawColor($ci);
+			    return $this->rawColor($ci);
         }
         function rawColor($ci) {
 		if (($ci <> 0x7FFF) && ($ci <> '')) {
@@ -981,7 +981,7 @@ class Spreadsheet_Excel_Reader {
 			// check error code
 			if($this->_ole->error == 1) {
 				// bad file
-                //die('The filename ' . $sFileName . ' is not readable');
+			    //die('The filename ' . $sFileName . ' is not readable');
 				throw new Exception('The filename ' . $sFileName . ' is not readable'); // jerry2801 2010-5-18 15:41
 			}
 			// check other error codes here (eg bad fileformat, etc...)
@@ -1432,11 +1432,11 @@ class Spreadsheet_Excel_Reader {
 					} elseif ((ord($data[$spos+6])==1) && (ord($data[$spos+12])==255) && (ord($data[$spos+13])==255)) {
 						//Boolean formula. Result is in +2; 0=false,1=true
 						// http://code.google.com/p/php-excel-reader/issues/detail?id=4
-                        if (ord($this->data[$spos+8])==1) {
-                            $this->addcell($row, $column, "TRUE");
-                        } else {
-                            $this->addcell($row, $column, "FALSE");
-                        }
+						if (ord($this->data[$spos+8])==1) {
+						    $this->addcell($row, $column, "TRUE");
+						} else {
+						    $this->addcell($row, $column, "FALSE");
+						}
 					} elseif ((ord($data[$spos+6])==2) && (ord($data[$spos+12])==255) && (ord($data[$spos+13])==255)) {
 						//Error formula. Error code is in +2;
 					} elseif ((ord($data[$spos+6])==3) && (ord($data[$spos+12])==255) && (ord($data[$spos+13])==255)) {
@@ -1461,7 +1461,7 @@ class Spreadsheet_Excel_Reader {
 					$string = ord($data[$spos+6]);
 					$this->addcell($row, $column, $string);
 					break;
-                case SPREADSHEET_EXCEL_READER_TYPE_STRING:
+			    case SPREADSHEET_EXCEL_READER_TYPE_STRING:
 					// http://code.google.com/p/php-excel-reader/issues/detail?id=4
 					if ($version == SPREADSHEET_EXCEL_READER_BIFF8){
 						// Unicode 16 string, like an SST record
@@ -1472,7 +1472,7 @@ class Spreadsheet_Excel_Reader {
 						$xpos++;
 						$asciiEncoding = (($optionFlags &0x01) == 0) ;
 						$extendedString = (($optionFlags & 0x04) != 0);
-                        // See if string contains formatting information
+						// See if string contains formatting information
 						$richString = (($optionFlags & 0x08) != 0);
 						if ($richString) {
 							// Read in the crun

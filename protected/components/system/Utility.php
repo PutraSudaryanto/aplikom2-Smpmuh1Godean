@@ -197,12 +197,12 @@ class Utility
 	 */
     public static function getLanguage(){
 		if(Yii::app()->session['language'] != null)
-            $lang = Yii::app()->session['language'];
+			$lang = Yii::app()->session['language'];
 			
         else {
-            $lang = isset($_GET['lang']) && $_GET['lang'] != '' ? $_GET['lang'] : null;
-            if($lang == null) //find default language 
-                $lang = Yii::app()->params['primaryLang'];
+			$lang = isset($_GET['lang']) && $_GET['lang'] != '' ? $_GET['lang'] : null;
+			if($lang == null) //find default language 
+			    $lang = Yii::app()->params['primaryLang'];
         }
         return $lang;
     }
@@ -240,33 +240,33 @@ class Utility
 	public static function getLocalDayName($date, $short=true) {
 		$dayName = date('N', strtotime($date));
 		switch($dayName) {
-            case 0:
-                return ($short ? 'Min' : 'Minggu');
-            break;
+			case 0:
+			    return ($short ? 'Min' : 'Minggu');
+			break;
 
-            case 1:
-                return ($short ? 'Sen' : 'Senin');
-            break;
+			case 1:
+			    return ($short ? 'Sen' : 'Senin');
+			break;
 
-            case 2:
-                return ($short ? 'Sel' : 'Selasa');
-            break;
+			case 2:
+			    return ($short ? 'Sel' : 'Selasa');
+			break;
 
-            case 3:
-                return ($short ? 'Rab' : 'Rabu');
-            break;
+			case 3:
+			    return ($short ? 'Rab' : 'Rabu');
+			break;
 
-            case 4:
-                return ($short ? 'Kam' : 'Kamis');
-            break;
+			case 4:
+			    return ($short ? 'Kam' : 'Kamis');
+			break;
 
-            case 5:
-                return ($short ? 'Jum' : 'Jumat');
-            break;
+			case 5:
+			    return ($short ? 'Jum' : 'Jumat');
+			break;
 
-            case 6:
-                return ($short ? 'Sab' : 'Sabtu');
-            break;
+			case 6:
+			    return ($short ? 'Sab' : 'Sabtu');
+			break;
 		}
 	}
 

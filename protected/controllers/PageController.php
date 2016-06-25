@@ -250,29 +250,29 @@ class PageController extends Controller
         $actions  = $_GET['action'];
 
         if(count($id) > 0) {
-            $criteria = new CDbCriteria;
-            $criteria->addInCondition('id', $id);
+			$criteria = new CDbCriteria;
+			$criteria->addInCondition('id', $id);
 
-            if($actions == 'publish') {
-                OmmuPages::model()->updateAll(array(
-                    'published' => 1,
-                ),$criteria);
-            } elseif($actions == 'unpublish') {
-                OmmuPages::model()->updateAll(array(
-                    'published' => 0,
-                ),$criteria);
-            } elseif($actions == 'trash') {
-                OmmuPages::model()->updateAll(array(
-                    'published' => 2,
-                ),$criteria);
-            } elseif($actions == 'delete') {
-                OmmuPages::model()->deleteAll($criteria);
-            }
+			if($actions == 'publish') {
+			    OmmuPages::model()->updateAll(array(
+			        'published' => 1,
+			    ),$criteria);
+			} elseif($actions == 'unpublish') {
+			    OmmuPages::model()->updateAll(array(
+			        'published' => 0,
+			    ),$criteria);
+			} elseif($actions == 'trash') {
+			    OmmuPages::model()->updateAll(array(
+			        'published' => 2,
+			    ),$criteria);
+			} elseif($actions == 'delete') {
+			    OmmuPages::model()->deleteAll($criteria);
+			}
         }
 
         // if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
         if(!isset($_GET['ajax'])) {
-            $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('manage'));
+			$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('manage'));
         }
     }
 
