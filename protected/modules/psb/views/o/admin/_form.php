@@ -91,6 +91,38 @@ EOP;
 		</div>
 	</div>
 	
+	<div class="clearfix">
+		<?php echo $form->labelEx($model,'register_number'); ?>
+		<div class="desc">
+			<?php echo $form->textField($model,'register_number',array('maxlength'=>32, 'class'=>'span-4')); ?>
+			<?php echo $form->error($model,'register_number'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+	
+	<div class="clearfix">
+		<?php echo $form->labelEx($model,'bundle_date'); ?>
+		<div class="desc">
+			<?php 
+			$model->isNewRecord && $model->bundle_date == '' ? $model->bundle_date = date('d-m-Y') : date('d-m-Y', strtotime($model->bundle_date));
+			//echo $form->textField($model,'bundle_date',array('maxlength'=>32, 'class'=>'span-5'));
+			$this->widget('zii.widgets.jui.CJuiDatePicker',array(
+				'model'=>$model, 
+				'attribute'=>'bundle_date',
+				//'mode'=>'datetime',
+				'options'=>array(
+					'dateFormat' => 'dd-mm-yy',
+				),
+				'htmlOptions'=>array(
+					'class' => 'span-3',
+				 ),
+			));	?>
+			<?php  ?>
+			<?php echo $form->error($model,'bundle_date'); ?>
+			<?php /*<div class="small-px silent"></div>*/?>
+		</div>
+	</div>
+	
 	<h3><?php echo Yii::t('phrase', 'Identitas Peserta Seleksi');?></h3>
 	<div class="clearfix">
 		<?php echo $form->labelEx($model,'register_name'); ?>

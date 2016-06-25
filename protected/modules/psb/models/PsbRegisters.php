@@ -26,6 +26,7 @@
  * @property string $register_id
  * @property string $author_id
  * @property integer $status
+ * @property string $register_number
  * @property string $nisn
  * @property string $batch_id
  * @property string $register_name
@@ -50,6 +51,7 @@
  * @property string $school_id
  * @property string $school_un_rank
  * @property string $school_un_detail
+ * @property string $bundle_date
  * @property string $creation_date
  * @property string $creation_id
  *
@@ -101,20 +103,20 @@ class PsbRegisters extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('nisn, batch_id, register_name, birth_date, gender, address, parent_name, parent_work, parent_address, parent_phone,
+			array('register_number, nisn, batch_id, register_name, birth_date, gender, address, parent_name, parent_work, parent_address, parent_phone, bundle_date,
 				birthcity_field', 'required'),
 			array('status, religion, parent_religion, wali_religion,
 				batch_field, back_field', 'numerical', 'integerOnly'=>true),
 			array('author_id, batch_id, birth_city, school_id, creation_id', 'length', 'max'=>11),
 			array('nisn', 'length', 'max'=>12),
-			array('register_name, parent_name, parent_work, wali_name, wali_work', 'length', 'max'=>32),
+			array('register_number, register_name, parent_name, parent_work, wali_name, wali_work', 'length', 'max'=>32),
 			array('gender', 'length', 'max'=>6),
 			array('address_phone, address_yogya_phone, parent_phone, wali_phone', 'length', 'max'=>15),
 			array('author_id, birth_city, religion, address_phone, address_yogya, address_yogya_phone, parent_religion, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, school_un_detail,
 				batch_field, school_id_old, school_name_old', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('register_id, author_id, status, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, school_un_detail, creation_date, creation_id,
+			array('register_id, author_id, status, register_number, nisn, batch_id, register_name, birth_city, birth_date, gender, religion, address, address_phone, address_yogya, address_yogya_phone, parent_name, parent_work, parent_religion, parent_address, parent_phone, wali_name, wali_work, wali_religion, wali_address, wali_phone, school_id, school_un_rank, school_un_detail, bundle_date, creation_date, creation_id,
 				year_search, batch_search, birth_city_search, school_search, school_un_average, creation_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -147,6 +149,7 @@ class PsbRegisters extends CActiveRecord
 			'register_id' => Yii::t('attribute', 'Register'),
 			'author_id' => Yii::t('attribute', 'Author'),
 			'status' => Yii::t('attribute', 'Status'),
+			'register_number' => Yii::t('attribute', 'Register Number'),
 			'nisn' => Yii::t('attribute', 'Nisn'),
 			'batch_id' => Yii::t('attribute', 'Batch'),
 			'register_name' => Yii::t('attribute', 'Register Name'),
@@ -171,6 +174,7 @@ class PsbRegisters extends CActiveRecord
 			'school_id' => Yii::t('attribute', 'School'),
 			'school_un_rank' => Yii::t('attribute', 'School Un Rank'),
 			'school_un_detail' => Yii::t('attribute', 'School Un Detail'),
+			'bundle_date' => Yii::t('attribute', 'Bundle Date'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
@@ -237,11 +241,12 @@ class PsbRegisters extends CActiveRecord
 		$criteria->compare('t.register_id',strtolower($this->register_id),true);
 		$criteria->compare('t.author_id',strtolower($this->author_id),true);
 		$criteria->compare('t.status',$this->status);
+		$criteria->compare('t.register_number',$this->status);
 		$criteria->compare('t.nisn',strtolower($this->nisn),true);
 		if(isset($_GET['batch']))
 			$criteria->compare('t.batch_id',$_GET['batch']);
 		else
-			$criteria->compare('t.batch_id',$this->batch_id);		
+			$criteria->compare('t.batch_id',$this->batch_id);
 		$criteria->compare('t.register_name',strtolower($this->register_name),true);
 		$criteria->compare('t.birth_city',strtolower($this->birth_city),true);
 		if($this->birth_date != null && !in_array($this->birth_date, array('0000-00-00 00:00:00', '0000-00-00')))
@@ -250,7 +255,7 @@ class PsbRegisters extends CActiveRecord
 		if(isset($_GET['religion']))
 			$criteria->compare('t.religion',$_GET['religion']);
 		else
-			$criteria->compare('t.religion',$this->religion);			
+			$criteria->compare('t.religion',$this->religion);
 		$criteria->compare('t.address',strtolower($this->address),true);
 		$criteria->compare('t.address_phone',strtolower($this->address_phone),true);
 		$criteria->compare('t.address_yogya',strtolower($this->address_yogya),true);
@@ -277,6 +282,8 @@ class PsbRegisters extends CActiveRecord
 			$criteria->compare('t.school_id',$this->school_id);
 		$criteria->compare('t.school_un_rank',strtolower($this->school_un_rank),true);
 		$criteria->compare('t.school_un_detail',strtolower($this->school_un_detail),true);
+		if($this->bundle_date != null && !in_array($this->bundle_date, array('0000-00-00 00:00:00', '0000-00-00')))
+			$criteria->compare('date(t.bundle_date)',date('Y-m-d', strtotime($this->bundle_date)));
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		if(isset($_GET['creation']))
@@ -345,6 +352,7 @@ class PsbRegisters extends CActiveRecord
 			//$this->defaultColumns[] = 'register_id';
 			$this->defaultColumns[] = 'author_id';
 			$this->defaultColumns[] = 'status';
+			$this->defaultColumns[] = 'register_number';
 			$this->defaultColumns[] = 'nisn';
 			$this->defaultColumns[] = 'batch_id';
 			$this->defaultColumns[] = 'register_name';
@@ -369,6 +377,7 @@ class PsbRegisters extends CActiveRecord
 			$this->defaultColumns[] = 'school_id';
 			$this->defaultColumns[] = 'school_un_rank';
 			$this->defaultColumns[] = 'school_un_detail';
+			$this->defaultColumns[] = 'bundle_date';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 		}
@@ -627,6 +636,7 @@ class PsbRegisters extends CActiveRecord
 			$this->birth_date = date('Y-m-d', strtotime($this->birth_date));
 			$this->school_un_rank = serialize(self::getUNRank($this->school_un_detail));
 			$this->school_un_detail = serialize($this->school_un_detail);
+			$this->bundle_date = date('Y-m-d', strtotime($this->bundle_date));
 		}
 		return true;
 	}
