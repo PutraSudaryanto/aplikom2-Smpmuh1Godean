@@ -610,12 +610,32 @@ class Users extends CActiveRecord
 			}
 				
 			// Send Welcome Email
-			if($setting->signup_welcome == 1)
-				SupportMailSetting::sendEmail($this->email, $this->displayname, 'Welcome', 'Selamat bergabung dengan Nirwasita Hijab and Dress Corner', 1);
+			if($setting->signup_welcome == 1) {
+				$welcome_search = array(
+					'{$baseURL}'
+				);
+				$welcome_replace = array(
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl
+				);
+				$welcome_template = 'user_welcome';
+				$welcome_title = 'Welcome';
+				$welcome_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$welcome_template.'.php');
+				$welcome_ireplace = str_ireplace($welcome_search, $welcome_replace, $welcome_message);
+				SupportMailSetting::sendEmail($this->email, $this->displayname, $welcome_title, $welcome_ireplace, 1);
+			}
 
 			// Send Account Information
-			if($this->enabled == 1)
-				SupportMailSetting::sendEmail($this->email, $this->displayname, 'Account Information '.$this->newPassword, 'your account information', 1);
+			$account_search = array(
+				'{$baseURL}'
+			);
+			$account_replace = array(
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl
+			);
+			$account_template = 'user_account';
+			$account_title = 'Welcome';
+			$account_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$account_template.'.php');
+			$account_ireplace = str_ireplace($account_search, $account_replace, $account_message);
+			SupportMailSetting::sendEmail($this->email, $this->displayname, $account_title, $account_ireplace, 1);
 
 			// Send New Account to Email Administrator
 			if($setting->signup_adminemail == 1)
