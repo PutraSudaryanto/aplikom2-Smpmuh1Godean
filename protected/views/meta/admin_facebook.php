@@ -102,7 +102,7 @@ EOP;
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'facebook_sitename'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'facebook_sitename',array('maxlength'=>32,'class'=>'span-5')); ?>
+				<?php echo $form->textField($model,'facebook_sitename',array('maxlength'=>64,'class'=>'span-5')); ?>
 				<?php echo $form->error($model,'facebook_sitename'); ?>
 				<span class="small-px silent"><?php echo Yii::t('phrase', 'The name of the web site upon which the object resides (.i.e. "Ommu Platform & Bootstrap")');?></span>
 			</div>

@@ -11,6 +11,7 @@
  *	Login
  *	Logout
  *	SendEmail
+ *	Analytics
  *
  *	LoadModel
  *	performAjaxValidation
@@ -75,7 +76,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','error','login','logout','sendemail'),
+				'actions'=>array('index','error','login','logout','sendemail','analytics'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -175,6 +176,27 @@ class SiteController extends Controller
 	 */
 	public function actionSendEmail()
 	{
-		SupportMailSetting::sendEmail('putra.sudaryanto@gmail.com', 'Putra Sudaryanto', 'testing', 'testing', 1);	
+		if(SupportMailSetting::sendEmail('putra.sudaryanto@gmail.com', 'Putra Sudaryanto', 'testing', 'testing', 1))
+			echo 'send';
+		else 
+			echo 'notsend';
 	}
+	
+	/**
+	 * This is the default 'index' action that is invoked
+	 * when an action is not explicitly requested by users.
+	 */
+	public function actionAnalytics()
+	{
+		$model = OmmuSettings::model()->findByPk(1,array(
+			'select' => 'site_url, analytic, analytic_id',
+		));
+		
+		$this->pageTitle = 'Analytics';
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('application.webs.site.front_analytics', array(
+			'model'=>$model,
+		));
+	}	
 }

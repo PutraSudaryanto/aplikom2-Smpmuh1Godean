@@ -281,7 +281,7 @@ class SupportMailSetting extends CActiveRecord
 		 * 0 = to admin
 		 * 1 = to user
 		 */
-		if($type == '0') {
+		if($type == 0) {
 			$mail->SetFrom($to_email, $to_name);
 			$mail->AddReplyTo($to_email, $to_name);
 			$mail->AddAddress($model->mail_contact, $model->mail_name);

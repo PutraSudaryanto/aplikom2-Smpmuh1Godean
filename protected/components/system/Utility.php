@@ -6,6 +6,8 @@
  *	getCurrentTemplate
  *	applyCurrentTheme
  *	getProtocol
+ *	getConnected
+ *	isServerAvailible
  *	getContentMenu 
  *	flashSuccess
  *	flashError
@@ -78,6 +80,47 @@ class Utility
 		if(Yii::app()->request->isSecureConnection)
 			return 'https';
 		return 'http';
+	}
+	/**
+	 * get alternatif connected domain for inlis sso server
+	 * @param type $operator not yet using
+	 * @return type
+	 */
+	public static function getConnected($serverOptions) {
+		$connectedUrl = 'neither-connected';
+		
+		foreach($serverOptions as $val) {
+			if(self::isServerAvailible($val)) {
+				$connectedUrl = $val;
+				break;
+			}
+		}
+		file_put_contents('assets/utility_server_actived.txt', $connectedUrl);
+
+		return $connectedUrl;
+	}
+
+	//returns true, if domain is availible, false if not
+	public static function isServerAvailible($domain) 
+	{
+		//check, if a valid url is provided
+		if (!filter_var($domain, FILTER_VALIDATE_URL))
+			return false;
+
+		//initialize curl
+		$curlInit = curl_init($domain);
+		curl_setopt($curlInit,CURLOPT_CONNECTTIMEOUT,10);
+		curl_setopt($curlInit,CURLOPT_HEADER,true);
+		curl_setopt($curlInit,CURLOPT_NOBODY,true);
+		curl_setopt($curlInit,CURLOPT_RETURNTRANSFER,true);
+
+		//get answer
+		$response = curl_exec($curlInit);
+		curl_close($curlInit);
+		if($response)
+			return true;
+
+		return false;
 	}
 	
 	/**
