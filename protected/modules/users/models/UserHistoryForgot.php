@@ -65,10 +65,10 @@ class UserHistoryForgot extends CActiveRecord
 			array('user_id, forgot_ip', 'required'),
 			array('user_id', 'length', 'max'=>11),
 			array('forgot_ip', 'length', 'max'=>20),
-			array('forgot_date, forgot_from', 'safe'),
+			array('forgot_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, forgot_date, forgot_ip, forgot_from,
+			array('id, user_id, forgot_date, forgot_ip,
 				user_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -95,7 +95,6 @@ class UserHistoryForgot extends CActiveRecord
 			'user_id' => Phrase::trans(16001,1),
 			'forgot_date' => Phrase::trans(16147,1),
 			'forgot_ip' => Phrase::trans(16148,1),
-			'forgot_from' => 'Forgot From',
 		);
 	}
 
@@ -126,7 +125,6 @@ class UserHistoryForgot extends CActiveRecord
 		if($this->forgot_date != null && !in_array($this->forgot_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.forgot_date)',date('Y-m-d', strtotime($this->forgot_date)));
 		$criteria->compare('t.forgot_ip',$this->forgot_ip,true);
-		$criteria->compare('t.forgot_from',$this->forgot_from,true);
 		
 		// Custom Search
 		$criteria->with = array(
@@ -170,7 +168,6 @@ class UserHistoryForgot extends CActiveRecord
 			$this->defaultColumns[] = 'user_id';
 			$this->defaultColumns[] = 'forgot_date';
 			$this->defaultColumns[] = 'forgot_ip';
-			$this->defaultColumns[] = 'forgot_from';
 		}
 
 		return $this->defaultColumns;
@@ -189,7 +186,6 @@ class UserHistoryForgot extends CActiveRecord
 				'name' => 'user_search',
 				'value' => '$data->user->displayname',
 			);
-			$this->defaultColumns[] = 'forgot_from';
 			$this->defaultColumns[] = array(
 				'name' => 'forgot_date',
 				'value' => 'Utility::dateFormat($data->forgot_date, true)',

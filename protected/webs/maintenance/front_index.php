@@ -28,7 +28,7 @@ EOP;
 	$cs->registerScript('countdown', $js, CClientScript::POS_END);	
 ?>
 
-<div class="countdown">
+<div class="countdown hide">
 	<ul class="clearfix">
 		<li>
 			<span id="days">0</span>
@@ -49,7 +49,7 @@ EOP;
 	</ul>
 </div>
 
-<p><?php echo $setting->construction_text;?></p>
+<p class="hide"><?php echo $setting->construction_text;?></p>
 
 <?php /*
 <div class="dt-countdowntimer" data-date="<?php echo $setting->construction_date;?>" style="height: 250px;"></div>

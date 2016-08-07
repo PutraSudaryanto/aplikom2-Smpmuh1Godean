@@ -135,7 +135,7 @@ class PageController extends Controller
 			$this->pageTitle = '';
 			$this->pageDescription = '';
 			$this->pageMeta = '';
-			$this->render('front_index',array(
+			$this->render('application.webs.page.front_index',array(
 				'dataProvider'=>$dataProvider,
 			));		
 		} else {
@@ -143,12 +143,12 @@ class PageController extends Controller
 			
 			$this->pageTitleShow = true;
 			if($id == 7)
-				$this->adsSidebar = false;
+				$this->adsSidebar = false;	
 			$this->pageTitle = Phrase::trans($model->name,2);
 			$this->pageDescription = Utility::shortText(Utility::hardDecode(Phrase::trans($model->desc,2)),300);
 			$this->pageMeta = '';
 			$this->pageImage = ($model->media != '' && $model->media_show == 1) ? Yii::app()->request->baseUrl.'/public/page/'.$model->media : '';
-			$this->render('front_view',array(
+			$this->render('application.webs.page.front_view',array(
 				'model'=>$model,
 			));
 		}

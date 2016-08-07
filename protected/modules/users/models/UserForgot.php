@@ -68,7 +68,7 @@ class UserForgot extends CActiveRecord
 			array('code', 'length', 'max'=>64),
 			array('forgot_ip', 'length', 'max'=>20),
 			array('email', 'email'),
-			array('user_id, forgot_date, forgot_ip, forgot_from,
+			array('user_id, forgot_date, forgot_ip,
 				email', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -99,7 +99,6 @@ class UserForgot extends CActiveRecord
 			'code' => Phrase::trans(16146,1),
 			'forgot_date' => Phrase::trans(16147,1),
 			'forgot_ip' => Phrase::trans(16148,1),
-			'forgot_from' => 'Forgot From',
 			'email' => Phrase::trans(16108,1),
 		);
 	}
@@ -121,7 +120,6 @@ class UserForgot extends CActiveRecord
 		if($this->forgot_date != null && !in_array($this->forgot_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.forgot_date)',date('Y-m-d', strtotime($this->forgot_date)));
 		$criteria->compare('t.forgot_ip',$this->forgot_ip,true);
-		$criteria->compare('t.forgot_from',$this->forgot_from,true);
 
 		if(!isset($_GET['UserForgot_sort']))
 			$criteria->order = 't.forgot_id DESC';
@@ -154,7 +152,6 @@ class UserForgot extends CActiveRecord
 			$this->defaultColumns[] = 'code';
 			$this->defaultColumns[] = 'forgot_date';
 			$this->defaultColumns[] = 'forgot_ip';
-			$this->defaultColumns[] = 'forgot_from';
 		}
 
 		return $this->defaultColumns;
@@ -198,7 +195,6 @@ class UserForgot extends CActiveRecord
 				), true),
 			);
 			$this->defaultColumns[] = 'forgot_ip';
-			$this->defaultColumns[] = 'forgot_from';
 		}
 		parent::afterConstruct();
 	}
@@ -241,7 +237,6 @@ class UserForgot extends CActiveRecord
 				}
 				$this->code = self::getUniqueCode();
 				$this->forgot_ip = $_SERVER['REMOTE_ADDR'];
-				$this->forgot_from = Yii::app()->params['product_access_system'];
 			}
 		}
 		return true;

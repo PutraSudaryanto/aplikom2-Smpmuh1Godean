@@ -68,7 +68,7 @@ class PsbSettings extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id, license, permission, meta_keyword, meta_description, form_online, field_religion, field_wali, modified_date, modified_id', 'required'),
+			array('license, permission, meta_keyword, meta_description, form_online, field_religion, field_wali', 'required'),
 			array('id, permission, form_online, field_religion, field_wali', 'numerical', 'integerOnly'=>true),
 			array('license', 'length', 'max'=>32),
 			array('modified_id', 'length', 'max'=>11),
@@ -159,12 +159,12 @@ class PsbSettings extends CActiveRecord
 		
 		// Custom Search
 		$criteria->with = array(
-			'modified_relation' => array(
-				'alias'=>'modified_relation',
+			'modified' => array(
+				'alias'=>'modified',
 				'select'=>'displayname',
 			),
 		);
-		$criteria->compare('modified_relation.displayname',strtolower($this->modified_search), true);
+		$criteria->compare('modified.displayname',strtolower($this->modified_search), true);
 
 
 		if(!isset($_GET['PsbSettings_sort']))
@@ -255,7 +255,7 @@ class PsbSettings extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'modified_search',
-				'value' => '$data->modified_relation->displayname',
+				'value' => '$data->modified->displayname',
 			);
 		}
 		parent::afterConstruct();

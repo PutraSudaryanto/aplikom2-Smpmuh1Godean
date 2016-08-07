@@ -39,6 +39,7 @@
  * @property string $modified_id
  * @property string $lastlogin_date
  * @property string $lastlogin_ip
+ * @property string $lastlogin_from
  * @property string $update_date
  * @property string $update_ip
  * @property integer $locale_id
@@ -108,7 +109,7 @@ class Users extends CActiveRecord
 				newPassword', 'compare', 'compareAttribute' => 'confirmPassword', 'message' => 'Kedua password tidak sama.'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('user_id, level_id, profile_id, language_id, salt, password, email, username, displayname, photos, enabled, verified, creation_date, creation_ip, modified_date, modified_id, lastlogin_date, lastlogin_ip, update_date, update_ip, locale_id, timezone_id', 'safe', 'on'=>'search'),
+			array('user_id, level_id, profile_id, language_id, salt, password, email, username, displayname, photos, enabled, verified, creation_date, creation_ip, modified_date, modified_id, lastlogin_date, lastlogin_ip, lastlogin_from, update_date, update_ip, locale_id, timezone_id', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -149,6 +150,7 @@ class Users extends CActiveRecord
 			'modified_id' => 'Modified',
 			'lastlogin_date' => 'Lastlogin Date',
 			'lastlogin_ip' => 'Lastlogin Ip',
+			'lastlogin_from' => 'Last Login From',
 			'update_date' => 'Update Date',
 			'update_ip' => 'Update Ip',
 			'locale_id' => 'Locale',
@@ -211,6 +213,7 @@ class Users extends CActiveRecord
 		if($this->lastlogin_date != null && !in_array($this->lastlogin_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.lastlogin_date)',date('Y-m-d', strtotime($this->lastlogin_date)));
 		$criteria->compare('t.lastlogin_ip',strtolower($this->lastlogin_ip),true);
+		$criteria->compare('t.lastlogin_from',$this->lastlogin_from,true);
 		if($this->update_date != null && !in_array($this->update_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.update_date)',date('Y-m-d', strtotime($this->update_date)));
 		$criteria->compare('t.update_ip',strtolower($this->update_ip),true);
@@ -264,6 +267,7 @@ class Users extends CActiveRecord
 			$this->defaultColumns[] = 'modified_id';
 			$this->defaultColumns[] = 'lastlogin_date';
 			$this->defaultColumns[] = 'lastlogin_ip';
+			$this->defaultColumns[] = 'lastlogin_from';
 			$this->defaultColumns[] = 'update_date';
 			$this->defaultColumns[] = 'update_ip';
 			$this->defaultColumns[] = 'locale_id';

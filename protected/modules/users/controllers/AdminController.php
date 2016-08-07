@@ -121,6 +121,7 @@ class AdminController extends /*SBaseController*/ Controller
 							Users::model()->updateByPk(Yii::app()->user->id, array(
 								'lastlogin_date'=>date('Y-m-d H:i:s'), 
 								'lastlogin_ip'=>$_SERVER['REMOTE_ADDR'],
+								'lastlogin_from'=>Yii::app()->params['product_access_system'],
 							));
 							if(isset($_GET['type'])) {
 								echo CJSON::encode(array(

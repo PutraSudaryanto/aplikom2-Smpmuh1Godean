@@ -19,7 +19,7 @@
 
 <?php $this->widget('application.components.system.FListView', array(
     'dataProvider'=>$dataProvider,
-    'itemView'=>'_view',
+    'itemView'=>'application.webs.page._view',
     'pager' => array(
         'header' => '',
     ), 

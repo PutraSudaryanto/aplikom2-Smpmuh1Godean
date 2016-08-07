@@ -60,7 +60,7 @@ class MaintenanceController extends Controller
 		$this->pageTitle = 'Contruction';
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('front_index',array(
+		$this->render('application.webs.maintenance.front_index',array(
 			'setting'=>$setting,
 		));
 	}
@@ -78,7 +78,7 @@ class MaintenanceController extends Controller
 		$this->pageDescription = Utility::shortText(Utility::hardDecode(Phrase::trans($model->desc,2)),300);
 		$this->pageMeta = '';
 		$this->pageImage = ($model->media != '' && $model->media_show == 1) ? Yii::app()->request->baseUrl.'/public/page/'.$model->media : '';
-		$this->render('front_page',array(
+		$this->render('application.webs.maintenance.front_page',array(
 			'model'=>$model,
 		));
 	}
@@ -129,7 +129,7 @@ class MaintenanceController extends Controller
 			$this->pageTitle = isset($_GET['email']) ? Phrase::trans(23121,1) : Phrase::trans(23102,1);
 			$this->pageDescription = isset($_GET['email']) ? (isset($_GET['name']) ? Phrase::trans(23123,1, array($_GET['name'], $_GET['email'])) : Phrase::trans(23122,1, array($_GET['email']))) : '';
 			$this->pageMeta = '';
-			$this->render('front_feedback',array(
+			$this->render('application.webs.maintenance.front_feedback',array(
 				'model'=>$model,
 				'user'=>$user,
 			));
@@ -186,7 +186,7 @@ class MaintenanceController extends Controller
 			$this->pageTitle = $title;
 			$this->pageDescription = $desc;
 			$this->pageMeta = '';
-			$this->render('front_subscribe',array(
+			$this->render('application.webs.maintenance.front_subscribe',array(
 				'model'=>$model,
 				'launch'=>$launch,
 			));
@@ -202,7 +202,7 @@ class MaintenanceController extends Controller
 		$this->pageTitle = 'Support';
 		$this->pageDescription = '';
 		$this->pageMeta = '';
-		$this->render('front_support');
+		$this->render('application.webs.maintenance.front_support');
 	}
 
 	
