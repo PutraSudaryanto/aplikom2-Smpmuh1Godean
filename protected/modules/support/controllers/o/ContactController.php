@@ -133,7 +133,7 @@ class ContactController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(23061,1);
+		$this->pageTitle = Yii::t('phrase', 'Contact Settings');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -167,7 +167,7 @@ class ContactController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-support-contacts',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23072,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Contact success created.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -217,7 +217,7 @@ class ContactController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-support-contacts',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23073,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Contact success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -231,7 +231,7 @@ class ContactController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 			
-			$this->pageTitle = Phrase::trans(23074,1);
+			$this->pageTitle = Yii::t('phrase', 'Update Contact');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_edit',array(
@@ -292,7 +292,7 @@ class ContactController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-support-contacts',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23076,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Contact success deleted.').'</strong></div>',
 				));
 			}
 
@@ -301,7 +301,7 @@ class ContactController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(23075,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Contact');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -335,7 +335,7 @@ class ContactController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-support-contacts',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23073,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Contact success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -391,7 +391,7 @@ class ContactController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 0,
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23077,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Address setting success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -401,7 +401,7 @@ class ContactController extends Controller
 			Yii::app()->end();
 
 		} else {
-			$this->pageTitle = Phrase::trans(23063,1);
+			$this->pageTitle = Yii::t('phrase', 'Address Settings');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_setting',array(

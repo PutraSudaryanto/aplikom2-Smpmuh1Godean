@@ -99,21 +99,21 @@ class SupportMailSetting extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'mail_contact' => Phrase::trans(23003,1),
-			'mail_name' => Phrase::trans(23005,1),
-			'mail_from' => Phrase::trans(23007,1),
-			'mail_count' => Phrase::trans(23009,1),
-			'mail_queueing' => Phrase::trans(23011,1),
-			'mail_smtp' => Phrase::trans(23015,1),
-			'smtp_address' => Phrase::trans(23019,1),
-			'smtp_port' => Phrase::trans(23020,1),
-			'smtp_authentication' => Phrase::trans(23022,1),
-			'smtp_username' => Phrase::trans(23030,1),
-			'smtp_password' => Phrase::trans(23031,1),
-			'smtp_ssl' => Phrase::trans(23026,1),
-			'modified_date' => 'Modified Date',
-			'modified_id' => 'Modified ID',
-			'modified_search' => 'Modified',
+			'mail_contact' => Yii::t('attribute', 'Contact Form Email'),
+			'mail_name' => Yii::t('attribute', 'From Name'),
+			'mail_from' => Yii::t('attribute', 'From Address'),
+			'mail_count' => Yii::t('attribute', 'Mail Count'),
+			'mail_queueing' => Yii::t('attribute', 'Email Queue'),
+			'mail_smtp' => Yii::t('attribute', 'Send through SMTP'),
+			'smtp_address' => Yii::t('attribute', 'SMTP Server Address'),
+			'smtp_port' => Yii::t('attribute', 'SMTP Server Port'),
+			'smtp_authentication' => Yii::t('attribute', 'SMTP Authentication?'),
+			'smtp_username' => Yii::t('attribute', 'SMTP Username'),
+			'smtp_password' => Yii::t('attribute', 'SMTP Password'),
+			'smtp_ssl' => Yii::t('attribute', 'Use SSL or TLS?'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified ID'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 	
@@ -252,7 +252,11 @@ class SupportMailSetting extends CActiveRecord
     /**
 	 * Sent Email
 	 */
-	public static function sendEmail($to_email, $to_name, $subject, $message, $type, $cc=null, $attachment=null) {
+	public static function sendEmail($to_email, $to_name, $subject, $message, $type, $cc=null, $attachment=null) 
+	{
+		ini_set('max_execution_time', 0);
+		ob_start();
+		
 		Yii::import('application.extensions.phpmailer.JPhpMailer');
 		$model = self::model()->findByPk(1,array(
 			'select' => 'mail_contact, mail_name, mail_from, mail_smtp, smtp_address, smtp_port, smtp_username, smtp_password, smtp_ssl',
@@ -309,6 +313,8 @@ class SupportMailSetting extends CActiveRecord
 			return false;
 			//echo 'no send';
 		}
+
+		ob_end_flush();
     }
 
 	/**
@@ -318,17 +324,17 @@ class SupportMailSetting extends CActiveRecord
 		if(parent::beforeValidate()) {
 			if($this->mail_smtp == '1') {
 				if($this->smtp_address == '') {
-					$this->addError('smtp_address', Phrase::trans(23032,1));
+					$this->addError('smtp_address', Yii::t('attribute', 'SMTP Server Address cannot be blank.'));
 				}
 				if($this->smtp_port == '') {
-					$this->addError('smtp_port', Phrase::trans(23033,1));
+					$this->addError('smtp_port', Yii::t('attribute', 'SMTP Server Port cannot be blank.'));
 				}
 				if($this->smtp_authentication == '1') {
 					if($this->smtp_username == '') {
-						$this->addError('smtp_username', Phrase::trans(23034,1));
+						$this->addError('smtp_username', Yii::t('attribute', 'SMTP Username cannot be blank.'));
 					}
 					if($this->smtp_password == '') {
-						$this->addError('smtp_password', Phrase::trans(23035,1));
+						$this->addError('smtp_password', Yii::t('attribute', 'SMTP Password cannot be blank.'));
 					}
 				}
 			}

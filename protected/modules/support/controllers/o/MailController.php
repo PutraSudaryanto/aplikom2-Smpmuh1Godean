@@ -130,7 +130,7 @@ class MailController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(23001,1);
+		$this->pageTitle = Yii::t('phrase', 'View Email Support');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -164,7 +164,7 @@ class MailController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-support-mails',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23046,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Email support success reply.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -178,7 +178,7 @@ class MailController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 600;
 			
-			$this->pageTitle = Phrase::trans(23045,1).': '.$model->subject;
+			$this->pageTitle = Yii::t('phrase', 'Reply Email Support').': '.$model->subject;
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_reply',array(
@@ -203,7 +203,7 @@ class MailController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-support-mails',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23048,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Email support success deleted.').'</strong></div>',
 				));
 			}
 
@@ -212,7 +212,7 @@ class MailController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(23049,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Email Support');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -253,7 +253,7 @@ class MailController extends Controller
 					if($model->save()) {
 						echo CJSON::encode(array(
 							'type' => 0,
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23036,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Mail Setting success updated.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -263,7 +263,7 @@ class MailController extends Controller
 			Yii::app()->end();
 
 		} else {
-			$this->pageTitle = Phrase::trans(23002,1);
+			$this->pageTitle = Yii::t('phrase', 'Mail Settings');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_setting',array(

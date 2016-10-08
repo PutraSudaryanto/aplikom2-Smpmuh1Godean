@@ -87,8 +87,8 @@ class ViewSupportContactCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'cat_id' => 'Cat',
-			'category_name' => 'Category Name',
+			'cat_id' => Yii::t('attribute','Cat'),
+			'category_name' => Yii::t('attribute','Category Name'),
 		);
 	}
 

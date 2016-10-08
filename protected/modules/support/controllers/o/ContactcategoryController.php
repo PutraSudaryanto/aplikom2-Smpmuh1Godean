@@ -132,7 +132,7 @@ class ContactcategoryController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(23061,1);
+		$this->pageTitle = Yii::t('phrase', 'Contact Settings');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('/o/contact_category/admin_manage',array(
@@ -156,7 +156,7 @@ class ContactcategoryController extends Controller
 			$model->attributes=$_POST['SupportContactCategory'];
 			
 			if($model->save()) {
-				Yii::app()->user->setFlash('success', Phrase::trans(23085,1));
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'Contact category success created.'));
 				$this->redirect(array('manage'));
 			}
 		}
@@ -189,7 +189,7 @@ class ContactcategoryController extends Controller
 			$model->attributes=$_POST['SupportContactCategory'];
 			
 			if($model->save()) {
-				Yii::app()->user->setFlash('success', Phrase::trans(23085,1));
+				Yii::app()->user->setFlash('success', Yii::t('phrase', 'Contact category success created.'));
 				$this->redirect(array('manage'));
 			}
 		}
@@ -198,7 +198,7 @@ class ContactcategoryController extends Controller
 		$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 		$this->dialogWidth = 600;
 		
-		$this->pageTitle = Phrase::trans(23070,1);
+		$this->pageTitle = Yii::t('phrase', 'Edit Contact Category');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('/o/contact_category/admin_edit',array(
@@ -258,7 +258,7 @@ class ContactcategoryController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-support-contact-category',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23069,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Contact category success deleted.').'</strong></div>',
 				));
 			}
 
@@ -267,7 +267,7 @@ class ContactcategoryController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(23068,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Contact Category');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('/o/contact_category/admin_delete');
@@ -301,7 +301,7 @@ class ContactcategoryController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-support-contact-category',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23067,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Contact category success updated.').'</strong></div>',
 					));
 				}
 			}

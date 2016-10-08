@@ -100,17 +100,17 @@ class SupportMails extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'mail_id' => 'Mail',
-			'user_id' => 'User',
-			'reply' => Phrase::trans(23044,1),
-			'email' => Phrase::trans(23041,1),
-			'displayname' => Phrase::trans(23040,1),
-			'phone' => 'Phone',
-			'subject' => Phrase::trans(23042,1),
-			'message' => Phrase::trans(23043,1),
-			'message_reply' => Phrase::trans(23050,1),
-			'creation_date' => 'Creation Date',
-			'reply_date' => 'Reply Date',
+			'mail_id' => Yii::t('attribute', 'Mail'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'reply' => Yii::t('attribute', 'Reply'),
+			'email' => Yii::t('attribute', 'Email Address'),
+			'displayname' => Yii::t('attribute', 'Name'),
+			'phone' => Yii::t('attribute', 'Phone'),
+			'subject' => Yii::t('attribute', 'Subject'),
+			'message' => Yii::t('attribute', 'Message'),
+			'message_reply' => Yii::t('attribute', 'Reply Message'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'reply_date' => Yii::t('attribute', 'Reply Date'),
 		);
 	}
 	
@@ -269,7 +269,7 @@ class SupportMails extends CActiveRecord
 		if(parent::beforeValidate()) {
 			if(!$this->isNewRecord) {
 				if($this->message_reply == '') {
-					$this->addError('message_reply', Phrase::trans(23051,1));
+					$this->addError('message_reply', Yii::t('attribute', 'Reply Message cannot be blank.'));
 				}
 			}	
 		}

@@ -102,19 +102,19 @@ class SupportContactCategory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'cat_id' => Phrase::trans(23066,1),
-			'publish' => Phrase::trans(23095,1),
-			'orders' => Phrase::trans(23096,1),
-			'icons' => Phrase::trans(23097,1),
-			'name' => Phrase::trans(23066,1),
-			'creation_date' => 'Creation Date',
-			'creation_id' => 'Creation',
-			'modified_date' => 'Modified Date',
-			'modified_id' => 'Modified',
-			'title' => Phrase::trans(23066,1),
-			'old_icon' => 'Old Icon',
-			'creation_search' => 'Creation',
-			'modified_search' => 'Modified',
+			'cat_id' => Yii::t('attribute', 'Category'),
+			'publish' => Yii::t('attribute', 'Publish'),
+			'orders' => Yii::t('attribute', 'Orders'),
+			'icons' => Yii::t('attribute', 'Icons'),
+			'name' => Yii::t('attribute', 'Category'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'title' => Yii::t('attribute', 'Category'),
+			'old_icon' => Yii::t('attribute', 'Old Icon'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 	

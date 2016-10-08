@@ -96,16 +96,16 @@ class SupportContacts extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'publish' => Phrase::trans(23095,1),
-			'cat_id' => Phrase::trans(23066,1),
-			'value' => Phrase::trans(23098,1),
-			'creation_date' => 'Creation Date',
-			'creation_id' => 'Creation',
-			'modified_date' => 'Modified Date',
-			'modified_id' => 'Modified',
-			'creation_search' => 'Creation',
-			'modified_search' => 'Modified',
+			'id' => Yii::t('attribute', 'ID'),
+			'publish' => Yii::t('attribute', 'Publish'),
+			'cat_id' => Yii::t('attribute', 'Category'),
+			'value' => Yii::t('attribute', 'Value'),
+			'creation_date' => Yii::t('attribute', 'Creation Date'),
+			'creation_id' => Yii::t('attribute', 'Creation'),
+			'modified_date' => Yii::t('attribute', 'Modified Date'),
+			'modified_id' => Yii::t('attribute', 'Modified'),
+			'creation_search' => Yii::t('attribute', 'Creation'),
+			'modified_search' => Yii::t('attribute', 'Modified',
 		);
 	}
 
