@@ -157,7 +157,7 @@ EOP;
 			<div class="clearfix">
 				<label><?php echo $model->getAttributeLabel('event_tag')?> <span class="required">*</span></label>
 				<div class="desc">
-					<?php echo $form->textField($model,'event_tag',array('class'=>'span-9')); ?>
+					<?php echo $form->textArea($model,'event_tag',array('rows'=>6, 'cols'=>50, 'class'=>'span-9 smaller')); ?>
 					<?php echo $form->error($model,'event_tag'); ?>
 				</div>
 			</div>

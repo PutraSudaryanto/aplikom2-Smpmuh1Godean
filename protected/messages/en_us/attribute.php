@@ -139,7 +139,6 @@ return array(
 	'signup_username' => 'Enable Profile Address?',
 	'signup_verifyemail' => 'Verify Email Address?',
 	'signup_welcome' => 'Send Welcome Email?',
-	'site_admin' => 'Admin Setting Type',
 	'site_creation' => 'Site Creation',
 	'site_dateformat' => 'Site Dateformat',
 	'site_description' => 'Site Description',

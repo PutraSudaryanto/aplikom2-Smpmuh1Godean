@@ -318,6 +318,23 @@ class OmmuPlugins extends CActiveRecord
 		parent::afterConstruct();
 	}
 
+	/**
+	 * User get information
+	 */
+	public static function getInfo($id, $column=null)
+	{
+		if($column != null) {
+			$model = self::model()->findByPk($id,array(
+				'select' => $column
+			));
+			return $model->$column;
+			
+		} else {
+			$model = self::model()->findByPk($id);
+			return $model;			
+		}
+	}
+
 	// Get plugin list
 	public static function getPlugin($actived=null, $keypath=null, $type=null)
 	{
@@ -342,8 +359,10 @@ class OmmuPlugins extends CActiveRecord
 						$items[$val->plugin_id] = $val->name;
 				}
 				return $items;
+				
 			} else
-				return false;			
+				return false;
+			
 		} else
 			return $model;		
 	}

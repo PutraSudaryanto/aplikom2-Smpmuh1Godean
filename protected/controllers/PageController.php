@@ -110,7 +110,7 @@ class PageController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id=null) 
+	public function actionView($id=null, $static=null)
 	{
 		$arrThemes = Utility::getCurrentTemplate('public');
 		Yii::app()->theme = $arrThemes['folder'];
@@ -137,19 +137,55 @@ class PageController extends Controller
 			$this->pageMeta = '';
 			$this->render('application.webs.page.front_index',array(
 				'dataProvider'=>$dataProvider,
-			));		
+			));
+			
 		} else {
-			$model=$this->loadModel($id);
+			if($static == null) {
+				$model=$this->loadModel($id);
+				
+				$title = Phrase::trans($model->name,2);
+				$description = Phrase::trans($model->desc,2);				
+				$image = ($model->media != '' && $model->media_show == 1) ? Yii::app()->request->baseUrl.'/public/page/'.$model->media : '';
+				
+			} else {
+				$server = Utility::getConnected(Yii::app()->params['server_options']['bpad']);
+				if($server != 'neither-connected') {
+					if(in_array($server, Yii::app()->params['server_options']['localhost']))
+						$server = $server.'/bpadportal';			
+					$url = $server.preg_replace('('.Yii::app()->request->baseUrl.')', '', Yii::app()->createUrl('api/page/detail'));
+					
+					$item = array(
+						'id' => $id,
+					);
+					$items = http_build_query($item);
+				
+					$ch = curl_init();
+					curl_setopt($ch, CURLOPT_URL, $url);
+					curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+					//curl_setopt($ch,CURLOPT_HEADER, true);
+					curl_setopt($ch, CURLOPT_POST, true);
+					curl_setopt($ch, CURLOPT_POSTFIELDS, $items);
+					$output=curl_exec($ch);	
+
+					$model = json_decode($output);
+				}
+				
+				$title = $model->success == '0' ? 'Page not found' : $model->title;
+				$description = $model->success == '0' ? '' : $model->description;
+				$image = $model->success == '0' ? '' : ($model->media_image != '-') ? $model->media_image : '';
+			}
+			
+			if(($static == null && $model == null) || ($static != null && $model->success == '0'))
+				throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 			
 			$this->pageTitleShow = true;
-			if($id == 7)
-				$this->adsSidebar = false;	
-			$this->pageTitle = Phrase::trans($model->name,2);
-			$this->pageDescription = Utility::shortText(Utility::hardDecode(Phrase::trans($model->desc,2)),300);
+			$this->pageTitle = $title;
+			$this->pageDescription = Utility::shortText(Utility::hardDecode($description), 200);
 			$this->pageMeta = '';
-			$this->pageImage = ($model->media != '' && $model->media_show == 1) ? Yii::app()->request->baseUrl.'/public/page/'.$model->media : '';
+			$this->pageImage = $image;
 			$this->render('application.webs.page.front_view',array(
 				'model'=>$model,
+				'a'=>$static,
 			));
 		}
 	}

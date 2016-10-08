@@ -55,7 +55,7 @@ mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\views" "D:\htdocs\
 -------
 themes
 =======
-mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\themes\ommu" "D:\htdocs\_project_ommu_bootstrap\themes\backend-end\ommu"
+mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\themes\ommu" "D:\htdocs\_project_ommu_bootstrap\themes\ommu"
 
 
 -------
@@ -79,8 +79,8 @@ mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\users\view
 ///report\\\
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\externals\report" "D:\htdocs\_project_ommu_module_reports\externals\report"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\report.yaml" "D:\htdocs\_project_ommu_module_reports\modules\report\report.yaml"
-mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\LICENSE" "D:\htdocs\_project_ommu_module_reports\modules\report\LICENSE"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\ReportModule.php" "D:\htdocs\_project_ommu_module_reports\modules\report\ReportModule.php"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\LICENSE" "D:\htdocs\_project_ommu_module_reports\modules\report\LICENSE"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\assets" "D:\htdocs\_project_ommu_module_reports\modules\report\assets"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\components" "D:\htdocs\_project_ommu_module_reports\modules\report\components"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\models" "D:\htdocs\_project_ommu_module_reports\modules\report\models"
@@ -92,8 +92,8 @@ mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\report\vie
 ///support\\\
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\externals\support" "D:\htdocs\_project_ommu_module_support\externals\support"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\support.yaml" "D:\htdocs\_project_ommu_module_support\modules\support\support.yaml"
-mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\LICENSE" "D:\htdocs\_project_ommu_module_support\modules\support\LICENSE"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\SupportModule.php" "D:\htdocs\_project_ommu_module_support\modules\support\SupportModule.php"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\LICENSE" "D:\htdocs\_project_ommu_module_support\modules\support\LICENSE"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\assets" "D:\htdocs\_project_ommu_module_support\modules\support\assets"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\components" "D:\htdocs\_project_ommu_module_support\modules\support\components"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\models" "D:\htdocs\_project_ommu_module_support\modules\support\models"
@@ -105,8 +105,8 @@ mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\support\vi
 ///psb\\\
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\externals\psb" "D:\htdocs\_project_ommu_module_psb\externals\psb"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\psb.yaml" "D:\htdocs\_project_ommu_module_psb\modules\psb\psb.yaml"
-mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\LICENSE" "D:\htdocs\_project_ommu_module_psb\modules\psb\LICENSE"
 mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\PsbModule.php" "D:\htdocs\_project_ommu_module_psb\modules\psb\PsbModule.php"
+mklink /H "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\LICENSE" "D:\htdocs\_project_ommu_module_psb\modules\psb\LICENSE"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\assets" "D:\htdocs\_project_ommu_module_psb\modules\psb\assets"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\components" "D:\htdocs\_project_ommu_module_psb\modules\psb\components"
 mklink /J "D:\htdocs\_kampus_aplikom2_smpmuh1godean\protected\modules\psb\models" "D:\htdocs\_project_ommu_module_psb\modules\psb\models"

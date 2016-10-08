@@ -42,8 +42,10 @@ class AuthorController extends Controller
 	 */
 	public function init() 
 	{
+		$siteType = OmmuSettings::getInfo('site_type');
+		
 		if(!Yii::app()->user->isGuest) {
-			if(in_array(Yii::app()->user->level, array(1,2))) {
+			if(in_array(Yii::app()->user->level, array(1,2)) && $siteType == 1) {
 				$arrThemes = Utility::getCurrentTemplate('admin');
 				Yii::app()->theme = $arrThemes['folder'];
 				$this->layout = $arrThemes['layout'];

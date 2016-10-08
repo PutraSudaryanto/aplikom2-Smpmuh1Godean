@@ -24,6 +24,7 @@
  * The followings are the available columns in table 'ommu_core_meta':
  * @property integer $id
  * @property string $meta_image
+ * @property string $meta_image_alt
  * @property integer $office_on
  * @property string $office_name
  * @property string $office_location
@@ -47,10 +48,14 @@
  * @property string $twitter_creator
  * @property string $twitter_photo_width
  * @property string $twitter_photo_height
+ * @property string $twitter_country
+ * @property string $twitter_iphone_name
  * @property string $twitter_iphone_id
  * @property string $twitter_iphone_url
  * @property string $twitter_ipad_name
+ * @property string $twitter_ipad_id
  * @property string $twitter_ipad_url
+ * @property string $twitter_googleplay_name
  * @property string $twitter_googleplay_id
  * @property string $twitter_googleplay_url
  * @property integer $facebook_on
@@ -110,21 +115,21 @@ class OmmuMeta extends CActiveRecord
 			array('twitter_card, twitter_site, twitter_creator', 'required', 'on'=>'twitter, twitter_photo'),
 			array('twitter_photo_width, twitter_photo_height', 'required', 'on'=>'twitter_photo'),
 			array('id, office_on, office_country, office_province, office_city, google_on, twitter_on, twitter_card, facebook_on, facebook_type', 'numerical', 'integerOnly'=>true),
-			array('twitter_iphone_url, twitter_ipad_url, twitter_googleplay_url, facebook_see_also', 'length', 'max'=>256),
+			array('facebook_see_also', 'length', 'max'=>256),
 			array('meta_image, facebook_sitename,
 				old_meta_image', 'length', 'max'=>64),
-			array('office_location, office_district, office_village, office_phone, office_fax, office_email, office_hotline, office_website, map_icons, twitter_site, twitter_creator, twitter_iphone_id, twitter_ipad_name, twitter_googleplay_id, facebook_profile_firstname, facebook_profile_lastname, facebook_profile_username, facebook_admins', 'length', 'max'=>32),
+			array('office_location, office_district, office_village, office_phone, office_fax, office_email, office_hotline, office_website, map_icons, twitter_site, twitter_creator, twitter_country, twitter_iphone_name, twitter_iphone_id, twitter_ipad_name, twitter_ipad_id, twitter_googleplay_name, twitter_googleplay_id, facebook_profile_firstname, facebook_profile_lastname, facebook_profile_username, facebook_admins', 'length', 'max'=>32),
 			array('office_city', 'length', 'max'=>11),
 			array('office_zipcode', 'length', 'max'=>6),
 			array('twitter_photo_width, twitter_photo_height', 'length', 'max'=>3),
 			array('map_icon_width, map_icon_height', 'length', 'max'=>2),
 			//array('meta_image', 'file', 'allowEmpty' => true, 'types' => 'jpg, jpeg, png, gif'),
 			array('office_email', 'email'),
-			array('meta_image, office_name, office_province, office_district, office_village, office_phone, office_fax, map_icons, twitter_photo_width, twitter_photo_height, twitter_iphone_id, twitter_iphone_url, twitter_ipad_name, twitter_ipad_url, twitter_googleplay_id, twitter_googleplay_url, facebook_sitename, facebook_see_also, facebook_admins,
+			array('meta_image, meta_image_alt, office_name, office_province, office_district, office_village, office_phone, office_fax, map_icons, twitter_photo_width, twitter_photo_height, twitter_country, twitter_iphone_name, twitter_iphone_id, twitter_iphone_url, twitter_ipad_name, twitter_ipad_id, twitter_ipad_url, twitter_googleplay_name, twitter_googleplay_id, twitter_googleplay_url, facebook_sitename, facebook_see_also, facebook_admins,
 				old_meta_image', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, meta_image, office_on, office_name, office_location, office_place, office_country, office_province, office_city, office_district, office_village, office_zipcode, office_hour, office_phone, office_fax, office_email, office_hotline, office_website, map_icons, map_icon_width, map_icon_height, google_on, twitter_on, twitter_card, twitter_site, twitter_creator, twitter_photo_width, twitter_photo_height, twitter_iphone_id, twitter_iphone_url, twitter_ipad_name, twitter_ipad_url, twitter_googleplay_id, twitter_googleplay_url, facebook_on, facebook_type, facebook_profile_firstname, facebook_profile_lastname, facebook_profile_username, facebook_sitename, facebook_see_also, facebook_admins,
+			array('id, meta_image, meta_image_alt, office_on, office_name, office_location, office_place, office_country, office_province, office_city, office_district, office_village, office_zipcode, office_hour, office_phone, office_fax, office_email, office_hotline, office_website, map_icons, map_icon_width, map_icon_height, google_on, twitter_on, twitter_card, twitter_site, twitter_creator, twitter_photo_width, twitter_photo_height, twitter_country, twitter_iphone_name, twitter_iphone_id, twitter_iphone_url, twitter_ipad_name, twitter_ipad_id, twitter_ipad_url, twitter_googleplay_id, twitter_googleplay_name, twitter_googleplay_url, facebook_on, facebook_type, facebook_profile_firstname, facebook_profile_lastname, facebook_profile_username, facebook_sitename, facebook_see_also, facebook_admins,
 				modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -153,10 +158,11 @@ class OmmuMeta extends CActiveRecord
 		return array(
 			'id' => Yii::t('attribute', 'ID'),
 			'meta_image' => Yii::t('attribute', 'Meta Image'),
-			'office_on' => Yii::t('attribute', 'Office On'),
+			'meta_image_alt' => Yii::t('attribute', 'Meta Image Alt'),
+			'office_on' => Yii::t('attribute', 'Google Owner Meta'),
 			'office_name' => Yii::t('attribute', 'Office Name'),
-			'office_location' => Yii::t('attribute', 'Office Location'),
-			'office_place' => Yii::t('attribute', 'Office Place'),
+			'office_location' => Yii::t('attribute', 'Office Maps Location'),
+			'office_place' => Yii::t('attribute', 'Office Address'),
 			'office_country' => Yii::t('attribute', 'Office Country'),
 			'office_province' => Yii::t('attribute', 'Office Province'),
 			'office_city' => Yii::t('attribute', 'Office City'),
@@ -172,27 +178,31 @@ class OmmuMeta extends CActiveRecord
 			'map_icons' => Yii::t('attribute', 'Map Icons'),
 			'map_icon_width' => Yii::t('attribute', 'Map Icon Width'),
 			'map_icon_height' => Yii::t('attribute', 'Map Icon Height'),
-			'google_on' => Yii::t('attribute', 'Google On'),
-			'twitter_on' => Yii::t('attribute', 'Twitter On'),
+			'google_on' => Yii::t('attribute', 'Google Plus Meta'),
+			'twitter_on' => Yii::t('attribute', 'Twitter Meta'),
 			'twitter_card' => Yii::t('attribute', 'Twitter Card'),
-			'twitter_site' => Yii::t('attribute', 'Twitter Site'),
-			'twitter_creator' => Yii::t('attribute', 'Twitter Creator'),
-			'twitter_photo_width' => Yii::t('attribute', 'Twitter Photo Width'),
-			'twitter_photo_height' => Yii::t('attribute', 'Twitter Photo Height'),
-			'twitter_iphone_id' => Yii::t('attribute', 'Twitter Iphone'),
-			'twitter_iphone_url' => Yii::t('attribute', 'Twitter Iphone Url'),
-			'twitter_ipad_name' => Yii::t('attribute', 'Twitter Ipad Name'),
-			'twitter_ipad_url' => Yii::t('attribute', 'Twitter Ipad Url'),
-			'twitter_googleplay_id' => Yii::t('attribute', 'Twitter Googleplay'),
-			'twitter_googleplay_url' => Yii::t('attribute', 'Twitter Googleplay Url'),
-			'facebook_on' => Yii::t('attribute', 'Facebook On'),
+			'twitter_site' => Yii::t('attribute', 'Site'),
+			'twitter_creator' => Yii::t('attribute', 'Creator'),
+			'twitter_photo_width' => Yii::t('attribute', 'Photo Width'),
+			'twitter_photo_height' => Yii::t('attribute', 'Photo Height'),
+			'twitter_country' => Yii::t('attribute', 'Country'),
+			'twitter_iphone_name' => Yii::t('attribute', 'Iphone Name'),
+			'twitter_iphone_id' => Yii::t('attribute', 'Iphone'),
+			'twitter_iphone_url' => Yii::t('attribute', 'Iphone Url'),
+			'twitter_ipad_name' => Yii::t('attribute', 'Ipad Name'),
+			'twitter_ipad_id' => Yii::t('attribute', 'Ipad'),
+			'twitter_ipad_url' => Yii::t('attribute', 'Ipad Url'),
+			'twitter_googleplay_name' => Yii::t('attribute', 'Googleplay Name'),
+			'twitter_googleplay_id' => Yii::t('attribute', 'Googleplay'),
+			'twitter_googleplay_url' => Yii::t('attribute', 'Googleplay Url'),
+			'facebook_on' => Yii::t('attribute', 'Facebook Meta'),
 			'facebook_type' => Yii::t('attribute', 'Facebook Type'),
-			'facebook_profile_firstname' => Yii::t('attribute', 'Facebook Profile Firstname'),
-			'facebook_profile_lastname' => Yii::t('attribute', 'Facebook Profile Lastname'),
-			'facebook_profile_username' => Yii::t('attribute', 'Facebook Profile Username'),
-			'facebook_sitename' => Yii::t('attribute', 'Facebook Sitename'),
-			'facebook_see_also' => Yii::t('attribute', 'Facebook See Also'),
-			'facebook_admins' => Yii::t('attribute', 'Facebook Admins'),
+			'facebook_profile_firstname' => Yii::t('attribute', 'Profile Firstname'),
+			'facebook_profile_lastname' => Yii::t('attribute', 'Profile Lastname'),
+			'facebook_profile_username' => Yii::t('attribute', 'Profile Username'),
+			'facebook_sitename' => Yii::t('attribute', 'Sitename'),
+			'facebook_see_also' => Yii::t('attribute', 'See Also'),
+			'facebook_admins' => Yii::t('attribute', 'Admins'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
 			'old_meta_image' => Yii::t('attribute', 'Old Meta Image'),
@@ -212,6 +222,7 @@ class OmmuMeta extends CActiveRecord
 
 		$criteria->compare('t.id',$this->id);
 		$criteria->compare('t.meta_image',$this->meta_image,true);
+		$criteria->compare('t.meta_image_alt',$this->meta_image_alt,true);
 		$criteria->compare('t.office_on',$this->office_on);
 		$criteria->compare('t.office_name',$this->office_name,true);
 		$criteria->compare('t.office_location',$this->office_location,true);
@@ -235,10 +246,14 @@ class OmmuMeta extends CActiveRecord
 		$criteria->compare('t.twitter_creator',$this->twitter_creator,true);
 		$criteria->compare('t.twitter_photo_width',$this->twitter_photo_width,true);
 		$criteria->compare('t.twitter_photo_height',$this->twitter_photo_height,true);
-		$criteria->compare('t.twitter_iphone_id',$this->twitter_iphone_id,true);
+		$criteria->compare('t.twitter_country',$this->twitter_country,true);
+		$criteria->compare('t.twitter_country',$this->twitter_country,true);
+		$criteria->compare('t.twitter_iphone_name',$this->twitter_iphone_id,true);
 		$criteria->compare('t.twitter_iphone_url',$this->twitter_iphone_url,true);
 		$criteria->compare('t.twitter_ipad_name',$this->twitter_ipad_name,true);
+		$criteria->compare('t.twitter_ipad_id',$this->twitter_ipad_id,true);
 		$criteria->compare('t.twitter_ipad_url',$this->twitter_ipad_url,true);
+		$criteria->compare('t.twitter_googleplay_name',$this->twitter_googleplay_name,true);
 		$criteria->compare('t.twitter_googleplay_id',$this->twitter_googleplay_id,true);
 		$criteria->compare('t.twitter_googleplay_url',$this->twitter_googleplay_url,true);
 		$criteria->compare('t.facebook_on',$this->facebook_on);
@@ -290,6 +305,7 @@ class OmmuMeta extends CActiveRecord
 		}else {
 			//$this->defaultColumns[] = 'id';
 			$this->defaultColumns[] = 'meta_image';
+			$this->defaultColumns[] = 'meta_image_alt';
 			$this->defaultColumns[] = 'office_on';
 			$this->defaultColumns[] = 'office_name';
 			$this->defaultColumns[] = 'office_location';
@@ -313,10 +329,14 @@ class OmmuMeta extends CActiveRecord
 			$this->defaultColumns[] = 'twitter_creator';
 			$this->defaultColumns[] = 'twitter_photo_width';
 			$this->defaultColumns[] = 'twitter_photo_height';
+			$this->defaultColumns[] = 'twitter_country';
+			$this->defaultColumns[] = 'twitter_iphone_name';
 			$this->defaultColumns[] = 'twitter_iphone_id';
 			$this->defaultColumns[] = 'twitter_iphone_url';
 			$this->defaultColumns[] = 'twitter_ipad_name';
+			$this->defaultColumns[] = 'twitter_ipad_id';
 			$this->defaultColumns[] = 'twitter_ipad_url';
+			$this->defaultColumns[] = 'twitter_googleplay_name';
 			$this->defaultColumns[] = 'twitter_googleplay_id';
 			$this->defaultColumns[] = 'twitter_googleplay_url';
 			$this->defaultColumns[] = 'facebook_on';
@@ -341,6 +361,7 @@ class OmmuMeta extends CActiveRecord
 		if(count($this->defaultColumns) == 0) {
 			$this->defaultColumns[] = 'id';
 			$this->defaultColumns[] = 'meta_image';
+			$this->defaultColumns[] = 'meta_image_alt';
 			$this->defaultColumns[] = 'office_on';
 			$this->defaultColumns[] = 'office_name';
 			$this->defaultColumns[] = 'office_location';
@@ -364,10 +385,14 @@ class OmmuMeta extends CActiveRecord
 			$this->defaultColumns[] = 'twitter_creator';
 			$this->defaultColumns[] = 'twitter_photo_width';
 			$this->defaultColumns[] = 'twitter_photo_height';
+			$this->defaultColumns[] = 'twitter_country';
+			$this->defaultColumns[] = 'twitter_iphone_name';
 			$this->defaultColumns[] = 'twitter_iphone_id';
 			$this->defaultColumns[] = 'twitter_iphone_url';
 			$this->defaultColumns[] = 'twitter_ipad_name';
+			$this->defaultColumns[] = 'twitter_ipad_id';
 			$this->defaultColumns[] = 'twitter_ipad_url';
+			$this->defaultColumns[] = 'twitter_googleplay_name';
 			$this->defaultColumns[] = 'twitter_googleplay_id';
 			$this->defaultColumns[] = 'twitter_googleplay_url';
 			$this->defaultColumns[] = 'facebook_on';

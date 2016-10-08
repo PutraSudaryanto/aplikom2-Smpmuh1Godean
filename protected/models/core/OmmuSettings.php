@@ -25,7 +25,6 @@
  * @property integer $id
  * @property integer $online
  * @property integer $site_type
- * @property integer $site_admin
  * @property integer $site_email
  * @property string $site_url
  * @property string $site_title
@@ -113,7 +112,7 @@ class OmmuSettings extends CActiveRecord
 			array('general_commenthtml, spam_failedcount', 'required', 'on'=>'banned'),
 			array('signup_numgiven', 'required', 'on'=>'signup'),
 			//array('analytic_id', 'required', 'on'=>'analytic'),
-			array('id, online, site_type, site_admin, site_email, signup_username, signup_approve, signup_verifyemail, signup_photo, signup_welcome, signup_random, signup_terms, signup_invitepage, signup_inviteonly, signup_checkemail, signup_numgiven, signup_adminemail, general_profile, general_invite, general_search, general_portal, lang_allow, lang_autodetect, lang_anonymous, spam_comment, spam_contact, spam_invite, spam_login, spam_failedcount, spam_signup, analytic', 'numerical', 'integerOnly'=>true),
+			array('id, online, site_type, site_email, signup_username, signup_approve, signup_verifyemail, signup_photo, signup_welcome, signup_random, signup_terms, signup_invitepage, signup_inviteonly, signup_checkemail, signup_numgiven, signup_adminemail, general_profile, general_invite, general_search, general_portal, lang_allow, lang_autodetect, lang_anonymous, spam_comment, spam_contact, spam_invite, spam_login, spam_failedcount, spam_signup, analytic', 'numerical', 'integerOnly'=>true),
 			array('signup_numgiven', 'length', 'max'=>3),
 			array('ommu_version', 'length', 'max'=>8),
 			array('site_url, analytic_id, license_email, license_key', 'length', 'max'=>32),
@@ -123,7 +122,7 @@ class OmmuSettings extends CActiveRecord
 				event', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, online, site_type, site_admin, site_email, site_url, site_title, site_keywords, site_description, construction_date, construction_text, construction_twitter, site_creation, site_dateformat, site_timeformat, signup_username, signup_approve, signup_verifyemail, signup_photo, signup_welcome, signup_random, signup_terms, signup_invitepage, signup_inviteonly, signup_checkemail, signup_adminemail, general_profile, general_invite, general_search, general_portal, general_include, general_commenthtml, banned_ips, banned_emails, banned_usernames, banned_words, spam_comment, spam_contact, spam_invite, spam_login, spam_failedcount, spam_signup, analytic, analytic_id, license_email, license_key, ommu_version, modified_date, modified_id, 
+			array('id, online, site_type, site_email, site_url, site_title, site_keywords, site_description, construction_date, construction_text, construction_twitter, site_creation, site_dateformat, site_timeformat, signup_username, signup_approve, signup_verifyemail, signup_photo, signup_welcome, signup_random, signup_terms, signup_invitepage, signup_inviteonly, signup_checkemail, signup_adminemail, general_profile, general_invite, general_search, general_portal, general_include, general_commenthtml, banned_ips, banned_emails, banned_usernames, banned_words, spam_comment, spam_contact, spam_invite, spam_login, spam_failedcount, spam_signup, analytic, analytic_id, license_email, license_key, ommu_version, modified_date, modified_id, 
 				modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -147,9 +146,8 @@ class OmmuSettings extends CActiveRecord
 	{
 		return array(
 			'id' => Yii::t('attribute', 'ID'),
-			'online' => Yii::t('attribute', 'Online'),
+			'online' => Yii::t('attribute', 'Maintenance Mode'),
 			'site_type' => Yii::t('attribute', 'Site Type'),
-			'site_admin' => Yii::t('attribute', 'Site Admin'),
 			'site_email' => Yii::t('attribute', 'Site Email'),
 			'site_headline' => Yii::t('attribute', 'Site Headline'),
 			'site_url' => Yii::t('attribute', 'Site Url'),
@@ -159,42 +157,42 @@ class OmmuSettings extends CActiveRecord
 			'site_creation' => Yii::t('attribute', 'Site Creation'),
 			'site_dateformat' => Yii::t('attribute', 'Site Dateformat'),
 			'site_timeformat' => Yii::t('attribute', 'Site Timeformat'),
-			'construction_date' => Yii::t('attribute', 'Construction Date'),
-			'construction_text' => Yii::t('attribute', 'Construction Text'),
+			'construction_date' => Yii::t('attribute', 'Maintenance Date'),
+			'construction_text' => Yii::t('attribute', 'Maintenance Text'),
 			'event_startdate' => Yii::t('attribute', 'Event Startdate'),
 			'event_finishdate' => Yii::t('attribute', 'Event Finishdate'),
 			'event_tag' => Yii::t('attribute', 'Event Tag'),
-			'signup_username' => Yii::t('attribute', 'Signup Username'),
-			'signup_approve' => Yii::t('attribute', 'Signup Approve'),
-			'signup_verifyemail' => Yii::t('attribute', 'Signup Verifyemail'),
-			'signup_photo' => Yii::t('attribute', 'Signup Photo'),
-			'signup_welcome' => Yii::t('attribute', 'Signup Welcome'),
-			'signup_random' => Yii::t('attribute', 'Signup Random'),
-			'signup_terms' => Yii::t('attribute', 'Signup Terms'),
-			'signup_invitepage' => Yii::t('attribute', 'Signup Invitepage'),
-			'signup_inviteonly' => Yii::t('attribute', 'Signup Inviteonly'),
+			'signup_username' => Yii::t('attribute', 'Enable Profile Address?'),
+			'signup_approve' => Yii::t('attribute', 'Enable Users?'),
+			'signup_verifyemail' => Yii::t('attribute', 'Verify Email Address?'),
+			'signup_photo' => Yii::t('attribute', 'User Photo Upload'),
+			'signup_welcome' => Yii::t('attribute', 'Send Welcome Email?'),
+			'signup_random' => Yii::t('attribute', 'Generate Random Passwords?'),
+			'signup_terms' => Yii::t('attribute', 'Require users to agree to your terms of service?'),
+			'signup_invitepage' => Yii::t('attribute', 'Show "Invite Friends" Page?'),
+			'signup_inviteonly' => Yii::t('attribute', 'Invite Only?'),
 			'signup_checkemail' => Yii::t('attribute', 'Signup Checkemail'),
 			'signup_numgiven' => Yii::t('attribute', 'Signup Numgiven'),
-			'signup_adminemail' => Yii::t('attribute', 'Signup Adminemail'),
-			'general_profile' => Yii::t('attribute', 'General Profile'),
-			'general_invite' => Yii::t('attribute', 'General Invite'),
-			'general_search' => Yii::t('attribute', 'General Search'),
-			'general_portal' => Yii::t('attribute', 'General Portal'),
-			'general_include' => Yii::t('attribute', 'General Include'),
-			'general_commenthtml' => Yii::t('attribute', 'General Commenthtml'),
+			'signup_adminemail' => Yii::t('attribute', 'Notify Admin by email when user signs up?'),
+			'general_profile' => Yii::t('attribute', 'Member Profiles'),
+			'general_invite' => Yii::t('attribute', 'Invite Page'),
+			'general_search' => Yii::t('attribute', 'Search Page'),
+			'general_portal' => Yii::t('attribute', 'Portal Page'),
+			'general_include' => Yii::t('attribute', 'Head Scripts/Styles'),
+			'general_commenthtml' => Yii::t('attribute', 'HTML in Comments'),
 			'lang_allow' => Yii::t('attribute', 'Lang Allow'),
 			'lang_autodetect' => Yii::t('attribute', 'Lang Autodetect'),
 			'lang_anonymous' => Yii::t('attribute', 'Lang Anonymous'),
-			'banned_ips' => Yii::t('attribute', 'Banned Ips'),
-			'banned_emails' => Yii::t('attribute', 'Banned Emails'),
-			'banned_usernames' => Yii::t('attribute', 'Banned Usernames'),
-			'banned_words' => Yii::t('attribute', 'Banned Words'),
-			'spam_comment' => Yii::t('attribute', 'Spam Comment'),
-			'spam_contact' => Yii::t('attribute', 'Spam Contact'),
-			'spam_invite' => Yii::t('attribute', 'Spam Invite'),
-			'spam_login' => Yii::t('attribute', 'Spam Login'),
+			'banned_ips' => Yii::t('attribute', 'Ban Users by IP Address'),
+			'banned_emails' => Yii::t('attribute', 'Ban Users by Email Address'),
+			'banned_usernames' => Yii::t('attribute', 'Ban Users by Username'),
+			'banned_words' => Yii::t('attribute', 'Censored Words on Profiles and Plugins'),
+			'spam_comment' => Yii::t('attribute', 'Require users to enter validation code when commenting?'),
+			'spam_contact' => Yii::t('attribute', 'Require users to enter validation code when using the contact form?'),
+			'spam_invite' => Yii::t('attribute', 'Require users to enter validation code when inviting others?'),
+			'spam_login' => Yii::t('attribute', 'Require users to enter validation code when logging in?'),
 			'spam_failedcount' => Yii::t('attribute', 'Spam Failedcount'),
-			'spam_signup' => Yii::t('attribute', 'Spam Signup'),
+			'spam_signup' => Yii::t('attribute', 'Require Users to Enter a Verification Code?'),
 			'analytic' => Yii::t('attribute', 'Analytic'),
 			'analytic_id' => Yii::t('attribute', 'Analytic'),
 			'license_email' => Yii::t('attribute', 'License Email'),
@@ -221,7 +219,6 @@ class OmmuSettings extends CActiveRecord
 		$criteria->compare('t.id',$this->id);
 		$criteria->compare('t.online',$this->online);
 		$criteria->compare('t.site_type',$this->site_type);
-		$criteria->compare('t.site_admin',$this->site_admin);
 		$criteria->compare('t.site_email',$this->site_email);
 		$criteria->compare('t.site_url',$this->site_url,true);
 		$criteria->compare('t.site_title',$this->site_title,true);
@@ -311,7 +308,6 @@ class OmmuSettings extends CActiveRecord
 			//$this->defaultColumns[] = 'id';
 			$this->defaultColumns[] = 'online';
 			$this->defaultColumns[] = 'site_type';
-			$this->defaultColumns[] = 'site_admin';
 			$this->defaultColumns[] = 'site_email';
 			$this->defaultColumns[] = 'site_url';
 			$this->defaultColumns[] = 'site_title';
@@ -372,7 +368,6 @@ class OmmuSettings extends CActiveRecord
 			$this->defaultColumns[] = 'id';
 			$this->defaultColumns[] = 'online';
 			$this->defaultColumns[] = 'site_type';
-			$this->defaultColumns[] = 'site_admin';
 			$this->defaultColumns[] = 'site_email';
 			$this->defaultColumns[] = 'site_url';
 			$this->defaultColumns[] = 'site_title';

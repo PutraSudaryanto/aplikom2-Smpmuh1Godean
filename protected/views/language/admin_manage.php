@@ -72,7 +72,7 @@
 	</div>
 </div>
 
-<?php if(OmmuSettings::getInfo('site_type') == 1) {?>
+<?php if($setting->site_type == 1) {?>
 <div class="form mt-15" name="post-on">
 
 	<?php $form=$this->beginWidget('application.components.system.OActiveForm', array(

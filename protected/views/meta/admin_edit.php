@@ -62,6 +62,15 @@
 				<?php echo $form->error($model,'meta_image'); ?>
 			</div>
 		</div>
+		
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'meta_image_alt'); ?>
+			<div class="desc">
+				<?php echo $form->textField($model,'meta_image_alt',array('class'=>'span-7')); ?>
+				<?php echo $form->error($model,'meta_image_alt'); ?>
+				<span class="small-px silent"><?php echo Yii::t('phrase', 'A text description of the image conveying the essential nature of an image to users who are visually impaired');?></span>
+			</div>
+		</div>
 
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'office_on'); ?>

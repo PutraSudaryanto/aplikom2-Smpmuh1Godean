@@ -776,6 +776,18 @@ div.body .content div[id^="partial"]:last-child {
 	position: relative;
 	float: left;
 }
+.body div.horizontal-data ul li {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	background: #e0e0e0;
+	border: 1px solid #e0e0e0;
+	padding: 1px;
+}
+.body div.horizontal-data ul li:hover {
+	background: orange;
+	border: 1px solid orange;	
+}
 .body div.horizontal-data ul li,
 .body div.horizontal-data[name="four"] ul li {
 	width: 25%;

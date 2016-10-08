@@ -95,3 +95,7 @@ content_menu	:
 		urlPath: {url: add, attr: -, icon: -}
 		
 #minus theme, template
+
+	- urlTitle: Add Theme
+		urlRules: {theme, manage, siteType: 0,1, userLevel: 1}
+		urlPath: {url: add, attr: -, icon: -}

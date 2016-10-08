@@ -38,12 +38,12 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 	$urlAddress = Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->requestUri;
 
 	if(Yii::app()->request->isAjaxRequest && !isset($_GET['ajax'])) {
-		if((Yii::app()->session['theme_active'] != Yii::app()->theme->name) && ($action != 'manage')) {
+		/* if(Yii::app()->session['theme_active'] != Yii::app()->theme->name) {
 			$return = array(
 				'redirect' => $urlAddress,		
 			);
 
-		} else {
+		} else { */
 			$page = $this->contentOther == true ? 1 : 0;
 			$dialog = $this->dialogDetail == true ? (empty($this->dialogWidth) ? 1 : 2) : 0;		// 0 = static, 1 = dialog, 2 = notifier
 			$header = $this->widget('AdminMenu', array(), true);
@@ -68,7 +68,7 @@ if(isset($_GET['protocol']) && $_GET['protocol'] == 'script') {
 			$return['header'] = $this->dialogDetail != true ? $header : '';
 			$return['render'] = $render;
 			$return['script'] = $cs=Yii::app()->getClientScript()->getOmmuScript();
-		}
+		//}
 		echo CJSON::encode($return);
 
 	} else {

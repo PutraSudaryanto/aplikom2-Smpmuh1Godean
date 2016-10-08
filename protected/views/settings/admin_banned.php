@@ -113,7 +113,7 @@
 				<?php echo $form->error($model,'spam_login'); ?>
 
 				<span class="small-px"><?php echo Yii::t('phrase', 'If "no" is selected in the setting directly above, a Verification Code will be displayed to the user only after a certain number of failed logins. You can set this to 0 to never display a code.');?></span>
-				<?php echo $form->textField($model,'spam_failedcount'); ?>&nbsp;&nbsp;<?php echo Yii::t('phrase', '82');?>
+				<?php echo $form->textField($model,'spam_failedcount'); ?>&nbsp;&nbsp;<?php echo Yii::t('phrase', 'failed logins');?>
 				<?php echo $form->error($model,'spam_failedcount'); ?>
 			</div>
 		</div>

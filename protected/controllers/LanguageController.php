@@ -7,12 +7,12 @@
  *
  * TOC :
  *	Index
+ *	Settings
  *	Manage
  *	Add
  *	Edit
  *	Delete
  *	Actived
- *	Settings
  *
  *	LoadModel
  *	performAjaxValidation
@@ -81,7 +81,7 @@ class LanguageController extends /*SBaseController*/ Controller
 				'expression'=>'isset(Yii::app()->user->level)',
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
-				'actions'=>array('manage','add','edit','delete','actived','settings'),
+				'actions'=>array('settings','manage','add','edit','delete','actived'),
 				'users'=>array('@'),
 				'expression'=>'isset(Yii::app()->user->level) && (Yii::app()->user->level == 1)',
 			),
@@ -101,6 +101,38 @@ class LanguageController extends /*SBaseController*/ Controller
 	public function actionIndex() 
 	{
 		$this->redirect(array('manage'));
+	}
+
+	/**
+	 * Manages all models.
+	 */
+	public function actionSettings() 
+	{
+		$setting = OmmuSettings::model()->findByPk(1);
+
+		// Uncomment the following line if AJAX validation is needed
+		$this->performAjaxValidation($setting);
+
+		if(isset($_POST['OmmuSettings'])) {
+			$setting->attributes=$_POST['OmmuSettings'];
+
+			$jsonError = CActiveForm::validate($setting);
+			if(strlen($jsonError) > 2) {
+				echo $jsonError;
+			} else {
+				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
+					if($setting->save()) {
+						echo CJSON::encode(array(
+							'type' => 0,
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Language setting success updated.').'</strong></div>',
+						));
+					} else {
+						print_r($setting->getErrors());
+					}
+				}
+			}
+			Yii::app()->end();
+		}
 	}
 
 	/**
@@ -309,38 +341,6 @@ class LanguageController extends /*SBaseController*/ Controller
 			));
 		}
 	}
-
-	/**
-	 * Manages all models.
-	 */
-	public function actionSettings() 
-	{
-		$setting = OmmuSettings::model()->findByPk(1);
-
-		// Uncomment the following line if AJAX validation is needed
-		$this->performAjaxValidation($setting);
-
-		if(isset($_POST['OmmuSettings'])) {
-			$setting->attributes=$_POST['OmmuSettings'];
-
-			$jsonError = CActiveForm::validate($setting);
-			if(strlen($jsonError) > 2) {
-				echo $jsonError;
-			} else {
-				if(isset($_GET['enablesave']) && $_GET['enablesave'] == 1) {
-					if($setting->save()) {
-						echo CJSON::encode(array(
-							'type' => 0,
-							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Language setting success updated.').'</strong></div>',
-						));
-					} else {
-						print_r($setting->getErrors());
-					}
-				}
-			}
-			Yii::app()->end();
-		}
-	}	
 
 	/**
 	 * Returns the data model based on the primary key given in the GET variable.

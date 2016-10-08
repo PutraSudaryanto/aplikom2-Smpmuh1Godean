@@ -109,8 +109,8 @@
 				)); ?>
 				<?php echo $form->error($model,'signup_checkemail'); ?>
 				
-				<span class="small-px"><?php echo Yii::t('phrase', '27');?></span>
-				<?php echo $form->textField($model,'signup_numgiven'); ?>&nbsp;&nbsp;<?php echo Yii::t('phrase', '28');?>
+				<span class="small-px"><?php echo Yii::t('phrase', 'How many invites do users get when they signup? (If you want to give a particular user extra invites, you can do so via the View Users page. Please enter a number between 0 and 999 below.');?></span>
+				<?php echo $form->textField($model,'signup_numgiven'); ?>&nbsp;&nbsp;<?php echo Yii::t('phrase', 'invites are given to each user when they signup.');?>
 				<?php echo $form->error($model,'signup_numgiven'); ?>				
 			</div>
 		</div>

@@ -67,7 +67,7 @@ class OmmuTags extends CActiveRecord
 		return array(
 			array('body', 'required'),
 			array('publish', 'numerical', 'integerOnly'=>true),
-			array('body', 'length', 'max'=>32),
+			array('body', 'length', 'max'=>64),
 			array('creation_date', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
@@ -270,5 +270,15 @@ class OmmuTags extends CActiveRecord
 
 		}
 		return true;
+	}
+	
+	/**
+	 * before save attributes
+	 */
+	protected function beforeSave() {
+		if(parent::beforeSave()) {
+			$this->body = strtolower(trim($this->body));
+		}
+		return true;	
 	}
 }
