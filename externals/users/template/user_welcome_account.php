@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
-        <title>Welcome to SSO-GTP</title>
+        <title>Account Information</title>
         <!-- Responsive Styles and Valid Styles -->
         <style type="text/css">
             body{
@@ -100,7 +100,7 @@
                                             <!-- ======= section header ======= -->
                                             <div style="line-height: 26px;">
                                                 <multiline>
-                                                    Welcome to SSO-GTP
+                                                    Your new account is ready !
                                                 </multiline>
                                             </div>
                                         </td>
@@ -116,7 +116,9 @@
                                                         <div style="line-height: 22px">
                                                             <!-- ======= section text ======= -->
                                                             <multiline>
-                                                                Lorem ipsum dolor sit amet consectetur adipiscing elit curabitur lacus risus cursus et lorem ut  
+																Your details for signing into Single Sign-On<br/>Grhatama Pustaka Yogyakarta are:<br/><br/>
+																Login: <a style="color: #ffffff; text-decoration: none;" href="mailto:{$email}">{$email}</a><br/>
+																Password: {$password}
                                                             </multiline>
                                                         </div>
                                                     </td>
@@ -125,7 +127,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                                        <td height="40" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
                                     </tr>
                                     <tr>
                                         <td align="center">
@@ -137,8 +139,8 @@
                                                     <td align="center" style="color: #ffffff; font-size: 12px; font-family: Raleway, sans-serif; font-weight: 700;" mc:edit="main-button">
                                                         <!-- ======= main section button ======= -->
                                                         <div style="line-height: 25px;">
-                                                            <a href="{$index}" style="color: #ffffff; text-decoration: none;">
-                                                                <singleline>GET STARTED</singleline>
+                                                            <a href="{$login}" style="color: #ffffff; text-decoration: none;">
+                                                                <singleline>LOGIN</singleline>
                                                             </a>
                                                         </div>
                                                     </td>

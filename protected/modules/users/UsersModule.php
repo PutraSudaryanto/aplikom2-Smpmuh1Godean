@@ -24,8 +24,10 @@ class UsersModule extends CWebModule
 			$publicControllers = array(
 				'account',
 				'admin',
-				'invite',
+				'forgot',
 				'newsletter',
+				'password',
+				'invite',
 				'verify',
 				'api/device',
 				'api/member',

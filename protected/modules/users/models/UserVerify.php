@@ -254,7 +254,20 @@ class UserVerify extends CActiveRecord
 
 		if($this->isNewRecord) {
 			// Send Email to Member
-			SupportMailSetting::sendEmail($this->user->email, $this->user->displayname, 'Verify Email', 'http://localhost'.Yii::app()->createUrl("users/verify/code",array('key'=>$this->code, 'secret'=>$this->user->salt)), 1);
+			$verify_search = array(
+				'{$baseURL}',
+				'{$verify}','{$displayname}',
+			);
+			$verify_replace = array(
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('users/verify/code',array('key'=>$this->code, 'secret'=>$this->user->salt)),
+				$this->user->displayname,
+			);
+			$verify_template = 'user_verify_email';
+			$verify_title = 'Please verify your SSO-GTP account';
+			$verify_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$verify_template.'.php');
+			$verify_ireplace = str_ireplace($verify_search, $verify_replace, $verify_message);
+			SupportMailSetting::sendEmail($this->user->email, $this->user->displayname, $verify_title, $verify_ireplace, 1);
 		}
 	}
 

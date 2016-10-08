@@ -32,7 +32,7 @@ class LoginFormAdmin extends CFormModel
 			//array('email', 'email'),
 			// rememberMe needs to be a boolean
 			array('rememberMe', 'boolean'),
-			array('email', 'length', 'max'=>32),
+            array('email', 'length', 'max'=>32),
 			// password needs to be authenticated
 			array('password', 'authenticate'),
 			array('email, password', 'safe'),

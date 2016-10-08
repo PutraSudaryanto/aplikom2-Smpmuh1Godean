@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=600,initial-scale = 2.3,user-scalable=no">
         <link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700,900' rel='stylesheet' type='text/css'>
-        <title>Welcome to SSO-GTP</title>
+        <title>Reset your password</title>
         <!-- Responsive Styles and Valid Styles -->
         <style type="text/css">
             body{
@@ -100,7 +100,7 @@
                                             <!-- ======= section header ======= -->
                                             <div style="line-height: 26px;">
                                                 <multiline>
-                                                    Welcome to SSO-GTP
+                                                    Reset your password
                                                 </multiline>
                                             </div>
                                         </td>
@@ -116,7 +116,8 @@
                                                         <div style="line-height: 22px">
                                                             <!-- ======= section text ======= -->
                                                             <multiline>
-                                                                Lorem ipsum dolor sit amet consectetur adipiscing elit curabitur lacus risus cursus et lorem ut  
+																We received a request to reset the password associated with this e-mail address. If you made this request, please follow the instructions below.<br/>
+																Click the link below to reset your password:
                                                             </multiline>
                                                         </div>
                                                     </td>
@@ -129,22 +130,53 @@
                                     </tr>
                                     <tr>
                                         <td align="center">
-                                            <table border="0" align="center" width="191" cellpadding="0" cellspacing="0" style="border: 1px solid #ffffff; border-radius: 3px;">
+                                            <table border="0" align="center" width="360" cellpadding="0" cellspacing="0" class="container580">
                                                 <tr>
-                                                    <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
-                                                </tr>
-                                                <tr>
-                                                    <td align="center" style="color: #ffffff; font-size: 12px; font-family: Raleway, sans-serif; font-weight: 700;" mc:edit="main-button">
-                                                        <!-- ======= main section button ======= -->
-                                                        <div style="line-height: 25px;">
-                                                            <a href="{$index}" style="color: #ffffff; text-decoration: none;">
-                                                                <singleline>GET STARTED</singleline>
-                                                            </a>
+                                                    <td align="center" mc:edit="main-text2" style="color: #f3d8d6; font-size: 14px; font-family: Lato, sans-serif; mso-line-height-rule: exactly; line-height: 22px;" class="text_color">
+                                                        <div style="line-height: 22px">
+															<a href="{$forgot}" style="color: #ffffff; text-decoration: none;">
+																<multiline>{$forgot}</multiline>
+															</a>
                                                         </div>
                                                     </td>
                                                 </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="20" style="font-size: 20px; line-height: 20px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" align="center" width="360" cellpadding="0" cellspacing="0" class="container580">
                                                 <tr>
-                                                    <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
+                                                    <td align="center" mc:edit="main-text2" style="color: #f3d8d6; font-size: 14px; font-family: Lato, sans-serif; mso-line-height-rule: exactly; line-height: 22px;" class="text_color">
+                                                        <div style="line-height: 22px">
+                                                            <!-- ======= section text ======= -->
+                                                            <multiline>
+                                                                If you did not request to have your password reset you can safely ignore this email. Rest assured your customer account is safe.
+                                                            </multiline>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td height="10" style="font-size: 10px; line-height: 10px;">&nbsp;</td>
+                                    </tr>
+                                    <tr>
+                                        <td align="center">
+                                            <table border="0" align="center" width="360" cellpadding="0" cellspacing="0" class="container580">
+                                                <tr>
+                                                    <td align="center" mc:edit="main-text2" style="color: #f3d8d6; font-size: 14px; font-family: Lato, sans-serif; mso-line-height-rule: exactly; line-height: 22px;" class="text_color">
+                                                        <div style="line-height: 22px">
+                                                            <!-- ======= section text ======= -->
+                                                            <multiline>
+																If clicking the link doesn't seem to work, you can copy and paste the link into your browser's address window, or retype it there. Once you have returned to SSO-GTP Website, we will give instructions for resetting your password.
+                                                            </multiline>
+                                                        </div>
+                                                    </td>
                                                 </tr>
                                             </table>
                                         </td>

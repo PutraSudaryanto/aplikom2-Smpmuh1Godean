@@ -24,7 +24,6 @@
  * @property string $user_id
  * @property string $lastlogin_date
  * @property string $lastlogin_ip
- * @property string $lastlogin_from
  *
  * The followings are the available model relations:
  * @property OmmuUsers $user

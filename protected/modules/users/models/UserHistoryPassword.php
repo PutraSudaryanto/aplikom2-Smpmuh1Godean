@@ -65,10 +65,10 @@ class UserHistoryPassword extends CActiveRecord
 			array('user_id, password, update_date', 'required'),
 			array('user_id', 'length', 'max'=>11),
 			array('password', 'length', 'max'=>32),
-			array('update_date, update_from', 'safe'),
+			array('update_date', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
-			array('id, user_id, password, update_date, update_from,
+			array('id, user_id, password, update_date,
 				user_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -95,7 +95,6 @@ class UserHistoryPassword extends CActiveRecord
 			'user_id' => Phrase::trans(16001,1),
 			'password' => Phrase::trans(16112,1),
 			'update_date' => Phrase::trans(16166,1),
-			'update_from' => 'Update From',
 			'user_search' => Phrase::trans(16001,1),
 		);
 	}
@@ -127,7 +126,6 @@ class UserHistoryPassword extends CActiveRecord
 		$criteria->compare('t.password',$this->password,true);
 		if($this->update_date != null && !in_array($this->update_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.update_date)',date('Y-m-d', strtotime($this->update_date)));
-		$criteria->compare('t.update_from',$this->update_from,true);
 		
 		// Custom Search
 		$criteria->with = array(
@@ -171,7 +169,6 @@ class UserHistoryPassword extends CActiveRecord
 			$this->defaultColumns[] = 'user_id';
 			$this->defaultColumns[] = 'password';
 			$this->defaultColumns[] = 'update_date';
-			$this->defaultColumns[] = 'update_from';
 		}
 
 		return $this->defaultColumns;
@@ -191,7 +188,6 @@ class UserHistoryPassword extends CActiveRecord
 				'value' => '$data->user->displayname',
 			);
 			//$this->defaultColumns[] = 'password';
-			$this->defaultColumns[] = 'update_from';
 			$this->defaultColumns[] = array(
 				'name' => 'update_date',
 				'value' => 'Utility::dateFormat($data->update_date, true)',

@@ -541,7 +541,7 @@ class Users extends CActiveRecord
 				}
 
 				// Random password
-				if($setting->signup_random == 1 || in_array($currentAction, array('admin/login'))) {
+				if($setting->signup_random == 1) {
 					$this->confirmPassword = $this->newPassword = self::getGeneratePassword();
 					$this->verified = 1;
 				}
@@ -561,7 +561,7 @@ class Users extends CActiveRecord
 					$this->modified_id = Yii::app()->user->id;
 					
 				} else {
-					if($controller != 'forgot')
+					if(!in_array($controller, array('password')))
 						$this->update_date = date('Y-m-d H:i:s');
 					$this->update_ip = $_SERVER['REMOTE_ADDR'];
 				}
@@ -588,6 +588,9 @@ class Users extends CActiveRecord
 	 */
 	protected function afterSave() {
 		parent::afterSave();
+		
+		$controller = strtolower(Yii::app()->controller->id);
+		$currentAction = strtolower(Yii::app()->controller->id.'/'.Yii::app()->controller->action->id);
 
 		// Generate Verification Code
 		if ($this->verified == 0) {
@@ -616,13 +619,16 @@ class Users extends CActiveRecord
 			// Send Welcome Email
 			if($setting->signup_welcome == 1) {
 				$welcome_search = array(
-					'{$baseURL}'
+					'{$baseURL}',
+					'{$index}','{$displayname}',
 				);
 				$welcome_replace = array(
-					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/index'),
+					$this->displayname,	
 				);
 				$welcome_template = 'user_welcome';
-				$welcome_title = 'Welcome';
+				$welcome_title = 'Welcome to SSO-GTP by BPAD Yogyakarta';
 				$welcome_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$welcome_template.'.php');
 				$welcome_ireplace = str_ireplace($welcome_search, $welcome_replace, $welcome_message);
 				SupportMailSetting::sendEmail($this->email, $this->displayname, $welcome_title, $welcome_ireplace, 1);
@@ -630,13 +636,16 @@ class Users extends CActiveRecord
 
 			// Send Account Information
 			$account_search = array(
-				'{$baseURL}'
+				'{$baseURL}',
+				'{$login}','{$displayname}','{$email}','{$password}',
 			);
 			$account_replace = array(
-				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
+				$this->displayname, $this->email, $this->newPassword,
 			);
-			$account_template = 'user_account';
-			$account_title = 'Welcome';
+			$account_template = 'user_welcome_account';
+			$account_title = 'SSO-GTP Account ('.$this->displayname.')';
 			$account_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$account_template.'.php');
 			$account_ireplace = str_ireplace($account_search, $account_replace, $account_message);
 			SupportMailSetting::sendEmail($this->email, $this->displayname, $account_title, $account_ireplace, 1);
@@ -647,12 +656,26 @@ class Users extends CActiveRecord
 			
 		} else {
 			// Send Account Information
-			if($this->enabled == 1) {
-				if($controller == 'forgot')
-					SupportMailSetting::sendEmail($this->email, $this->displayname, 'New Account Information', 'this new your account information', 1);
-				
-				if($controller == 'verify')
-					SupportMailSetting::sendEmail($this->email, $this->displayname, 'Verify Email Success', 'Verify Email Success', 1);	
+			//if($this->enabled == 1) {}
+			if($controller == 'password') {
+				$account_search = array(
+					'{$baseURL}',
+					'{$login}','{$displayname}','{$email}','{$password}',
+				);
+				$account_replace = array(
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
+					Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('site/login'),
+					$this->displayname, $this->email, $this->newPassword,
+				);
+				$account_template = 'user_forgot_new_password';
+				$account_title = 'Your password changed';
+				$account_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$account_template.'.php');
+				$account_ireplace = str_ireplace($account_search, $account_replace, $account_message);
+				SupportMailSetting::sendEmail($this->email, $this->displayname, $account_title, $account_ireplace, 1);
+			}
+			
+			if($controller == 'verify') {
+				SupportMailSetting::sendEmail($this->email, $this->displayname, 'Verify Email Success', 'Verify Email Success', 1);						
 			}
 		}	
 	}
