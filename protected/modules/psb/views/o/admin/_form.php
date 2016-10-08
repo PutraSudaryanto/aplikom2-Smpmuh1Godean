@@ -148,7 +148,7 @@ EOP;
 			<?php
 			if(!$model->isNewRecord)
 				$model->birthcity_field = $model->city_relation->city;
-			//echo $form->textField($model,'birthcity_field', array('maxlength'=>32,'class'=>'span-4'));		
+			//echo $form->textField($model,'birthcity_field', array('maxlength'=>32,'class'=>'span-4'));
 			$this->widget('zii.widgets.jui.CJuiAutoComplete', array(
 				'model' => $model,
 				'attribute' => 'birthcity_field',
