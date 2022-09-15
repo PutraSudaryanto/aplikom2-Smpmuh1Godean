@@ -45,9 +45,9 @@ class LoginFormAdmin extends CFormModel
 	public function attributeLabels()
 	{
 		return array(
-			'email' => 'Email',
-			'password' => 'Password',
-			'rememberMe' => 'Remember me next time',
+			'email' => Yii::t('attribute', 'Email'),
+			'password' => Yii::t('attribute', 'Password'),
+			'rememberMe' => Yii::t('attribute', 'Remember me next time'),
 		);
 	}
 
@@ -69,10 +69,10 @@ class LoginFormAdmin extends CFormModel
 					Yii::app()->user->login($this->_identity);
 					break;
 				case UserIdentity::ERROR_USERNAME_INVALID:
-					$this->addError('email','Email address is incorrect.');
+					$this->addError('email', Yii::t('phrase', 'Email address is incorrect.'));
 					break;
 				default: //UserIdentity::ERROR_PASSWORD_INVALID
-					$this->addError('password','Password is incorrect.');
+					$this->addError('password', Yii::t('phrase', 'Password is incorrect.'));
 					break;
 			}
 		}

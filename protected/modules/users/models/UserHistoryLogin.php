@@ -91,12 +91,12 @@ class UserHistoryLogin extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => Phrase::trans(16001,1),
-			'lastlogin_date' => Phrase::trans(16164,1),
-			'lastlogin_ip' => Phrase::trans(16165,1),
-			'lastlogin_from' => 'Lastlogin From',
-			'user_search' => Phrase::trans(16001,1),
+			'id' => Yii::t('attribute', 'ID'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'lastlogin_date' => Yii::t('attribute', 'Lastlogin Date'),
+			'lastlogin_ip' => Yii::t('attribute', 'Lastlogin Ip'),
+			'lastlogin_from' => Yii::t('attribute', 'Lastlogin From'),
+			'user_search' => Yii::t('attribute', 'User'),
 		);
 	}
 

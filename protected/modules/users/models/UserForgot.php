@@ -94,12 +94,12 @@ class UserForgot extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'forgot_id' => Phrase::trans(16145,1),
-			'user_id' => Phrase::trans(16001,1),
-			'code' => Phrase::trans(16146,1),
-			'forgot_date' => Phrase::trans(16147,1),
-			'forgot_ip' => Phrase::trans(16148,1),
-			'email' => Phrase::trans(16108,1),
+			'forgot_id' => Yii::t('attribute', 'Forgot'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'code' => Yii::t('attribute', 'Forgot Code'),
+			'forgot_date' => Yii::t('attribute', 'Forgot Date'),
+			'forgot_ip' => Yii::t('attribute', 'Forgot Ip'),
+			'email' => Yii::t('attribute', 'Email'),
 		);
 	}
 	
@@ -245,25 +245,28 @@ class UserForgot extends CActiveRecord
 	/**
 	 * After save attributes
 	 */
-	protected function afterSave() {
+	protected function afterSave() {			
 		parent::afterSave();
-
+		
+		$setting = OmmuSettings::model()->findByPk(1, array(
+			'select' => 'site_title',
+		));
+		
 		if($this->isNewRecord) {
 			// Send Email to Member
 			$forgot_search = array(
-				'{$baseURL}',
-				'{$forgot}','{$displayname}',
+				'{$baseURL}', '{$displayname}', '{$site_support_email}',
+				'{$forgot_link}',
 			);
 			$forgot_replace = array(
-				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl,
+				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->request->baseUrl, $this->user->displayname, SupportMailSetting::getInfo(1, 'mail_contact'),
 				Utility::getProtocol().'://'.Yii::app()->request->serverName.Yii::app()->createUrl('users/password/verify',array('key'=>$this->code, 'secret'=>$this->user->salt)),
-				$this->user->displayname,
 			);
 			$forgot_template = 'user_forgot_password';
-			$forgot_title = 'SSO-GTP Password Assistance';
+			$forgot_title = $setting->site_title.' Password Assistance';
 			$forgot_message = file_get_contents(YiiBase::getPathOfAlias('webroot.externals.users.template').'/'.$forgot_template.'.php');
 			$forgot_ireplace = str_ireplace($forgot_search, $forgot_replace, $forgot_message);
-			SupportMailSetting::sendEmail($this->user->email, $this->user->displayname, $forgot_title, $forgot_ireplace, 1);
+			SupportMailSetting::sendEmail($this->user->email, $this->user->displayname, $forgot_title, $forgot_ireplace);
 		}
 	}
 

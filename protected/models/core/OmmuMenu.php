@@ -83,7 +83,6 @@ class OmmuMenu extends CActiveRecord
 			array('name, creation_id, modified_id', 'length', 'max'=>11),
 			array('sitetype_access, userlevel_access,
 				title', 'length', 'max'=>32),
-			array('url, attr', 'length', 'max'=>128),
 			array('', 'safe'),
 			// The following rule is used by search().
 			// @todo Please remove those attributes that should not be searched.
@@ -115,12 +114,12 @@ class OmmuMenu extends CActiveRecord
 		return array(
 			'id' => Yii::t('attribute', 'ID'),
 			'publish' => Yii::t('attribute', 'Publish'),
-			'cat_id' => Yii::t('attribute', 'Cat'),
-			'dependency' => Yii::t('attribute', 'Dependency'),
+			'cat_id' => Yii::t('attribute', 'Category'),
+			'dependency' => Yii::t('attribute', 'Parent'),
 			'orders' => Yii::t('attribute', 'Orders'),
 			'name' => Yii::t('attribute', 'Name'),
 			'url' => Yii::t('attribute', 'Url'),
-			'attr' => Yii::t('attribute', 'Attr'),
+			'attr' => Yii::t('attribute', 'Attribute'),
 			'sitetype_access' => Yii::t('attribute', 'Sitetype Access'),
 			'userlevel_access' => Yii::t('attribute', 'Userlevel Access'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
@@ -322,8 +321,8 @@ class OmmuMenu extends CActiveRecord
 						'class' => 'center',
 					),
 					'filter'=>array(
-						1=>Phrase::trans(588,0),
-						0=>Phrase::trans(589,0),
+						1=>Yii::t('phrase', 'Yes'),
+						0=>Yii::t('phrase', 'No'),
 					),
 					'type' => 'raw',
 				);

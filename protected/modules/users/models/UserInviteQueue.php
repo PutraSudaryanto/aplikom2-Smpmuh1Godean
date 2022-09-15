@@ -96,13 +96,13 @@ class UserInviteQueue extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'queue_id' => Phrase::trans(16215,1),
-			'member_id' => Phrase::trans(16173,1),
-			'reference_id' => Phrase::trans(16216,1),
-			'email' => Phrase::trans(16108,1),
-			'invite' => Phrase::trans(16172,1),
-			'member_search' => Phrase::trans(16173,1),
-			'reference_search' => Phrase::trans(16216,1),
+			'queue_id' => Yii::t('attribute', 'Queue'),
+			'member_id' => Yii::t('attribute', 'Member'),
+			'reference_id' => Yii::t('attribute', 'Reference'),
+			'email' => Yii::t('attribute', 'Email'),
+			'invite' => Yii::t('attribute', 'Invite'),
+			'member_search' => Yii::t('attribute', 'Member'),
+			'reference_search' => Yii::t('attribute', 'Reference'),
 		);
 	}
 	
@@ -193,7 +193,7 @@ class UserInviteQueue extends CActiveRecord
 			$this->defaultColumns[] = 'email';
 			$this->defaultColumns[] = array(
 				'name' => 'inviters',
-				'value' => 'CHtml::link($data->inviters." ".Phrase::trans(16172, 1), Yii::app()->controller->createUrl("o/invite/manage",array("queue"=>$data->queue_id)))',
+				'value' => 'CHtml::link($data->inviters." ".Yii::t(\'phrase\', \'Invite\'), Yii::app()->controller->createUrl("o/invite/manage",array("queue"=>$data->queue_id)))',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
@@ -201,13 +201,13 @@ class UserInviteQueue extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'invite',
-				'value' => '$data->invite == 1 ? Phrase::trans(16220,1) : Phrase::trans(16221,1)',
+				'value' => '$data->invite == 1 ? Yii::t(\'phrase\', \'by Admin\') : Yii::t(\'phrase\', \'by Member\')',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
 				'filter'=>array(
-					1=>Phrase::trans(16220,1),
-					0=>Phrase::trans(16221,1),
+					1=>Yii::t('phrase', 'by Admin'),
+					0=>Yii::t('phrase', 'by Member'),
 				),
 			);
 		}

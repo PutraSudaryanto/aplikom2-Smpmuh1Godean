@@ -134,8 +134,8 @@
                                                 <tr>
                                                     <td align="center" mc:edit="main-text2" style="color: #f3d8d6; font-size: 14px; font-family: Lato, sans-serif; mso-line-height-rule: exactly; line-height: 22px;" class="text_color">
                                                         <div style="line-height: 22px">
-															<a href="{$forgot}" style="color: #ffffff; text-decoration: none;">
-																<multiline>{$forgot}</multiline>
+															<a href="{$forgot_link}" style="color: #ffffff; text-decoration: none;">
+																<multiline>{$forgot_link}</multiline>
 															</a>
                                                         </div>
                                                     </td>
@@ -204,7 +204,7 @@
                                                         <div style="line-height: 25px">
                                                             <!-- ======= section text ======= -->
                                                             <multiline>
-                                                                If you have any questions please answer to this email or contact us at <a style="color: #ff4444; text-decoration: none;" href="mailto:support@grhatamapustaka.com">support@grhatamapustaka.com</a>
+                                                                If you have any questions please answer to this email or contact us at <a style="color: #ff4444; text-decoration: none;" href="mailto:{$site_support_email}">{$site_support_email}</a>
                                                             </multiline>
                                                         </div>
                                                     </td>

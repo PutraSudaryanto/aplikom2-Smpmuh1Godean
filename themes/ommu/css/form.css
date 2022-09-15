@@ -520,7 +520,8 @@ fieldset div div.desc span.desc {
 	margin: 0 0 7px 0;
 }
 fieldset div div.desc p,
-fieldset div div.desc span.small-px {	
+fieldset div div.desc span.small-px,
+fieldset div div.desc div.small-px {	
 	border-top: 1px dotted #e6e6e6;
 	margin: 12px 0 7px 0;
 	padding: 8px 0 0 0;
@@ -530,17 +531,23 @@ fieldset div div.desc p {
 	line-height: 16px;
 	color: #333;
 }
-fieldset div div.desc span.small-px * {
+fieldset div div.desc span.small-px *,
+fieldset div div.desc div.small-px * {
 	display: inline;
 }
 fieldset div div.desc p:first-child,
-fieldset div div.desc span.small-px:first-child {
+fieldset div div.desc span.small-px:first-child,
+fieldset div div.desc div.small-px:first-child {
 	border-top: none;
 	margin: 0 0 7px 0;
 	padding: 0 0 0 0;
 }
 fieldset div div.desc span.small-px:last-child,
-fieldset div div.desc span.desc:last-child {
+fieldset div div.desc span.small-px:first-child:last-child,
+fieldset div div.desc div.small-px:last-child,
+fieldset div div.desc div.small-px:first-child:last-child,
+fieldset div div.desc span.desc:last-child,
+fieldset div div.desc span.desc:first-child:last-child {
 	border-top: none;
 	margin: 7px 0 0 0;
 	padding: 0 0 0 0;
@@ -667,7 +674,6 @@ fieldset.clearfix div.right div.clearfix div.desc select {
 	margin: 0 3px 0 5px;
 }
 fieldset.clearfix div.right div.clearfix div.desc input[type="file"],
-fieldset.clearfix div.right div.clearfix div.desc input:first-child,
 fieldset.clearfix div.right div.clearfix div.desc select:first-child {
 	margin: 0 3px 0 0;
 }

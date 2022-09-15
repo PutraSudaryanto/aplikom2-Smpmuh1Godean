@@ -90,7 +90,7 @@ class SupportMails extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'user' => array(self::BELONGS_TO, 'Users', 'user_id'),
-			'reply_relation' => array(self::BELONGS_TO, 'Users', 'reply'),
+			'user_reply' => array(self::BELONGS_TO, 'Users', 'reply'),
 		);
 	}
 
@@ -145,13 +145,13 @@ class SupportMails extends CActiveRecord
 				'alias'=>'user',
 				'select'=>'displayname',
 			),
-			'reply_relation' => array(
-				'alias'=>'reply_relation',
+			'user_reply' => array(
+				'alias'=>'user_reply',
 				'select'=>'displayname',
 			),
 		);
 		$criteria->compare('user.displayname',strtolower($this->user_search), true);
-		$criteria->compare('reply_relation.displayname',strtolower($this->reply_search), true);
+		$criteria->compare('user_reply.displayname',strtolower($this->reply_search), true);
 			
 		if(!isset($_GET['SupportMails_sort']))
 			$criteria->order = 't.mail_id DESC';
@@ -281,9 +281,8 @@ class SupportMails extends CActiveRecord
 	 */
 	protected function beforeSave() {
 		if(parent::beforeSave()) {
-			if(!$this->isNewRecord) {
+			if(!$this->isNewRecord)
 				$this->reply = Yii::app()->user->id;
-			}
 		}
 		return true;
 	}
@@ -292,12 +291,41 @@ class SupportMails extends CActiveRecord
 	/**
 	 * After save attributes
 	 */
-	protected function afterSave() {
+	protected function afterSave() 
+	{
+		$setting = OmmuSettings::model()->findByPk(1, array(
+			'select' => 'site_title',
+		));
+		
 		parent::afterSave();
 		if($this->isNewRecord) {
-			SupportMailSetting::sendEmail($this->email, $this->displayname, $this->subject, $this->message, 0);
+			// Send Email to Member
+			$feedback_search = array(
+				'{$subject}','{$displayname}','{$email}','{$creation_date}','{$message}',
+			);
+			$feedback_replace = array(
+				$this->subject, $this->displayname, $this->email, Utility::dateFormat(date('Y-m-d H:i:s'), true), $this->message,
+			);
+			$feedback_template = 'support_feedback';
+			$feedback_title = Yii::t('attribute', '[Feedback]').' '.$this->subject.' | '.$setting->site_title;
+			$feedback_message = file_get_contents(YiiBase::getPathOfAlias('webroot.protected.modules.support.assets.template').'/'.$feedback_template.'.php');			
+			$feedback_ireplace = str_ireplace($feedback_search, $feedback_replace, $feedback_message);
+			SupportMailSetting::sendEmail(null, null, $feedback_title, $feedback_ireplace);
+			
 		} else {
-			SupportMailSetting::sendEmail($this->email, $this->displayname, 'RE: '.$this->subject, $this->message_reply, 1);
+			$reply_search = array(
+				'{$displayname}','{$email}','{$creation_date}','{$subject}','{$message}','{$reply}',
+				'{$reply_displayname}','{$reply_email}',
+			);
+			$reply_replace = array(
+				$this->displayname, $this->email, Utility::dateFormat($this->creation_date, true), $this->subject, $this->message, $this->message_reply,
+				$this->user_reply->displayname, $this->user_reply->email,
+			);
+			$reply_template = 'support_feedback_reply';
+			$reply_title = Yii::t('attribute', '[Reply]').' '.$this->subject.' | '.$setting->site_title;
+			$reply_message = file_get_contents(YiiBase::getPathOfAlias('webroot.protected.modules.support.assets.template').'/'.$reply_template.'.php');			
+			$reply_ireplace = str_ireplace($reply_search, $reply_replace, $reply_message);
+			SupportMailSetting::sendEmail($this->email, $this->displayname, $reply_title, $reply_ireplace);
 		}
 	}
 

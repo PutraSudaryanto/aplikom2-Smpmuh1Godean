@@ -34,7 +34,7 @@
 	</fieldset>
 </div>
 <div class="dialog-submit">
-    <?php echo CHtml::submitButton(Phrase::trans(23057,1), array('onclick' => 'setEnableSave()')); ?>
+    <?php echo CHtml::submitButton(Yii::t('phrase', 'Subscribe'), array('onclick' => 'setEnableSave()')); ?>
     <?php echo CHtml::button(Yii::t('phrase', 'Close'), array('id'=>'closed')); ?>
 </div>
 

@@ -73,6 +73,7 @@ class Controller extends CController
 	public $lang;
 	
 	public $pageTitleShow = false;
+	public $pageDescriptionShow = false;
 	public $pageGuest = false;
 	public $dialogFixed = false;
 	public $dialogFixedClosed = array();

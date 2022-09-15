@@ -36,28 +36,6 @@
 			</div>
 		</div>
 
-		<?php if(!$model->isNewRecord) {
-			$model->old_icon = $model->icons;
-			echo $form->hiddenField($model,'old_icon');
-			if($model->icons != '') {
-				$file = Yii::app()->request->baseUrl.'/public/support/'.$model->icons;
-				$media = '<img src="'.Utility::getTimThumb($file, 100, 200, 3).'" alt="'.$model->title.'">';
-				echo '<div class="clearfix">';
-				echo $form->labelEx($model,'old_icon');
-				echo '<div class="desc">'.$media.'</div>';
-				echo '</div>';
-			}
-		} ?>
-
-		<div class="clearfix">
-			<?php echo $form->labelEx($model,'icons'); ?>
-			<div class="desc">
-				<?php echo $form->fileField($model,'icons'); ?>
-				<?php echo $form->error($model,'icons'); ?>
-				<?php /*<div class="small-px silent"></div>*/?>
-			</div>
-		</div>
-
 		<?php if($model->publish != 2) {?>
 		<div class="clearfix publish">
 			<?php echo $form->labelEx($model,'publish'); ?>

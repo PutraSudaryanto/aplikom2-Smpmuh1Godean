@@ -342,7 +342,7 @@ class OmmuZoneProvince extends CActiveRecord
 	 * Get province
 	 */
 	public static function getProvince($country=null) {
-		if($country == null || ($country != null && $country == '')) {
+		if($country == null || ($country != null && ($country == '' || $country == 0))) {
 			$model = self::model()->findAll();
 		} else {
 			$model = self::model()->findAll(array(

@@ -140,7 +140,7 @@ class OLinkPager extends CBasePager
 		$buttons=$this->createPageButtons();
 		if(empty($buttons))
 			return;
-		echo $this->header;
+		//echo $this->header;
 		echo CHtml::tag('ul',$this->htmlOptions,implode("\n",$buttons));
 		echo $this->footer;
 	}

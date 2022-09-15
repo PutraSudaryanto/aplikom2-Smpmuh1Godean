@@ -56,7 +56,7 @@
 		</fieldset>
 	<?php } else {?>
 		<div class="empty">
-			<?php echo Phrase::trans(16121,1);?>
+			<?php echo Yii::t('phrase', 'Change password success.');?>
 		</div>
 	<?php }?>
 </div>

@@ -70,7 +70,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'url'); ?>
 			<div class="desc">
-				<?php echo $form->textArea($model,'url',array('maxlength'=>128,'class'=>'span-11 smaller')); ?>
+				<?php echo $form->textArea($model,'url',array('class'=>'span-11 smaller')); ?>
 				<?php echo $form->error($model,'url'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>
@@ -79,7 +79,7 @@
 		<div class="clearfix">
 			<?php echo $form->labelEx($model,'attr'); ?>
 			<div class="desc">
-				<?php echo $form->textField($model,'attr',array('maxlength'=>128)); ?>
+				<?php echo $form->textArea($model,'attr',array('class'=>'span-11 smaller')); ?>
 				<?php echo $form->error($model,'attr'); ?>
 				<?php /*<div class="small-px silent"></div>*/?>
 			</div>

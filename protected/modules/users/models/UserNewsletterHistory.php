@@ -91,12 +91,12 @@ class UserNewsletterHistory extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'newsletter_id' => 'Newsletter',
-			'status' => Phrase::trans(23057,1),
+			'id' => Yii::t('attribute', 'ID'),
+			'newsletter_id' => Yii::t('attribute', 'Newsletter'),
+			'status' => Yii::t('attribute', 'Status'),
 			'creation_date' => 'Creation Date',
-			'user_search' => Phrase::trans(16001,1),
-			'email_search' => Phrase::trans(16108,1),
+			'user_search' => Yii::t('attribute', 'User'),
+			'email_search' => Yii::t('attribute', 'Category'),
 		);
 	}
 
@@ -199,13 +199,13 @@ class UserNewsletterHistory extends CActiveRecord
 			);
 			$this->defaultColumns[] = array(
 				'name' => 'status',
-				'value' => '$data->status == 1 ? Phrase::trans(23057,1) : Phrase::trans(16256,1)',
+				'value' => '$data->status == 1 ? Yii::t(\'phrase\', \'Subscribe\') : Yii::t(\'phrase\', \'Unsubscribe\')',
 				'htmlOptions' => array(
 					'class' => 'center',
 				),
 				'filter'=>array(
-					1=>Phrase::trans(23057,1),
-					0=>Phrase::trans(16256,1),
+					1=>Yii::t('phrase', 'Subscribe'),
+					0=>Yii::t('phrase', 'Unsubscribe'),
 				),
 				'type' => 'raw',
 			);

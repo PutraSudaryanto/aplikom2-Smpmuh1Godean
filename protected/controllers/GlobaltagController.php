@@ -110,26 +110,31 @@ class GlobaltagController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionSuggest($limit=10) {
-		if(isset($_GET['term'])) {
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'publish = 1 AND body LIKE :body';
-			$criteria->select	= "tag_id, body";
-			$criteria->limit = $limit;
-			$criteria->order = "tag_id ASC";
-			$criteria->params = array(':body' => '%' . strtolower($_GET['term']) . '%');
-			$model = OmmuTags::model()->findAll($criteria);
+	public function actionSuggest($limit=10) 
+	{
+		if(Yii::app()->request->isAjaxRequest) {
+			if(isset($_GET['term'])) {
+				$criteria = new CDbCriteria;
+				$criteria->condition = 'publish = 1 AND body LIKE :body';
+				$criteria->select	= "tag_id, body";
+				$criteria->limit = $limit;
+				$criteria->order = "tag_id ASC";
+				$criteria->params = array(':body' => '%' . strtolower($_GET['term']) . '%');
+				$model = OmmuTags::model()->findAll($criteria);
 
-			if($model) {
-				foreach($model as $items) {
-					$result[] = array('id' => $items->tag_id, 'value' => $items->body);
+				if($model) {
+					foreach($model as $items) {
+						$result[] = array('id' => $items->tag_id, 'value' => $items->body);
+					}
+				} else {
+					$result[] = array('id' => 0, 'value' => $_GET['term']);
 				}
-			} else {
-				$result[] = array('id' => 0, 'value' => $_GET['term']);
 			}
-		}
-		echo CJSON::encode($result);
-		Yii::app()->end();
+			echo CJSON::encode($result);
+			Yii::app()->end();
+			
+		} else
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 	}
 
 	/**

@@ -385,8 +385,19 @@ class OmmuPages extends CActiveRecord
 			}
 				
 			//upload new photo
-			if(in_array($action, array('add','edit'))) {
+			if(in_array($action, array('add','edit'))) 
+			{
 				$page_path = "public/page";
+				// Add directory
+				if(!file_exists($page_path)) {
+					@mkdir($page_path, 0755, true);
+
+					// Add file in directory (index.php)
+					$newFile = $page_path.'/index.php';
+					$FileHandle = fopen($newFile, 'w');
+				} else
+					@chmod($page_path, 0755, true);
+				
 				$this->media = CUploadedFile::getInstance($this, 'media');
 				if($this->media instanceOf CUploadedFile) {
 					$fileName = time().'_'.Utility::getUrlTitle(Phrase::trans($this->name, 2)).'.'.strtolower($this->media->extensionName);

@@ -31,6 +31,7 @@
  * @property string $folder
  * @property string $name
  * @property string $desc
+ * @property string $model
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -78,12 +79,12 @@ class OmmuPlugins extends CActiveRecord
 			array('name, desc', 'required', 'on'=>'adminadd'),
 			array('defaults, install, actived, search, orders', 'numerical', 'integerOnly'=>true),
 			array('folder', 'length', 'max'=>32),
-			array('name', 'length', 'max'=>128),
+			array('name, model', 'length', 'max'=>128),
 			array('desc', 'length', 'max'=>255),
-			array('creation_date', 'safe'),
+			array('model', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('plugin_id, defaults, install, actived, search, orders, folder, name, desc, creation_date, creation_id, modified_date, modified_id,
+			array('plugin_id, defaults, install, actived, search, orders, folder, name, desc, model, creation_date, creation_id, modified_date, modified_id,
 				creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -115,7 +116,8 @@ class OmmuPlugins extends CActiveRecord
 			'orders' => Yii::t('attribute', 'Orders'),
 			'folder' => Yii::t('attribute', 'Folder'),
 			'name' => Yii::t('attribute', 'Name'),
-			'desc' => Yii::t('attribute', 'Desc'),
+			'desc' => Yii::t('attribute', 'Description'),
+			'model' => Yii::t('attribute', 'Model'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
@@ -150,6 +152,7 @@ class OmmuPlugins extends CActiveRecord
 		$criteria->compare('t.folder',strtolower($this->folder),true);
 		$criteria->compare('t.name',strtolower($this->name),true);
 		$criteria->compare('t.desc',strtolower($this->desc),true);
+		$criteria->compare('t.model',strtolower($this->model),true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		$criteria->compare('t.creation_id',$this->creation_id);
@@ -209,6 +212,7 @@ class OmmuPlugins extends CActiveRecord
 			$this->defaultColumns[] = 'folder';
 			$this->defaultColumns[] = 'name';
 			$this->defaultColumns[] = 'desc';
+			$this->defaultColumns[] = 'model';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';

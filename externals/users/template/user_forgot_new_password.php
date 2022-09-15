@@ -116,7 +116,7 @@
                                                         <div style="line-height: 22px">
                                                             <!-- ======= section text ======= -->
                                                             <multiline>
-																The password for your SSO-GTP Account <a style="color: #ffffff; text-decoration: none;" href="mailto:{$email}">{$email}</a> was recently changed. new password for signing into SSO-GTP are: {$password}																
+																The password for your {$site_title} Account <a style="color: #ffffff; text-decoration: none;" href="mailto:{$email}">{$email}</a> was recently changed. new password for signing are: {$password}																
                                                             </multiline>
                                                         </div>
                                                     </td>
@@ -172,7 +172,7 @@
                                                         <div style="line-height: 25px">
                                                             <!-- ======= section text ======= -->
                                                             <multiline>
-                                                                If you have any questions please answer to this email or contact us at <a style="color: #ff4444; text-decoration: none;" href="mailto:support@grhatamapustaka.com">support@grhatamapustaka.com</a>
+                                                                If you have any questions please answer to this email or contact us at <a style="color: #ff4444; text-decoration: none;" href="mailto:{$site_support_email}">{$site_support_email}</a>
                                                             </multiline>
                                                         </div>
                                                     </td>

@@ -9,6 +9,7 @@
  *
  * TOC :
  *	Index
+ *	Suggest
  *	Manage
  *	Edit
  *	View
@@ -112,24 +113,29 @@ class MemberController extends Controller
 	 * If update is successful, the browser will be redirected to the 'view' page.
 	 * @param integer $id the ID of the model to be updated
 	 */
-	public function actionSuggest($limit=10) {
-		if(isset($_GET['term'])) {
-			$criteria = new CDbCriteria;
-			$criteria->condition = 'enabled = 1 AND displayname LIKE :displayname';
-			$criteria->select	= "user_id, displayname";
-			$criteria->limit = $limit;
-			$criteria->order = "user_id ASC";
-			$criteria->params = array(':displayname' => '%' . strtolower($_GET['term']) . '%');
-			$model = Users::model()->findAll($criteria);
+	public function actionSuggest($limit=10) 
+	{
+		if(Yii::app()->request->isAjaxRequest) {
+			if(isset($_GET['term'])) {
+				$criteria = new CDbCriteria;
+				$criteria->condition = 'enabled = 1 AND displayname LIKE :displayname';
+				$criteria->select	= "user_id, displayname";
+				$criteria->limit = $limit;
+				$criteria->order = "user_id ASC";
+				$criteria->params = array(':displayname' => '%' . strtolower($_GET['term']) . '%');
+				$model = Users::model()->findAll($criteria);
 
-			if($model) {
-				foreach($model as $items) {
-					$result[] = array('id' => $items->user_id, 'value' => $items->displayname);
+				if($model) {
+					foreach($model as $items) {
+						$result[] = array('id' => $items->user_id, 'value' => $items->displayname);
+					}
 				}
 			}
-		}
-		echo CJSON::encode($result);
-		Yii::app()->end();
+			echo CJSON::encode($result);
+			Yii::app()->end();
+			
+		} else
+			throw new CHttpException(404, Yii::t('phrase', 'The requested page does not exist.'));
 	}
 
 	/**
@@ -171,7 +177,7 @@ class MemberController extends Controller
 	{
 		$model=new Users;
 		$setting = OmmuSettings::model()->findByPk(1, array(
-			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_random',
+			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_photo, signup_random',
 		));
 
 		// Uncomment the following line if AJAX validation is needed
@@ -224,7 +230,7 @@ class MemberController extends Controller
 	{
 		$model=$this->loadModel($id);
 		$setting = OmmuSettings::model()->findByPk(1, array(
-			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_random',
+			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_photo, signup_random',
 		));
 
 		// Uncomment the following line if AJAX validation is needed
@@ -349,7 +355,7 @@ class MemberController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-users',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16088,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'User success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -396,7 +402,7 @@ class MemberController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-users',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16088,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'User success updated.').'</strong></div>',
 					));
 				}
 			}

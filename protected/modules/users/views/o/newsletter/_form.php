@@ -27,7 +27,7 @@
 			}
 			echo $form->hiddenField($model,'unsubscribe');
 			?>
-			<?php echo $form->textField($model,'email',array('maxlength'=>32, 'placeholder'=>$model->getAttributeLabel('email'), 'class'=>'span-9')); ?><?php echo CHtml::submitButton($launch == 0 ? Phrase::trans(23109,1) : ($launch == 1 ? Phrase::trans(23057,1) : Phrase::trans(23110,1)), array('onclick' => 'setEnableSave()')); ?>
+			<?php echo $form->textField($model,'email',array('maxlength'=>32, 'placeholder'=>$model->getAttributeLabel('email'), 'class'=>'span-9')); ?><?php echo CHtml::submitButton($launch == 0 ? Yii::t('phrase', 'Notify Me!') : ($launch == 1 ? Yii::t('phrase', 'Subscribe') : Yii::t('phrase', 'Unsubscribe')), array('onclick' => 'setEnableSave()')); ?>
 			<?php echo $form->error($model,'email'); ?>
 		</div>
 

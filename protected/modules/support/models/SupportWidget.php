@@ -236,7 +236,7 @@ class SupportWidget extends CActiveRecord
 				$this->defaultColumns[] = array(
 					'name' => 'cat_id',
 					'value' => 'Phrase::trans($data->cat_TO->name, 2)',
-					'filter'=> SupportContactCategory::getCategory(1),
+					'filter'=> SupportContactCategory::getCategory(),
 					'type' => 'raw',
 				);
 			}

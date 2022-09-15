@@ -337,7 +337,7 @@ class OmmuZoneDistricts extends CActiveRecord
 	 * Get city
 	 */
 	public static function getDistrict($city=null) {
-		if($city == null || ($city != null && $city == '')) {
+		if($city == null || ($city != null && ($city == '' || $city == 0))) {
 			$model = self::model()->findAll();
 		} else {
 			$model = self::model()->findAll(array(

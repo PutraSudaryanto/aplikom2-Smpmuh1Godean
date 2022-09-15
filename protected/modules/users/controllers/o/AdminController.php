@@ -197,7 +197,7 @@ class AdminController extends Controller
 	{
 		$model=new Users;
 		$setting = OmmuSettings::model()->findByPk(1, array(
-			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_random',
+			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_photo, signup_random',
 		));
 		if($model->isNewRecord)
 			$model->level_id = 1;
@@ -257,7 +257,7 @@ class AdminController extends Controller
 		
 		$model=$this->loadModel($id);
 		$setting = OmmuSettings::model()->findByPk(1, array(
-			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_random',
+			'select'=>'signup_username, signup_approve, signup_verifyemail, signup_photo, signup_random',
 		));
 
 		// Uncomment the following line if AJAX validation is needed
@@ -382,7 +382,7 @@ class AdminController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-users',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16101,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Administrator success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -429,7 +429,7 @@ class AdminController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-users',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16088,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'User success deleted.').'</strong></div>',
 					));
 				}
 			}

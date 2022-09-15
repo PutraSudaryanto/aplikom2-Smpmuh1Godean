@@ -252,7 +252,7 @@ class SupportMailSetting extends CActiveRecord
     /**
 	 * Sent Email
 	 */
-	public static function sendEmail($to_email, $to_name, $subject, $message, $type, $cc=null, $attachment=null) 
+	public static function sendEmail($to_email=null, $to_name=null, $subject, $message, $cc=null, $attachment=null) 
 	{
 		ini_set('max_execution_time', 0);
 		ob_start();
@@ -260,6 +260,9 @@ class SupportMailSetting extends CActiveRecord
 		Yii::import('application.extensions.phpmailer.JPhpMailer');
 		$model = self::model()->findByPk(1,array(
 			'select' => 'mail_contact, mail_name, mail_from, mail_smtp, smtp_address, smtp_port, smtp_username, smtp_password, smtp_ssl',
+		));
+		$setting = OmmuSettings::model()->findByPk(1, array(
+			'select' => 'site_title',
 		));
 
 		$mail=new JPhpMailer;
@@ -281,19 +284,16 @@ class SupportMailSetting extends CActiveRecord
 			$mail->IsMail();
 		}
 		
-		/**
-		 * 0 = to admin
-		 * 1 = to user
-		 */
-		if($type == 0) {
-			$mail->SetFrom($to_email, $to_name);
-			$mail->AddReplyTo($to_email, $to_name);
-			$mail->AddAddress($model->mail_contact, $model->mail_name);
-		} else {
+		if($to_email != null && $to_name != null) {
 			$mail->SetFrom($model->mail_from, $model->mail_name);
-			$mail->AddReplyTo($model->mail_from, $model->mail_name);
+			$mail->AddReplyTo($model->mail_from, $model->mail_name);			
 			$mail->AddAddress($to_email, $to_name);
+		} else {
+			$mail->SetFrom($model->mail_from, Yii::t('attribute', '[System]').' '.$setting->site_title);
+			$mail->AddReplyTo($model->mail_from, Yii::t('attribute', '[System]').' '.$setting->site_title);
+			$mail->AddAddress($model->mail_contact, $model->mail_name);
 		}
+			
 		// cc
 		if ($cc != null && count($cc) > 0) {
 			foreach ($cc as $email => $name)
@@ -308,13 +308,14 @@ class SupportMailSetting extends CActiveRecord
 
 		if($mail->Send()) {
 			return true;
-			//echo 'send';
+			echo 'send';
 		} else {
 			return false;
-			//echo 'no send';
+			echo 'no send';
 		}
 
 		ob_end_flush();
+		exit();
     }
 
 	/**

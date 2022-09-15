@@ -91,10 +91,10 @@ class UserHistoryForgot extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => Phrase::trans(16001,1),
-			'forgot_date' => Phrase::trans(16147,1),
-			'forgot_ip' => Phrase::trans(16148,1),
+			'id' => Yii::t('attribute', 'ID'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'forgot_date' => Yii::t('attribute', 'Forgot Date'),
+			'forgot_ip' => Yii::t('attribute', 'Forgot Ip'),
 		);
 	}
 

@@ -126,13 +126,13 @@ class MaintenanceController extends Controller
 			Yii::app()->end();
 			
 		} else {		
-			$this->pageTitle = isset($_GET['email']) ? Phrase::trans(23121,1) : Phrase::trans(23102,1);
-			$this->pageDescription = isset($_GET['email']) ? (isset($_GET['name']) ? Phrase::trans(23123,1, array($_GET['name'], $_GET['email'])) : Phrase::trans(23122,1, array($_GET['email']))) : '';
+			$this->pageTitle = isset($_GET['email']) ? Yii::t('phrase', 'Feedback Success') : Yii::t('phrase', 'Feedback');
+			$this->pageDescription = isset($_GET['email']) ? (isset($_GET['name']) ? Yii::t('phrase', 'Hi <strong>{name} ({email})</strong>, terimakasih telah menghubungi support kami.', array('{name}'=>$_GET['name'], '{email}'=>$_GET['email'])) : Yii::t('phrase', 'Hi <strong>{email}</strong>, terimakasih telah menghubungi support kami.', array('{email}'=>$_GET['email']))) : '';
 			$this->pageMeta = '';
 			$this->render('application.webs.maintenance.front_feedback',array(
 				'model'=>$model,
 				'user'=>$user,
-			));
+			));			
 		}
 	}
 
@@ -176,11 +176,11 @@ class MaintenanceController extends Controller
 		} else {
 			$launch = 0;
 			if($launch == 0) {
-				$title = (isset($_GET['name']) && isset($_GET['email'])) ? Phrase::trans(23108,1) : Phrase::trans(16244,1);
-				$desc = (isset($_GET['name']) && isset($_GET['email'])) ? '' : Phrase::trans(16245,1);					
+				$title = (isset($_GET['name']) && isset($_GET['email'])) ? Yii::t('phrase', 'Thanks for your subscription') : Yii::t('phrase', 'Our website is under construction');
+				$desc = (isset($_GET['name']) && isset($_GET['email'])) ? '' : Yii::t('phrase', 'Please enter your email to be notified of launch and to subscribe to our newsletter.');					
 			} else {
-				$title = (isset($_GET['name']) && isset($_GET['email'])) ? Phrase::trans(23105,1) : Phrase::trans(23103,1);
-				$desc = (isset($_GET['name']) && isset($_GET['email'])) ? '' : Phrase::trans(23104,1);			
+				$title = (isset($_GET['name']) && isset($_GET['email'])) ? Yii::t('phrase', 'You will be notified when we launch. Thank You!') : Yii::t('phrase', 'We will be back soon!');
+				$desc = (isset($_GET['name']) && isset($_GET['email'])) ? '' : Yii::t('phrase', 'Enter your email to be notified when more info is available.');			
 			}
 				
 			$this->pageTitle = $title;

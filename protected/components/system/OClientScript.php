@@ -146,7 +146,7 @@ class OClientScript extends CClientScript
 		$return['scriptFiles'] = $this->getScriptFiles();
 		$return['scriptFiles'][] = $url;
 		//$return['scripts'] = $this->getScripts();
-		$return['powered'] = 'Ommu Platform by putra@sudaryanto.me';
+		$return['powered'] = 'Ommu Platform by putra@sudaryanto.id';
 		
 		return $return;
 	}

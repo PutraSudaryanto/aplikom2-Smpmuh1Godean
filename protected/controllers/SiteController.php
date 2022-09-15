@@ -76,7 +76,7 @@ class SiteController extends Controller
 	{
 		return array(
 			array('allow',  // allow all users to perform 'index' and 'view' actions
-				'actions'=>array('index','error','login','logout','sendemail','analytics'),
+				'actions'=>array('index','error','login','logout','sendemail','analytics','about'),
 				'users'=>array('*'),
 			),
 			array('allow', // allow authenticated user to perform 'create' and 'update' actions
@@ -144,7 +144,7 @@ class SiteController extends Controller
 			
 		}
 	}
-
+	
 	/**
 	 * Displays the login page
 	 */
@@ -154,8 +154,7 @@ class SiteController extends Controller
 			$this->redirect(array('site/index'));
 
 		else {
-			$setting = OmmuSettings::getInfo('site_type');
-			if($setting == 1)
+			if(OmmuSettings::getInfo('site_type') == 1)
 				$this->redirect(Yii::app()->createUrl('users/account'));
 			else
 				$this->redirect(Yii::app()->createUrl('users/admin'));
@@ -174,9 +173,9 @@ class SiteController extends Controller
 	/**
 	 * Logs out the current user and redirect to homepage.
 	 */
-	public function actionSendEmail()
+	public function actionSendEmail($email='putra.sudaryanto@gmail.com', $name='Putra Sudaryanto', $subject='testing', $message='testing')
 	{
-		if(SupportMailSetting::sendEmail('putra.sudaryanto@gmail.com', 'Putra Sudaryanto', 'testing', 'testing', 1))
+		if(SupportMailSetting::sendEmail($email, $name, $subject, $message))
 			echo 'send';
 		else 
 			echo 'notsend';
@@ -198,5 +197,15 @@ class SiteController extends Controller
 		$this->render('application.webs.site.front_analytics', array(
 			'model'=>$model,
 		));
-	}	
+	}
+	
+	/* About */
+	public function actionAbout()
+	{		
+		$this->adsSidebar = false;
+		$this->pageTitle = 'About COE';
+		$this->pageDescription = '';
+		$this->pageMeta = '';
+		$this->render('application.webs.site.front_about');
+	}
 }

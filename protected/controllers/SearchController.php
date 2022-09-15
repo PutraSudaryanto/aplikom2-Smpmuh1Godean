@@ -125,9 +125,8 @@ class SearchController extends Controller
 							'view'=>CHtml::encode($results[$i]->view),
 						);			
 					}
-				} else {
+				} else
 					$data = array();
-				}
 				
 				$return = array(
 					'data' => $data,
@@ -149,8 +148,8 @@ class SearchController extends Controller
 					'query'
 				));
 			}
-		} else {
+			
+		} else
 			$this->redirect(Yii::app()->createUrl('site/index'));
-		}
 	}
 }

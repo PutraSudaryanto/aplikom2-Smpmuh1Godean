@@ -24,6 +24,7 @@
  * @property integer $publish
  * @property integer $cat_id
  * @property string $value
+ * @property string $contact_icon
  * @property string $creation_date
  * @property string $creation_id
  * @property string $modified_date
@@ -68,10 +69,10 @@ class SupportContacts extends CActiveRecord
 		return array(
 			array('cat_id, value', 'required'),
 			array('publish, cat_id, creation_id, modified_id', 'numerical', 'integerOnly'=>true),
-			array('value', 'safe'),
+			array('contact_icon', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, publish, cat_id, value, creation_date, creation_id, modified_date, modified_id, 
+			array('id, publish, cat_id, value, contact_icon, creation_date, creation_id, modified_date, modified_id, 
 				creation_search, modified_search', 'safe', 'on'=>'search'),
 		);
 	}
@@ -100,12 +101,13 @@ class SupportContacts extends CActiveRecord
 			'publish' => Yii::t('attribute', 'Publish'),
 			'cat_id' => Yii::t('attribute', 'Category'),
 			'value' => Yii::t('attribute', 'Value'),
+			'contact_icon' => Yii::t('attribute', 'Icons'),
 			'creation_date' => Yii::t('attribute', 'Creation Date'),
 			'creation_id' => Yii::t('attribute', 'Creation'),
 			'modified_date' => Yii::t('attribute', 'Modified Date'),
 			'modified_id' => Yii::t('attribute', 'Modified'),
 			'creation_search' => Yii::t('attribute', 'Creation'),
-			'modified_search' => Yii::t('attribute', 'Modified',
+			'modified_search' => Yii::t('attribute', 'Modified'),
 		);
 	}
 
@@ -137,6 +139,7 @@ class SupportContacts extends CActiveRecord
 		else
 			$criteria->compare('t.cat_id',$this->cat_id);
 		$criteria->compare('t.value',$this->value,true);
+		$criteria->compare('t.contact_icon',$this->contact_icon,true);
 		if($this->creation_date != null && !in_array($this->creation_date, array('0000-00-00 00:00:00', '0000-00-00')))
 			$criteria->compare('date(t.creation_date)',date('Y-m-d', strtotime($this->creation_date)));
 		$criteria->compare('t.creation_id',$this->creation_id);
@@ -192,6 +195,7 @@ class SupportContacts extends CActiveRecord
 			$this->defaultColumns[] = 'publish';
 			$this->defaultColumns[] = 'cat_id';
 			$this->defaultColumns[] = 'value';
+			$this->defaultColumns[] = 'contact_icon';
 			$this->defaultColumns[] = 'creation_date';
 			$this->defaultColumns[] = 'creation_id';
 			$this->defaultColumns[] = 'modified_date';
@@ -221,6 +225,11 @@ class SupportContacts extends CActiveRecord
 			$this->defaultColumns[] = array(
 				'name' => 'value',
 				'value' => '$data->value',
+				'type' => 'raw',
+			);
+			$this->defaultColumns[] = array(
+				'name' => 'contact_icon',
+				'value' => '$data->contact_icon',
 				'type' => 'raw',
 			);
 			$this->defaultColumns[] = array(

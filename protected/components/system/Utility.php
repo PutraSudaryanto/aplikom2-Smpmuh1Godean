@@ -81,21 +81,27 @@ class Utility
 			return 'https';
 		return 'http';
 	}
+	
 	/**
 	 * get alternatif connected domain for inlis sso server
 	 * @param type $operator not yet using
 	 * @return type
 	 */
 	public static function getConnected($serverOptions) {
-		$connectedUrl = 'neither-connected';
-		
-		foreach($serverOptions as $val) {
-			if(self::isServerAvailible($val)) {
-				$connectedUrl = $val;
-				break;
+		if(Yii::app()->params['server_options']['default'] == true)
+			$connectedUrl = Yii::app()->params['server_options']['default_host'];
+			
+		else {
+			$connectedUrl = 'neither-connected';
+			
+			foreach($serverOptions as $val) {
+				if(self::isServerAvailible($val)) {
+					$connectedUrl = $val;
+					break;
+				}
 			}
+			file_put_contents('assets/utility_server_actived.txt', $connectedUrl);
 		}
-		file_put_contents('assets/utility_server_actived.txt', $connectedUrl);
 
 		return $connectedUrl;
 	}
@@ -643,5 +649,19 @@ class Utility
 		}
 		$endIndex = strpos($bytes, ".")+3;
 		return substr( $bytes, 0, $endIndex).' '.$units[$i];
+	}
+
+	/**
+	 * Explode Implode Type File
+	 * $type = true (explode), false (implode)
+	 */
+	public static function formatFileType($data, $type=true, $separator=',') 
+	{
+		if($type == true) {
+			$result = array_map("trim", explode($separator, $data));
+		} else {
+			$result = implode($separator.' ', $data);
+		}
+		return $result;	
 	}
 }

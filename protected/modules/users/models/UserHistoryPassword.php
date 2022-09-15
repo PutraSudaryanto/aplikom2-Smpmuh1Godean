@@ -91,11 +91,11 @@ class UserHistoryPassword extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'ID',
-			'user_id' => Phrase::trans(16001,1),
-			'password' => Phrase::trans(16112,1),
-			'update_date' => Phrase::trans(16166,1),
-			'user_search' => Phrase::trans(16001,1),
+			'id' => Yii::t('attribute', 'ID'),
+			'user_id' => Yii::t('attribute', 'User'),
+			'password' => Yii::t('attribute', 'Password'),
+			'update_date' => Yii::t('attribute', 'Update Date'),
+			'user_search' => Yii::t('attribute', 'User'),
 		);
 	}
 

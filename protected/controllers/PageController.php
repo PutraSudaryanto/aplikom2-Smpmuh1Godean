@@ -110,7 +110,7 @@ class PageController extends Controller
 	 * Displays a particular model.
 	 * @param integer $id the ID of the model to be displayed
 	 */
-	public function actionView($id=null, $static=null)
+	public function actionView($id=null, $static=null, $picture=null)
 	{
 		$arrThemes = Utility::getCurrentTemplate('public');
 		Yii::app()->theme = $arrThemes['folder'];
@@ -185,7 +185,8 @@ class PageController extends Controller
 			$this->pageImage = $image;
 			$this->render('application.webs.page.front_view',array(
 				'model'=>$model,
-				'a'=>$static,
+				'static'=>$static,
+				'picture'=>$picture,
 			));
 		}
 	}

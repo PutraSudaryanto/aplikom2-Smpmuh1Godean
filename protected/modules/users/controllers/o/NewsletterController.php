@@ -132,7 +132,7 @@ class NewsletterController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-support-newsletter',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23055,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Member newsletter success updated.').'</strong></div>',
 					));
 				}
 			}
@@ -173,7 +173,7 @@ class NewsletterController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(16243,1);
+		$this->pageTitle = Yii::t('phrase', 'Manage Subscribe Newsletter');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -206,7 +206,7 @@ class NewsletterController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-support-newsletter',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23099,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Newsletter success created.').'</strong></div>',
 						));
                     } else {
                         print_r($model->getErrors());
@@ -220,7 +220,7 @@ class NewsletterController extends Controller
 			$this->dialogWidth = 500;
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			
-			$this->pageTitle = Phrase::trans(23100,1);
+			$this->pageTitle = Yii::t('phrase', 'Add Newsletter');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -245,7 +245,7 @@ class NewsletterController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-support-newsletter',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(23054,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Member newsletter success deleted.').'</strong></div>',
 				));
 			}
 
@@ -254,7 +254,7 @@ class NewsletterController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(23053,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Member Newsletter');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');

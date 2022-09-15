@@ -24,17 +24,26 @@
 	<fieldset>
 
 		<?php 
-		if($model->cat->publish != '2') {
-		if(SupportContactCategory::getCategory(1) != null) {?>
-		<div class="clearfix">
-			<label><?php echo $model->getAttributeLabel('cat_id');?> <span class="required">*</span></label>
-			<div class="desc">
-			<?php echo $form->dropDownList($model,'cat_id', SupportContactCategory::getCategory(1)); ?>
-				<?php echo $form->error($model,'cat_id'); ?>
+		if($model->cat->publish != 2) {
+			$category = SupportContactCategory::getCategory(1, 'contact');
+			if(!empty($category)) {?>
+			<div class="clearfix">
+				<label><?php echo $model->getAttributeLabel('cat_id');?> <span class="required">*</span></label>
+				<div class="desc">
+					<?php echo $form->dropDownList($model,'cat_id', $category, array('prompt'=>'')); ?>
+					<?php echo $form->error($model,'cat_id'); ?>
+				</div>
 			</div>
-		</div>
 		<?php }
 		}?>
+		
+		<div class="clearfix">
+			<?php echo $form->labelEx($model,'contact_icon'); ?>
+			<div class="desc">
+			<?php echo $form->textField($model,'contact_icon', array('maxlength'=>32,'class'=>'span-7')); ?>
+				<?php echo $form->error($model,'contact_icon'); ?>
+			</div>
+		</div>
 
 		<div class="clearfix">
 			<?php if($model->cat->publish != '2') {?>

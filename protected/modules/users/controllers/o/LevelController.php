@@ -285,7 +285,7 @@ class LevelController extends Controller
 						'type' => 5,
 						'get' => Yii::app()->controller->createUrl('manage'),
 						'id' => 'partial-levels',
-						'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16007,1).'</strong></div>',
+						'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Level setting success updated.').'</strong></div>',
 					));
 				}
 			}

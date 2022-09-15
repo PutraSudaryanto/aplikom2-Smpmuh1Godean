@@ -126,7 +126,7 @@ class InviteController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(16206,1);
+		$this->pageTitle = Yii::t('phrase', 'View User Invites');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_manage',array(
@@ -160,7 +160,7 @@ class InviteController extends Controller
 							'type' => 5,
 							'get' => Yii::app()->controller->createUrl('manage'),
 							'id' => 'partial-user-invite',
-							'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16210,1).'</strong></div>',
+							'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Invite User success.').'</strong></div>',
 						));
 					} else {
 						print_r($model->getErrors());
@@ -174,7 +174,7 @@ class InviteController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 500;
 			
-			$this->pageTitle = Phrase::trans(16209,1);
+			$this->pageTitle = Yii::t('phrase', 'Invite User');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_add',array(
@@ -199,7 +199,7 @@ class InviteController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('manage'),
 					'id' => 'partial-user-invite',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16208,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'User Invite success deleted.').'</strong></div>',
 				));
 			}
 
@@ -208,7 +208,7 @@ class InviteController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('manage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(16207,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete User Invite');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_delete');
@@ -236,7 +236,7 @@ class InviteController extends Controller
 		}
 		$columns = $model->getGridColumn($columnTemp);
 
-		$this->pageTitle = Phrase::trans(16217,1);
+		$this->pageTitle = Yii::t('phrase', 'View Queue Invites');
 		$this->pageDescription = '';
 		$this->pageMeta = '';
 		$this->render('admin_queue_manage',array(
@@ -261,7 +261,7 @@ class InviteController extends Controller
 					'type' => 5,
 					'get' => Yii::app()->controller->createUrl('queuemanage'),
 					'id' => 'partial-user-invite-queue',
-					'msg' => '<div class="errorSummary success"><strong>'.Phrase::trans(16219,1).'</strong></div>',
+					'msg' => '<div class="errorSummary success"><strong>'.Yii::t('phrase', 'Queue Invite success deleted.').'</strong></div>',
 				));
 			}
 
@@ -270,7 +270,7 @@ class InviteController extends Controller
 			$this->dialogGroundUrl = Yii::app()->controller->createUrl('queuemanage');
 			$this->dialogWidth = 350;
 
-			$this->pageTitle = Phrase::trans(16218,1);
+			$this->pageTitle = Yii::t('phrase', 'Delete Queue');
 			$this->pageDescription = '';
 			$this->pageMeta = '';
 			$this->render('admin_queue_delete');

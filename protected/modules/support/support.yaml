@@ -51,7 +51,6 @@ content_menu	:
 		urlPath: {url: add, attr: -, icon: -}
 		
 # controller o/contactcategory
-
 	# urlTitle: Manage Contact
 	#	urlRules: {support, o/contactcategory, manage, siteType: 0,1, userLevel: 1,2}
 	#	urlPath: {url: o/contact/manage, attr: -, icon: -}
@@ -69,7 +68,6 @@ content_menu	:
 		urlPath: {url: add, attr: -, icon: -}
 		
 # controller o/widget
-
 	- urlTitle: Add Widget
 		urlRules: {support, o/widget, manage, siteType: 0,1, userLevel: 1,2}
 		urlPath: {url: add, attr: -, icon: -}
